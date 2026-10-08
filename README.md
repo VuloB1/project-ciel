@@ -1,0 +1,137 @@
+<p align="center">
+  <img src="assets/banner.jpg" alt="Project Ciel" width="100%">
+</p>
+
+<h1 align="center">Project Ciel</h1>
+
+<p align="center">
+  <b>Your local AI companion for chatting, talking and streaming.</b><br>
+  A Windows desktop app to create AI characters with their own personality, memory and voice.
+</p>
+
+<p align="center">
+  <a href="https://vulito.itch.io/projectciel"><img alt="Get it on itch.io" src="https://img.shields.io/badge/Get%20it%20on-itch.io-fa5c5c?style=for-the-badge&logo=itchdotio&logoColor=white"></a>
+  <a href="https://ko-fi.com/vulito"><img alt="Support on Ko-fi" src="https://img.shields.io/badge/Support-Ko--fi-29abe0?style=for-the-badge&logo=kofi&logoColor=white"></a>
+</p>
+
+<p align="center">
+  <img alt="Platform" src="https://img.shields.io/badge/platform-Windows%2010%20%2F%2011-0078d4">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-96fff3">
+  <img alt="Languages" src="https://img.shields.io/badge/UI%20languages-6-ff9ec8">
+  <img alt="Built with" src="https://img.shields.io/badge/built%20with-Tauri%20%C2%B7%20Rust%20%C2%B7%20React-555">
+</p>
+
+---
+
+> **This repository is a showcase.** It contains only descriptions and images of Project Ciel.
+> The source code and the downloads are not published here. The app is sold on
+> **[itch.io](https://vulito.itch.io/projectciel)**.
+
+## What is Project Ciel?
+
+**Project Ciel is an AI companion that lives on your own PC.** Design a character with its own personality,
+chat with it, talk to it out loud, let it remember you, and bring it to your Twitch or Discord community,
+all from one desktop app. There is no account to create, no subscription, and no cloud service of ours in the middle.
+
+You bring the AI (a local model through LM Studio or Ollama, or your own key from OpenAI, Anthropic or Google Gemini),
+and Project Ciel turns it into a character with identity, mood, memory, voice and an avatar.
+
+## Screenshots
+
+| Chat | Character identity |
+|:---:|:---:|
+| <img src="assets/chat.webp" alt="Chat with a character"> | <img src="assets/identity.webp" alt="Personality sliders"> |
+| **Voice calls** | **Reactive avatar for OBS** |
+| <img src="assets/voice-call.webp" alt="Voice call"> | <img src="assets/obs-avatar.webp" alt="OBS avatar"> |
+
+<p align="center">
+  <img src="assets/about.webp" alt="About screen" width="60%">
+</p>
+
+*The screenshots show the Spanish interface. The app is available in 6 languages.*
+
+## Features
+
+### Characters
+- **Identity**: name, backstory and speaking style.
+- **19 personality sliders** to tune each character.
+- **Mood** that shifts during the conversation and colors the replies.
+- **Avatar and profile picture**, with separate idle, thinking and talking images for the reactive avatar.
+- **A theme per character**, so the app changes with who you talk to.
+- **Multiple characters**: duplicate, switch, and share a character as a single file (chats and images optional).
+
+### Chat
+- Organized conversations with history, search, unread markers and pinned chats.
+- Send **images** when your model supports vision.
+- **Markdown** replies (lists, code, links) that stream as they are written.
+- **Voice dictation** to fill the message box.
+
+### Voice calls
+- Talk in real time: speech recognition listens, your character answers out loud.
+- Voices from your **system (offline)**, **ElevenLabs**, **OpenAI**, **Google Cloud**, **Microsoft Azure** or any OpenAI-compatible speech server.
+- Microphone level meter, output device selector, echo guard and call history.
+
+### Memory
+- Your character **remembers what matters** from your chats.
+- You decide what is kept: review, edit or delete memories, and mark each as **private** or **public**.
+- **Memory fusion** merges duplicates so the list stays clean.
+
+### Twitch and Discord
+- **Twitch chat** replies with viewer awareness and emote support (**7TV, BetterTTV, FrankerFaceZ**).
+- **Discord** text chat in your server.
+- **Viewer registry** so regular chatters are remembered by name.
+- Only **public** memories are ever used on Twitch and Discord.
+- **OBS avatar**: a reactive avatar served as a browser source.
+
+### Bring your own AI
+- **Local**: LM Studio, Ollama or any server that speaks the OpenAI format.
+- **Cloud**: OpenAI, Anthropic (Claude) and Google Gemini with your own keys.
+- **Automatic fallback** to the next provider if one runs out of credits.
+- **Privacy modes per provider** (full context, public memories only, or minimal) and a **usage panel**.
+- Optional **web search** so your character can look up current information.
+
+### Make it yours
+- **15 themes**, light and dark modes, custom accent color, roundness, density and font.
+- **6 languages**: Spanish, English, Portuguese, Japanese, Korean and Chinese.
+
+### Your data stays with you
+- Characters, chats, memories and settings are stored **on your PC**. The app does not send anything to the author.
+- API keys are kept in the Windows credential store.
+- **Full backups** to a single file, and a **diagnostics center** that checks your setup without exposing secrets.
+
+## Requirements
+
+- Windows 10 or 11, 64-bit.
+- A local model server **or** your own API keys. Project Ciel does not include an AI model.
+- A microphone and speakers or headphones for voice calls.
+- Internet only if you use cloud AI, cloud voices, web search, Twitch or Discord.
+
+## Known limitations (version 0.1)
+
+- Windows only for now.
+- In voice calls, loud keyboard noises can sometimes be picked up as speech. Headphones help.
+- The echo guard reduces feedback but is not true echo cancellation.
+- Discord is text-only (no voice channels yet).
+- The installer is not code-signed yet, so Windows SmartScreen may warn you the first time
+  (**More info**, then **Run anyway**).
+
+## Get it
+
+**[vulito.itch.io/projectciel](https://vulito.itch.io/projectciel)**: one purchase, no subscription, updates included.
+
+## About
+
+Made by **Vulito**, built with [Tauri](https://tauri.app/), Rust, React and TypeScript.
+Parts of the artwork were created with generative AI, and the software was developed with the help of
+[Claude](https://www.anthropic.com/claude) (Anthropic). Design direction, testing and decisions are mine.
+
+- Website: [vulito.carrd.co](https://vulito.carrd.co/)
+- X: [@VulitoVT](https://x.com/VulitoVT) · [@VulitoVRC](https://x.com/VulitoVRC)
+- Instagram: [@vulitovt](https://www.instagram.com/vulitovt/)
+- Ko-fi: [ko-fi.com/vulito](https://ko-fi.com/vulito)
+
+## License
+
+Project Ciel is proprietary software. All rights reserved. The images and texts in this repository
+are provided only to describe the product and may not be reused or redistributed without permission.
+The use of the app is governed by its End User License Agreement.
