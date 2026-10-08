@@ -1,0 +1,20 @@
+[package]
+name = "aivt-provider-stt"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+aivt-eventbus.workspace = true
+async-trait.workspace = true
+futures.workspace = true
+reqwest = { workspace = true, features = ["stream"] }
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tokio = { workspace = true, features = ["macros", "rt", "fs"] }
+tracing.workspace = true
+whisper-rs = { version = "0.16", features = ["vulkan"] }
+
+[dev-dependencies]
+tempfile = "3"

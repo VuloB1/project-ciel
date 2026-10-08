@@ -1,0 +1,22 @@
+[package]
+name = "aivt-orchestrator"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+aivt-database.workspace = true
+chrono.workspace = true
+iana-time-zone.workspace = true
+aivt-provider-llm.workspace = true
+aivt-provider-tools.workspace = true
+futures.workspace = true
+tokio.workspace = true
+tokio-stream = { version = "0.1", features = [] }
+tracing.workspace = true
+
+[dev-dependencies]
+aivt-testing.workspace = true
+async-trait.workspace = true
+serde_json.workspace = true
+

@@ -1,0 +1,83 @@
+ACUERDO DE LICENCIA DE USO — PROJECT CIEL
+Última actualización: 7 de octubre de 2026
+
+Al instalar o usar Project Ciel (el «Software») aceptas este acuerdo con Vulito («el Autor»). Si no estás de acuerdo, no instales ni uses el Software.
+
+1. LICENCIA
+El Autor te concede una licencia personal, no exclusiva, intransferible y revocable para instalar y usar el Software en tus propios equipos. Puedes usarlo para tus propias conversaciones, transmisiones en directo (streaming) y creación de contenido, incluso con fines comerciales: el contenido que tú produzcas con el Software es tuyo.
+
+2. RESTRICCIONES
+No puedes copiar, revender, alquilar, sublicenciar ni redistribuir el Software, ni compartir tu clave de licencia con otras personas. No puedes descompilar ni aplicar ingeniería inversa al Software, ni modificarlo para ofrecerlo a terceros, salvo en la medida en que la ley lo permita expresamente. No puedes eliminar los avisos de autoría ni de licencia.
+
+3. PROPIEDAD
+El Software, su diseño, sus textos y sus imágenes son propiedad del Autor o de sus licenciantes y están protegidos por la ley. Esta licencia no te transfiere ninguna propiedad. El Software incluye componentes de terceros que se rigen por sus propias licencias; puedes consultarlos en «Licencias de terceros» (en Configuración > Acerca de).
+
+4. TUS DATOS Y TU PRIVACIDAD
+El Software funciona de forma local: tus personajes, conversaciones, memorias y ajustes se guardan en tu equipo, y el Autor no los recibe. Las claves y los tokens se guardan en el almacén seguro de tu sistema. Si configuras servicios de terceros (proveedores de IA o de voz, Twitch, Discord, búsqueda web), el contenido necesario se envía a esos servicios, que tienen sus propios términos y políticas de privacidad.
+
+5. SERVICIOS DE TERCEROS
+Tú eres responsable de tus cuentas, claves y costes en los servicios de terceros que conectes, y de cumplir sus términos. El Autor no controla esos servicios ni responde por ellos.
+
+6. CONTENIDO GENERADO POR IA
+Las respuestas de los modelos de IA pueden ser inexactas, inapropiadas o inesperadas. Eres responsable del uso que hagas de ellas y de cumplir las normas de las plataformas donde las publiques. No uses el Software para fines ilegales ni para dañar a otras personas.
+
+7. SIN GARANTÍA Y LÍMITE DE RESPONSABILIDAD
+En la medida permitida por la ley, el Software se ofrece «tal cual», sin garantías de ningún tipo, y el Autor no responde por daños indirectos, pérdida de datos o lucro cesante derivados de su uso. Te recomendamos hacer copias de seguridad periódicas. Nada de lo dispuesto aquí limita los derechos irrenunciables que te otorgue la legislación de protección al consumidor que te sea aplicable.
+
+8. ACTUALIZACIONES
+El Autor puede publicar actualizaciones del Software. Salvo que se indique otra cosa en el momento de la compra, las actualizaciones de la misma versión mayor están incluidas.
+
+9. TERMINACIÓN
+Si incumples este acuerdo, la licencia puede terminar. Entonces debes dejar de usar el Software y eliminar sus copias.
+
+10. PAGOS Y REEMBOLSOS
+Las compras se realizan a través de una plataforma de venta de terceros. Los reembolsos se rigen por la política de esa plataforma y por la ley aplicable.
+
+11. LEY APLICABLE
+Este acuerdo se rige por las leyes de Chile. Para cualquier controversia serán competentes los tribunales de Chile, sin perjuicio de los derechos que la ley te reconozca como consumidor en tu país de residencia.
+
+12. CONTACTO
+Vulito — https://vulito.carrd.co/
+
+------------------------------------------------------------
+
+END USER LICENSE AGREEMENT — PROJECT CIEL
+Last updated: October 7, 2026
+
+By installing or using Project Ciel (the "Software") you accept this agreement with Vulito (the "Author"). If you do not agree, do not install or use the Software.
+
+1. LICENSE
+The Author grants you a personal, non-exclusive, non-transferable, revocable license to install and use the Software on your own devices. You may use it for your own conversations, live streaming and content creation, including commercial purposes: the content you produce with the Software is yours.
+
+2. RESTRICTIONS
+You may not copy, resell, rent, sublicense or redistribute the Software, or share your license key with other people. You may not decompile or reverse engineer the Software, or modify it in order to offer it to third parties, except to the extent that the law expressly allows it. You may not remove authorship or license notices.
+
+3. OWNERSHIP
+The Software, its design, texts and images belong to the Author or its licensors and are protected by law. This license does not transfer any ownership to you. The Software includes third-party components governed by their own licenses; you can review them under "Third-party licenses" (Settings > About).
+
+4. YOUR DATA AND PRIVACY
+The Software works locally: your characters, conversations, memories and settings are stored on your device, and the Author does not receive them. Keys and tokens are kept in your system's secure store. If you configure third-party services (AI or voice providers, Twitch, Discord, web search), the content they need is sent to those services, which have their own terms and privacy policies.
+
+5. THIRD-PARTY SERVICES
+You are responsible for your accounts, keys and costs on any third-party service you connect, and for complying with their terms. The Author does not control those services and is not responsible for them.
+
+6. AI-GENERATED CONTENT
+Responses from AI models may be inaccurate, inappropriate or unexpected. You are responsible for how you use them and for complying with the rules of the platforms where you publish them. Do not use the Software for unlawful purposes or to harm other people.
+
+7. NO WARRANTY AND LIMITATION OF LIABILITY
+To the extent permitted by law, the Software is provided "as is", without warranties of any kind, and the Author is not liable for indirect damages, loss of data or loss of profits arising from its use. We recommend making regular backups. Nothing in this agreement limits the non-waivable rights granted to you by the consumer protection laws that apply to you.
+
+8. UPDATES
+The Author may publish updates to the Software. Unless stated otherwise at the time of purchase, updates within the same major version are included.
+
+9. TERMINATION
+If you breach this agreement, the license may terminate. You must then stop using the Software and delete its copies.
+
+10. PAYMENTS AND REFUNDS
+Purchases are made through a third-party sales platform. Refunds are governed by that platform's policy and by applicable law.
+
+11. GOVERNING LAW
+This agreement is governed by the laws of Chile. The courts of Chile have jurisdiction over any dispute, without prejudice to the rights that the law grants you as a consumer in your country of residence.
+
+12. CONTACT
+Vulito — https://vulito.carrd.co/

@@ -1,0 +1,25 @@
+[package]
+name = "aivt-service-settings"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+aivt-database.workspace = true
+aivt-eventbus.workspace = true
+aivt-provider-llm.workspace = true
+aivt-provider-tts.workspace = true
+aivt-secrets.workspace = true
+async-trait.workspace = true
+chrono.workspace = true
+futures.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tracing.workspace = true
+tokio.workspace = true
+uuid.workspace = true
+
+[dev-dependencies]
+sqlx.workspace = true
+aivt-testing.workspace = true

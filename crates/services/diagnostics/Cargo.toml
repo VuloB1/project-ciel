@@ -1,0 +1,16 @@
+[package]
+name = "aivt-service-diagnostics"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+aivt-core.workspace = true
+aivt-database.workspace = true
+serde.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+
+[dev-dependencies]
+serde_json.workspace = true
+tempfile = "3"

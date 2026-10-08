@@ -1,0 +1,1153 @@
+{
+  "app": {
+    "name": "Project Ciel"
+  },
+  "titlebar": {
+    "minimize": "最小化",
+    "maximize": "最大化",
+    "restore": "还原",
+    "close": "关闭"
+  },
+  "common": {
+    "cancel": "取消",
+    "close": "关闭"
+  },
+  "sidebar": {
+    "chat": "聊天",
+    "identity": "身份",
+    "memory": "记忆",
+    "voice": "语音",
+    "call": "通话",
+    "twitch": "Twitch",
+    "discord": "Discord",
+    "avatar": "头像",
+    "settings": "设置",
+    "collapse": "收起",
+    "expand": "展开",
+    "groups": {
+      "character": "角色",
+      "platforms": "平台"
+    }
+  },
+  "profileSwitcher": {
+    "subtitle": "当前角色",
+    "noProfile": "没有角色",
+    "create": "创建角色",
+    "import": "导入角色…",
+    "imported": "角色已导入",
+    "importError": "无法导入角色"
+  },
+  "placeholder": {
+    "comingSoon": "即将推出",
+    "chat": {
+      "noProfileTitle": "还没有设置角色",
+      "noProfileDescription": "在“身份”标签页创建你的第一个角色开始使用。",
+      "goToIdentity": "前往身份"
+    },
+    "voice": {
+      "description": "在这里设置每个角色的语音。"
+    },
+    "call": {
+      "description": "在这里可以与当前角色进行实时语音通话。"
+    },
+    "twitch": {
+      "description": "在这里连接你的 Twitch 频道，并设置角色如何参与聊天。"
+    },
+    "discord": {
+      "description": "在这里连接一个 Discord 机器人，让角色参与你的服务器。"
+    },
+    "avatar": {
+      "description": "在这里设置角色的动态头像。"
+    }
+  },
+  "chat": {
+    "conversations": {
+      "title": "对话",
+      "new": "新建对话",
+      "search": "搜索对话",
+      "empty": "还没有对话",
+      "options": "选项",
+      "rename": "重命名",
+      "delete": "删除",
+      "deleteConfirmTitle": "删除“{{title}}”？",
+      "deleteConfirmDescription": "该对话将被永久删除。此操作无法撤销。",
+      "extractFirstLabel": "删除前先提取记忆",
+      "loading": "正在加载对话…",
+      "extractMemories": "提取记忆",
+      "extractingMemories": "正在提取记忆…",
+      "memoriesExtracted_other": "已提取 {{count}} 条新记忆",
+      "noNewMemories": "没有新的内容需要记住",
+      "extractMemoriesError": "无法提取记忆",
+      "pinnedGroup": "已固定",
+      "pin": "固定",
+      "unpin": "取消固定",
+      "pinError": "无法固定该对话",
+      "reorderError": "无法保存新的顺序",
+      "importedFromCallLabel": "从通话导入"
+    },
+    "status": {
+      "thinking": "思考中…",
+      "ready": "准备就绪"
+    },
+    "immersive": {
+      "enter": "沉浸模式",
+      "exit": "退出沉浸模式"
+    },
+    "composer": {
+      "placeholder": "输入消息…",
+      "send": "发送",
+      "stop": "停止",
+      "attachImage": "添加图片",
+      "attachImageDisabled": "请在设置 > AI 提供商中启用视觉功能以添加图片",
+      "removeImage": "移除图片"
+    },
+    "message": {
+      "cancelled": "（已取消）",
+      "thinking": "思考中…",
+      "attachmentAlt": "附加图片",
+      "speak": "朗读",
+      "stopSpeaking": "停止"
+    },
+    "noConversationTitle": "今天想和{{name}}聊些什么？",
+    "noConversationDescription": "从列表中选择一个对话，或创建一个新对话开始聊天。",
+    "continueLast": "继续「{{title}}」",
+    "dictation": {
+      "start": "语音输入（按住，向上滑动以锁定）",
+      "stop": "停止并转写",
+      "transcribing": "正在转写…",
+      "slideToLock": "向上滑动以锁定录音",
+      "lockedHint": "正在聆听… 说完后点击停止",
+      "cancel": "取消",
+      "empty": "没有识别到内容，请重试。",
+      "error": "无法转写",
+      "startError": "无法开始录音"
+    }
+  },
+  "memory": {
+    "noProfileDescription": "在“身份”标签页创建你的第一个角色，让它开始拥有自己的记忆。",
+    "loading": "正在加载记忆…",
+    "search": "搜索记忆",
+    "emptyTitle": "还没有记忆",
+    "emptyDescription": "和角色聊聊天吧——每隔几条消息就会自动提取记忆，你也可以手动添加一条。",
+    "emptySearchTitle": "没有结果",
+    "emptySearchDescription": "没有与该搜索匹配的记忆。",
+    "category": "分类",
+    "categories": {
+      "person": "人物",
+      "preference": "偏好",
+      "event": "事件",
+      "fact": "事实",
+      "other": "其他"
+    },
+    "importance": "重要程度",
+    "importanceLabel": "重要程度：{{value}}",
+    "pin": "置顶",
+    "unpin": "取消置顶",
+    "delete": "删除",
+    "deleteConfirmTitle": "删除“{{title}}”？",
+    "deleteConfirmDescription": "该记忆将被永久删除。此操作无法撤销。",
+    "showMore": "查看详情",
+    "showLess": "收起详情",
+    "fields": {
+      "title": "标题",
+      "summary": "摘要",
+      "summaryHint": "角色在每次对话中记住的简短版本——如果留空，将使用详情内容。",
+      "content": "详情",
+      "contentHint": "更完整的版本，供以后查阅——不需要写得很长。"
+    },
+    "new": {
+      "title": "新建记忆",
+      "save": "保存"
+    },
+    "edit": {
+      "title": "编辑记忆"
+    },
+    "scope": {
+      "makePublic": "设为公开",
+      "makePrivate": "设为私密",
+      "publicBadge": "公开",
+      "publicTitle": "Twitch 和 Discord 也会使用。私密记忆只用于聊天和通话。",
+      "confirmTitle": "将“{{title}}”设为公开？",
+      "confirmDescription": "Twitch 和 Discord 回复时将能使用这条记忆，在那里发言的任何人都可能在回答中看到它的内容。你可以随时改回私密。"
+    }
+  },
+  "activity": {
+    "loading": "正在加载活动记录…",
+    "emptyTitle": "还没有活动记录",
+    "emptyDescription": "这里会实时显示应用的活动情况——生成的回复、网络搜索、各渠道的连接情况。",
+    "emptyFilteredTitle": "没有结果",
+    "emptyFilteredDescription": "没有事件符合这些筛选条件。",
+    "levelFilter": "级别",
+    "categoryFilter": "分类",
+    "allLevels": "所有级别",
+    "allCategories": "所有分类",
+    "levels": {
+      "DEBUG": "调试",
+      "INFO": "信息",
+      "WARNING": "警告",
+      "ERROR": "错误",
+      "CRITICAL": "严重"
+    },
+    "durationLabel": "{{value}} 毫秒",
+    "options": "选项",
+    "showSystemEvents": "显示系统事件",
+    "hideSystemEvents": "隐藏系统事件",
+    "clear": "清除记录",
+    "clearConfirmTitle": "清除活动记录？",
+    "clearConfirmDescription": "全部活动记录都将被删除。此操作无法撤销。",
+    "clearError": "无法清除活动记录"
+  },
+  "identity": {
+    "loading": "正在加载角色…",
+    "emptyTitle": "创建你的第一个角色",
+    "emptyDescription": "Project Ciel 的角色由你自己创建——没有任何默认角色。先起个名字开始吧，其余部分可以稍后完善。",
+    "createFirst": "创建角色",
+    "defaultName": "新角色",
+    "untitled": "未命名",
+    "subtitle": "角色的身份设定",
+    "changeAvatar": "更改头像",
+    "save": "保存",
+    "saving": "正在保存…",
+    "saved": "更改已保存",
+    "saveError": "无法保存更改",
+    "avatarUpdated": "头像已更新",
+    "avatarError": "无法更新图片",
+    "duplicateSuffix": "{{name}}（副本）",
+    "duplicated": "角色已复制",
+    "duplicateError": "无法复制角色",
+    "exported": "角色已导出",
+    "exportError": "无法导出角色",
+    "deleted": "角色已删除",
+    "deleteError": "无法删除角色",
+    "deleteConfirmTitle": "删除{{name}}？",
+    "deleteConfirmDescription": "它的身份设定和性格将被永久删除。此操作无法撤销。",
+    "previewEmpty": "在“信息”或“性格”中输入一些内容，即可在此处看到生成的提示词。",
+    "actions": {
+      "import": "导入",
+      "duplicate": "复制",
+      "export": "导出",
+      "delete": "删除"
+    },
+    "tabs": {
+      "info": "信息",
+      "lore": "设定与关系",
+      "personality": "性格",
+      "appearance": "外观",
+      "preview": "提示词预览"
+    },
+    "fields": {
+      "name": "名字",
+      "nickname": "昵称",
+      "pronouns": "代词",
+      "ageFictional": "年龄（虚构）",
+      "occupation": "职业/身份",
+      "species": "种族/设定",
+      "accentColor": "个人资料颜色",
+      "description": "简短描述",
+      "lore": "背景故事、世界观与叙事语境",
+      "relationshipToUser": "你对用户来说是谁？",
+      "relationshipToUserHint": "例如：伴侣、朋友、助手、VTuber、直播搭档……",
+      "userRole": "用户对你来说是谁？",
+      "userRoleHint": "自由地写出你的角色如何看待用户。",
+      "speakingStyle": "说话方式",
+      "specialInstructions": "特殊指令"
+    },
+    "personality": {
+      "freeDescription": "性格的自由描述",
+      "freeDescriptionPlaceholder": "用你自己的话描述你希望它是什么样的性格…",
+      "traits": {
+        "warmth": "温暖",
+        "empathy": "共情力",
+        "humor": "幽默感",
+        "sarcasm": "讽刺",
+        "formality": "正式程度",
+        "curiosity": "好奇心",
+        "energy": "活力",
+        "spontaneity": "随性",
+        "initiative": "主动性",
+        "affection": "亲昵",
+        "shyness": "害羞程度",
+        "confidence": "自信",
+        "expressiveness": "表现力",
+        "verbosity": "话多程度",
+        "flirtiness": "撩人程度",
+        "emotionalIntensity": "情绪强度",
+        "teasingTendency": "调侃倾向",
+        "questionTendency": "提问倾向",
+        "initiateConversationTendency": "主动发起对话的倾向"
+      }
+    }
+  },
+  "settings": {
+    "tabs": {
+      "general": "通用",
+      "appearance": "外观",
+      "aiProviders": "AI 提供商",
+      "stt": "语音转录",
+      "tts": "语音引擎",
+      "webSearch": "网络搜索",
+      "memory": "记忆",
+      "privacy": "隐私",
+      "activity": "活动记录",
+      "credits": "关于",
+      "backup": "备份",
+      "diagnostics": "诊断"
+    },
+    "appearance": {
+      "themeTitle": "视觉主题",
+      "themeDescription": "为当前角色选择一个完整主题，或者不使用主题、只自定义强调色。",
+      "customAccent": "自定义强调色",
+      "customAccentDescription": "用你自己的颜色替换所选主题（或默认主题）的强调色。",
+      "saveError": "无法保存更改",
+      "modeTitle": "颜色模式",
+      "mode": {
+        "dark": "深色",
+        "light": "浅色",
+        "system": "跟随系统"
+      },
+      "roundnessTitle": "圆角程度",
+      "roundnessAuto": "跟随每个主题自身的圆角。",
+      "roundnessCustom": "无论选择哪个主题都会应用此设置。",
+      "roundnessReset": "重置",
+      "roundnessAngular": "直角",
+      "roundnessRounded": "圆润",
+      "densityTitle": "消息密度",
+      "density": {
+        "compact": "紧凑",
+        "normal": "正常",
+        "spacious": "宽松"
+      },
+      "fontSizeTitle": "字体大小",
+      "fontTitle": "字体"
+    },
+    "themePresets": {
+      "cozy": "Cozy",
+      "cyberpunk": "Cyberpunk",
+      "minimal": "Minimal",
+      "pastel": "Pastel",
+      "luxury": "Luxury",
+      "vaporwave": "Vaporwave",
+      "forest": "Forest",
+      "industrial": "Industrial",
+      "ocean": "Ocean",
+      "sakura": "Sakura",
+      "terminal": "Terminal",
+      "noir": "Noir",
+      "autumn": "Autumn",
+      "royal": "Royal",
+      "paper": "Paper"
+    },
+    "general": {
+      "avatar": "你的照片",
+      "avatarDescription": "会显示在聊天中你的消息旁边。",
+      "changeAvatar": "更改你的照片",
+      "avatarUpdated": "照片已更新",
+      "avatarError": "无法更新照片",
+      "language": "语言",
+      "languageDescription": "Project Ciel 界面所使用的语言。",
+      "languageSaved": "语言已更新",
+      "startWithSystem": "开机自动启动",
+      "startWithSystemDescription": "登录时自动打开 Project Ciel。",
+      "minimizeToTray": "关闭时最小化到托盘",
+      "minimizeToTrayHint": "点击关闭按钮不会再退出应用，只是把它隐藏起来，继续在系统托盘中运行。要真正退出，请右键点击托盘图标并选择\"退出\"。",
+      "notifyProactive": "主动消息通知",
+      "notifyProactiveHint": "角色主动给你发消息时显示桌面通知。",
+      "voiceWhileHidden": "在托盘中也播放语音",
+      "voiceWhileHiddenHint": "应用最小化到托盘时，语音默认静音。仅在\"关闭时最小化到托盘\"开启时才有意义。",
+      "saveError": "无法保存更改"
+    },
+    "aiProviders": {
+      "loading": "正在加载提供商…",
+      "title": "AI 提供商",
+      "description": "连接一个或多个提供商。启用你希望能够手动选择的提供商，并固定你希望在当前使用的提供商额度用尽、达到使用上限或停止响应时系统自动切换到的提供商——这样对话就不会中断。",
+      "addSectionTitle": "添加提供商",
+      "addAction": "添加{{name}}",
+      "addOther": "其他提供商",
+      "empty": "你还没有添加任何提供商——从上方选择一个开始吧。",
+      "kinds": {
+        "openai": "OpenAI",
+        "anthropic": "Anthropic Claude",
+        "gemini": "Google Gemini",
+        "groq": "Groq",
+        "openrouter": "OpenRouter",
+        "cerebras": "Cerebras",
+        "mistral": "Mistral",
+        "deepseek": "DeepSeek",
+        "together": "Together AI",
+        "xai": "xAI Grok",
+        "sambanova": "SambaNova",
+        "generic": "本地服务器"
+      },
+      "inUse": "使用中",
+      "noModel": "尚未配置模型",
+      "enable": "启用",
+      "enableTitle": "随时可以手动选择。",
+      "pin": "固定",
+      "pinTitle": "在启用的基础上，当使用中的提供商额度用尽、达到上限或停止响应时会自动切换到它。",
+      "useNow": "立即使用",
+      "edit": "编辑",
+      "remove": "删除",
+      "editing": "正在编辑{{name}}",
+      "close": "关闭",
+      "name": "名称",
+      "connected": "已连接",
+      "notConnected": "未连接",
+      "baseUrl": "服务器 URL",
+      "model": "模型",
+      "modelPlaceholder": "模型名称",
+      "apiKey": "API 密钥",
+      "apiKeyStored": "已保存一个密钥——留空以保留它。",
+      "apiKeyPlaceholder": "本地服务器可留空",
+      "temperature": "temperature（温度）",
+      "maxTokens": "最大令牌数",
+      "latency": "延迟：{{ms}} ms",
+      "modelsFound": "找到 {{count}} 个模型",
+      "modelAutoCorrected": "在服务器上检测到了不同的模型——已自动选择“{{model}}”。",
+      "visionAutoDetected": "该模型似乎支持图像——已自动启用视觉功能。",
+      "test": "测试连接",
+      "testing": "正在测试…",
+      "testError": "无法连接",
+      "saved": "设置已保存",
+      "saveError": "无法保存设置",
+      "vision": "视觉（图像）",
+      "visionHint": "仅当服务器加载的模型确实支持图像时才启用——不会自动检测。",
+      "keyHints": {
+        "openai": "在 platform.openai.com/api-keys 创建密钥。",
+        "anthropic": "在 console.anthropic.com/settings/keys 创建密钥。",
+        "gemini": "在 aistudio.google.com/apikey 获取——免费方案有使用限制。",
+        "groq": "在 console.groq.com/keys 获取——提供有使用限制的免费方案。",
+        "openrouter": "在 openrouter.ai/keys 获取——名称以“:free”结尾的模型免费。",
+        "cerebras": "在 cloud.cerebras.ai 获取——提供有使用限制的免费方案。",
+        "mistral": "在 console.mistral.ai/api-keys 获取——“Experiment”方案免费但有限制。",
+        "deepseek": "在 platform.deepseek.com/api_keys 创建密钥——需付费（预付余额）。",
+        "together": "在 api.together.ai/settings/api-keys 获取。",
+        "xai": "在 console.x.ai 获取——按用量付费。",
+        "sambanova": "在 cloud.sambanova.ai/apis 获取——提供有限制的免费方案（请查看其当前条款）。"
+      },
+      "preferred": "首选",
+      "preferredTitle": "该提供商恢复响应后，应用会自动切换回它。",
+      "local": "本地",
+      "cloud": "云端",
+      "localTitle": "运行在你自己的网络中：发送的内容不会离开到互联网。",
+      "cloudTitle": "这是互联网上的服务：发送的内容会离开你的电脑。",
+      "privacy": {
+        "title": "此提供商的隐私",
+        "localNote": "运行在你的网络中：只有把它指向远程服务器时，此设置才有意义。",
+        "cloudNote": "这是云服务：选择它可以接收你的哪些数据。",
+        "visionOff": "已关闭：最小模式不发送图片。",
+        "modes": {
+          "full": {
+            "label": "完整",
+            "badge": "隐私：完整",
+            "hint": "接收对话、角色记得的关于你的一切（私有和公开记忆）、它的心情，以及你附加的图片。"
+          },
+          "public_only": {
+            "label": "仅公开记忆",
+            "badge": "仅公开记忆",
+            "hint": "接收对话、心情和图片，但记忆只包括标记为公开的。无法合并记忆。"
+          },
+          "minimal": {
+            "label": "最小",
+            "badge": "隐私：最小",
+            "hint": "只接收对话：没有记忆、心情和图片。无法合并记忆。你在聊天中输入的内容会发送给它，否则它无法回答。"
+          }
+        }
+      },
+      "usage": {
+        "title": "用量",
+        "description": "每个提供商的使用情况。这些数字只保存在这台电脑上，从不保存你的消息内容。",
+        "period": "时间范围",
+        "periods": {
+          "today": "今天",
+          "last7_days": "最近 7 天",
+          "last30_days": "最近 30 天",
+          "all": "全部"
+        },
+        "empty": "此时间范围内还没有使用记录。",
+        "requests_other": "{{count}} 次请求",
+        "tokens": "≈ 发送 {{input}} 个 token · ≈ 接收 {{output}} 个",
+        "errors_other": "{{count}} 次失败",
+        "lastUsed": "上次使用 {{date}}",
+        "lastError": "最近的错误：{{message}}",
+        "estimateNote": "token 数是根据文本估算的，与提供商的计费不同。",
+        "reset": "重置",
+        "resetConfirmTitle": "重置用量？",
+        "resetConfirmDescription": "这会清除所有提供商的用量数字，不影响你的对话和设置。",
+        "loadError": "无法加载用量",
+        "resetError": "无法重置用量"
+      }
+    },
+    "tts": {
+      "loading": "正在加载提供商…",
+      "title": "语音引擎",
+      "description": "连接一个或多个语音提供商。启用你希望随时可用的提供商，并通过“立即使用”选择当前由哪个来发声——系统原生语音始终可用，无需任何配置。",
+      "addSectionTitle": "添加提供商",
+      "addAction": "添加{{name}}",
+      "addOther": "其他提供商",
+      "kinds": {
+        "elevenlabs": "ElevenLabs",
+        "openai": "OpenAI",
+        "google": "Google Cloud",
+        "azure": "Azure Speech",
+        "fishaudio": "Fish Audio",
+        "deepgram": "Deepgram",
+        "groq": "Groq",
+        "together": "Together AI",
+        "http": "通用服务器"
+      },
+      "inUse": "使用中",
+      "alwaysAvailable": "始终可用——无需配置。",
+      "enable": "启用",
+      "enableTitle": "随时可以手动选择。",
+      "useNow": "立即使用",
+      "edit": "编辑",
+      "remove": "删除",
+      "editing": "正在编辑{{name}}",
+      "close": "关闭",
+      "name": "名称",
+      "baseUrl": "服务器 URL",
+      "region": "区域",
+      "regionHint": "创建 Speech 资源时所选的 Azure 区域——例如“eastus”。",
+      "apiKey": "API 密钥",
+      "apiKeyStored": "已保存一个密钥——留空以保留它。",
+      "apiKeyPlaceholder": "本地服务器可留空",
+      "connected": "已连接",
+      "notConnected": "未连接",
+      "voicesFound": "找到 {{count}} 个声音",
+      "testPhrase": "这是一次语音连接测试。",
+      "test": "测试连接",
+      "testing": "正在测试…",
+      "testError": "无法连接",
+      "testPlayedHint": "你应该已经从扬声器听到了一段测试音频。",
+      "saved": "设置已保存",
+      "saveError": "无法保存设置",
+      "keyHints": {
+        "elevenlabs": "在 elevenlabs.io/app/settings/api-keys 获取。",
+        "openai": "在 platform.openai.com/api-keys 创建密钥——需付费。",
+        "google": "在 Google Cloud 项目中启用 Cloud Text-to-Speech API，并在 console.cloud.google.com/apis/credentials 创建密钥。",
+        "azure": "在 portal.azure.com 创建 Speech 资源，并同时使用其密钥和区域。",
+        "fishaudio": "在 fish.audio（API 部分）获取。在“语音”标签页粘贴语音 ID——它在该语音页面的 URL 中；留空则使用默认语音。",
+        "deepgram": "在 console.deepgram.com 获取。在“语音”标签页输入语音模型，例如“aura-2-thalia-en”；留空则使用该模型。",
+        "groq": "在 console.groq.com/keys 获取。Groq 的语音（Orpheus）仅支持英语（和沙特阿拉伯语），每次请求最多 200 个字符：较长的消息会自动拆分并合并，但会消耗多次请求。",
+        "together": "在 api.together.ai/settings/api-keys 获取。默认语音（Orpheus）适用于英语；Kokoro 等其他模型有不同的语音。"
+      },
+      "model": "模型",
+      "modelHints": {
+        "fishaudio": "留空则使用“s2.1-pro-free”：用于测试的免费模型，无需 API 额度（至 2026/11/30，Fish Audio 可能将请求用于改进其模型）。正式使用请填写“s2.1-pro”。",
+        "groq": "留空则使用“canopylabs/orpheus-v1-english”。沙特阿拉伯语请填写“canopylabs/orpheus-arabic-saudi”。",
+        "together": "留空则使用“canopylabs/orpheus-3b-0.1-ft”。其目录中的其他模型（如“hexgrad/Kokoro-82M”）也需要更换语音。"
+      }
+    },
+    "webSearch": {
+      "loading": "正在加载配置…",
+      "title": "角色的网络搜索",
+      "description": "让角色可以通过网络搜索来回答需要实时信息的问题——比如天气、其他国家的时间、新闻。适用于聊天、Twitch、Discord 和通话。",
+      "enable": "启用网络搜索",
+      "networkHint": "启用后，这些渠道在回答某些问题时可能需要联网。",
+      "apiKey": "Brave Search API 密钥",
+      "apiKeyStored": "已保存一个密钥——留空即可保留原有的。",
+      "apiKeyHint": "可在 brave.com/search/api 免费获取",
+      "apiKeyPlaceholder": "粘贴你的 Brave API 密钥",
+      "saved": "配置已保存",
+      "saveError": "无法保存配置"
+    },
+    "stt": {
+      "loading": "正在加载配置…",
+      "title": "语音转录",
+      "description": "用于 AI 通话的语音转录功能已集成在应用内——你无需安装或配置任何外部服务器。下载一次模型后即可离线使用。",
+      "sizeLabel": {
+        "tiny": "Tiny",
+        "base": "Base",
+        "small": "Small",
+        "medium": "Medium"
+      },
+      "sizeHint": {
+        "tiny": "速度最快，精度有限——适合配置较低的设备。",
+        "base": "速度与精度之间的良好平衡。",
+        "small": "精度更高，速度稍慢——推荐大多数情况使用。",
+        "medium": "精度最高，每次响应耗时更长。"
+      },
+      "approxSize": "约 {{size}} MB",
+      "gpuToggle": "使用 GPU 加速（Vulkan）",
+      "gpuToggleHint": "可在任何 GPU（NVIDIA、AMD、Intel）上运行，无需额外驱动。如果未检测到兼容的 GPU，将自动使用 CPU。",
+      "download": "下载",
+      "downloading": "正在下载…",
+      "downloaded": "已下载",
+      "active": "当前使用",
+      "select": "选择",
+      "delete": "删除",
+      "downloadError": "无法下载模型",
+      "saveError": "无法保存配置",
+      "dictationAutoSend": "自动发送语音输入的文字",
+      "dictationAutoSendHint": "停止聊天麦克风后，转写的文字会立即发送。关闭时，文字会留在输入框中，供你发送前检查。"
+    },
+    "memory": {
+      "loading": "正在加载…",
+      "title": "记忆语义搜索",
+      "description": "下载一个本地模型，让记忆搜索能理解你提问的含义，而不仅仅是精确匹配的词语。下载完成后将集成在应用内离线运行。",
+      "approxSize": "约 {{size}} MB",
+      "download": "下载",
+      "downloading": "正在下载…",
+      "downloaded": "已下载",
+      "delete": "删除",
+      "downloadError": "无法下载模型",
+      "backfillHint": "在下载模型之前就已存在的记忆，需要先补全一次，才能通过语义被搜索到。",
+      "backfill": "补全旧记忆",
+      "backfilling": "正在补全…",
+      "backfillProgress": "{{embedded}} / {{total}} 条记忆",
+      "backfillError": "无法完成记忆补全",
+      "fusionTitle": "合并记忆",
+      "fusionHint": "AI 会检查角色的记忆，并建议合并那些冗余或说的是同一件事的记忆 —— 在删除任何内容之前，由你决定应用哪些。",
+      "fusionButton": "合并记忆",
+      "fusionDialogTitle": "查看记忆合并",
+      "fusionAnalyzing": "正在分析记忆…",
+      "fusionEmptyTitle": "没有找到可合并的记忆",
+      "fusionEmptyDescription": "目前的所有记忆看起来彼此都足够不同。",
+      "fusionIncludeGroup": "包含此组",
+      "fusionConfirm": "合并 {{count}} 项",
+      "fusionApplied": "已合并 {{count}} 组记忆",
+      "fusionError": "无法完成记忆合并"
+    },
+    "privacy": {
+      "loading": "正在加载…",
+      "title": "人物记录",
+      "description": "应用会学习真实人物的名字（来自你的对话以及已连接的 Twitch 和 Discord 聊天），以便在语音交流时更好地识别他们。你创建的 AI 角色也会自动添加到这里。所有内容仅保存在本地，绝不会发送到任何服务器。",
+      "twitchAutoLearn": "自动学习 Twitch 聊天中的名字",
+      "twitchAutoLearnHint": "在你连接的聊天室中发言的每个人都会按名字被记录——可以随时关闭。",
+      "discordAutoLearn": "自动学习 Discord 服务器中的名字",
+      "discordAutoLearnHint": "在你连接的 Discord 服务器中发言的每个人都会按名字被记录——可以随时关闭。",
+      "chatAudio": {
+        "title": "保存消息的音频",
+        "hint": "保存聊天中生成的音频，方便以后重新收听而无需再次生成。仅在使用 ElevenLabs 或 HTTP 服务器语音时有效——系统原生语音是直接播放的，不会生成可保存的文件。",
+        "retentionLabel": "自动删除时间",
+        "retentionOneDay": "1 天",
+        "retentionOneWeek": "1 周",
+        "retentionOneMonth": "1 个月",
+        "retentionTwoMonths": "2 个月",
+        "retentionThreeMonths": "3 个月",
+        "retentionSixMonths": "6 个月",
+        "loadError": "无法加载已保存音频的配置",
+        "saveError": "无法保存已保存音频的配置"
+      },
+      "peopleTitle": "已记录的人物",
+      "addPerson": "添加人物",
+      "empty": "还没有已记录的人物",
+      "emptyHint": "当他们在对话、Twitch 聊天或 Discord 聊天中被提及时，会显示在这里。",
+      "name": "名字",
+      "roleLabel": "关系",
+      "role": {
+        "self": "你",
+        "nickname": "你的昵称",
+        "ai": "AI 角色",
+        "friend": "朋友",
+        "twitch_chatter": "Twitch 聊天用户",
+        "discord_chatter": "Discord 聊天用户"
+      },
+      "delete": "删除",
+      "cancel": "取消",
+      "save": "保存",
+      "saveError": "无法保存更改"
+    },
+    "credits": {
+      "version": "版本 {{version}}",
+      "loading": "正在加载版本…",
+      "tagline": "可以聊天、对话和直播的 AI 伙伴，你的数据始终留在你身边。",
+      "builtWith": "技术栈",
+      "madeWithClaude": "在 Anthropic 的 Claude 协助下开发",
+      "authorTitle": "创作者与作者",
+      "website": "网站",
+      "supportDescription": "如果你喜欢 Project Ciel，可以支持它的开发。",
+      "supportAction": "在 Ko-fi 请我喝杯咖啡",
+      "thanksTitle": "致谢",
+      "koreanReview": "已确认韩语翻译的准确度足以满足实际使用。",
+      "legalTitle": "法律信息",
+      "eula": "使用许可协议",
+      "thirdParty": "第三方许可"
+    },
+    "backup": {
+      "createTitle": "创建备份",
+      "createDescription": "把你的全部数据保存到一个文件中，换电脑或出问题时可以恢复。",
+      "includes": "包含：角色、聊天、记忆、设置、附件和头像。",
+      "excludesSecrets": "不包含你的 API 密钥以及 Twitch/Discord 令牌：出于安全考虑，它们保留在这台电脑的安全存储中。在其他电脑上恢复时需要重新输入。",
+      "excludesDownloads": "也不包含已下载的模型（语音、语义记忆），它们可以重新下载。",
+      "createAction": "创建备份",
+      "working": "处理中…",
+      "created": "备份已创建",
+      "createdDetail": "{{size}} · {{files}} 个附件和头像文件",
+      "createError": "无法创建备份",
+      "restoreTitle": "从备份恢复",
+      "restoreDescription": "选择一个备份文件。更改任何内容之前会先检查其完整性，你当前的数据会另外保留。",
+      "restoreAction": "从文件恢复…",
+      "restoreError": "无法恢复备份",
+      "confirmTitle": "恢复此备份？",
+      "confirmDescription": "{{date}} 的备份（{{files}} 个附件和头像文件，{{size}}）。当前数据将被备份中的数据替换；原有数据会保存在应用数据中的“pre-restore”文件夹里。应用将重新启动。",
+      "confirmAction": "恢复并重启"
+    },
+    "diagnostics": {
+      "title": "诊断中心",
+      "description": "一眼看清应用状态：什么正常、什么不正常，以及原因。",
+      "overall": {
+        "ok": "一切正常",
+        "info": "一切正常",
+        "warning": "有警告",
+        "error": "有问题"
+      },
+      "running": "检查中…",
+      "refresh": "重新检查",
+      "copy": "复制报告",
+      "save": "保存报告…",
+      "copied": "报告已复制",
+      "copyError": "无法复制报告",
+      "saved": "报告已保存",
+      "saveError": "无法保存报告",
+      "runError": "无法运行诊断",
+      "noSecrets": "报告从不包含 API 密钥或令牌，只会说明是否已保存。求助时可以放心分享。",
+      "generatedAt": "检查于 {{date}}",
+      "checksTitle": "检查项",
+      "servicesTitle": "服务",
+      "aiTitle": "AI、语音和模型",
+      "databaseTitle": "数据库",
+      "storageTitle": "存储",
+      "systemTitle": "系统",
+      "problemsTitle": "最近的问题",
+      "noProblems": "最近没有警告或错误。",
+      "serviceNames": {
+        "twitch": "Twitch",
+        "discord": "Discord",
+        "call": "通话",
+        "proactive": "主动模式",
+        "avatar_server": "OBS 头像"
+      },
+      "serviceStatus": {
+        "stopped": "已停止",
+        "starting": "启动中",
+        "running": "运行中",
+        "error": "出错",
+        "stopping": "停止中"
+      },
+      "inUse": "使用中",
+      "ready": "就绪",
+      "notReady": "未配置",
+      "pausedFor": "暂停 {{seconds}} 秒",
+      "voice": "语音",
+      "available": "可用",
+      "transcription": "转写",
+      "semanticSearch": "语义搜索",
+      "downloaded": "已下载",
+      "notDownloaded": "未下载",
+      "integrity": "完整性",
+      "integrityOk": "正常",
+      "integrityBad": "有错误",
+      "schema": "架构版本",
+      "size": "大小",
+      "tables": {
+        "profiles": "角色",
+        "conversations": "对话",
+        "messages": "消息",
+        "memories": "记忆",
+        "people": "人物",
+        "activity_events": "活动事件"
+      },
+      "attachments": "附件",
+      "avatars": "头像",
+      "models": "已下载的模型",
+      "logs": "日志",
+      "preRestore": "恢复之前的数据",
+      "version": "应用版本",
+      "system": "系统",
+      "dataDir": "数据文件夹",
+      "checks": {
+        "unknown": "检查项“{{id}}”。",
+        "database_integrity": {
+          "ok": "数据库完好。",
+          "error": "数据库有错误：{{message}}。请先备份，并考虑恢复到较早的备份。"
+        },
+        "database_schema": {
+          "ok": "数据库架构是最新的。",
+          "warning": "数据库架构为 {{version}}，而此应用需要 {{latest}}。"
+        },
+        "llm_ready": {
+          "default": "正在使用的 AI 提供商已就绪。"
+        },
+        "llm_not_ready": {
+          "default": "没有可以响应的 AI 提供商。请在 AI 提供商中配置一个（模型，云服务还需要 API 密钥）。"
+        },
+        "llm_current_not_ready": {
+          "default": "正在使用的提供商 {{label}} 配置不完整（缺少模型或 API 密钥）。"
+        },
+        "llm_cooling_down": {
+          "default": "{{label}} 最近失败，暂停约 {{seconds}} 秒；期间如有其他提供商会改用它。"
+        },
+        "llm_no_current": {
+          "default": "没有正在使用的 AI 提供商。请在 AI 提供商中选择一个。"
+        },
+        "llm_no_fallback": {
+          "default": "只有一个 AI 提供商就绪：它失败时没有可自动切换的其他提供商。请在 AI 提供商中再固定一个。"
+        },
+        "tts_ready": {
+          "default": "语音引擎已就绪。"
+        },
+        "tts_missing_key": {
+          "default": "语音引擎 {{label}} 需要 API 密钥，但尚未设置。"
+        },
+        "service_error": {
+          "default": "服务“{{name}}”出错。请检查其设置或“活动”标签页。"
+        },
+        "stt_model_missing": {
+          "default": "转写模型“{{size}}”尚未下载：下载之前，听写和通话无法听懂你的声音。"
+        },
+        "embedding_missing": {
+          "default": "语义搜索模型尚未下载：记忆只能按完整词语搜索。这是可选的。"
+        },
+        "recent_errors": {
+          "default": "活动中有 {{count}} 个最近的错误；请查看下方的“最近的问题”。"
+        },
+        "pre_restore_leftover": {
+          "default": "“pre-restore”文件夹中有 {{size}} 恢复之前的数据。确认无误后可以手动删除以释放空间。"
+        }
+      }
+    }
+  },
+  "onboarding": {
+    "back": "上一步",
+    "continue": "继续",
+    "start": "开始",
+    "finishCta": "开始使用 Project Ciel",
+    "skipAll": "全部跳过",
+    "stepIndicator": "第 {{current}} 步,共 {{total}} 步",
+    "intro": {
+      "title": "欢迎使用 Project Ciel",
+      "description": "我们将用几个步骤完成基本设置——每一步都可以跳过,之后也可以在设置里随时调整。"
+    },
+    "language": {
+      "title": "选择你的语言",
+      "description": "应用于整个应用,包括 Ciel 理解和回复所用的语言。"
+    },
+    "appearance": {
+      "title": "自定义外观",
+      "description": "浅色/深色模式、圆角程度、密度和字体——即时保存。"
+    },
+    "aiProvider": {
+      "title": "连接你的 AI 服务",
+      "description": "Project Ciel 需要一个兼容 OpenAI 的服务器(例如 LM Studio)才能回复。"
+    },
+    "sttVoice": {
+      "title": "语音识别(可选)",
+      "description": "如果你想对 Ciel 说话而不是打字,可以下载一个本地模型。"
+    },
+    "ttsVoice": {
+      "title": "语音合成(可选)",
+      "description": "设置 Ciel 用语音回复时的声音。"
+    },
+    "character": {
+      "title": "创建你的第一个角色",
+      "description": "Project Ciel 的角色由你自己创建——起个名字开始吧。",
+      "nameLabel": "角色名称",
+      "create": "创建角色",
+      "alreadyHave": "你已经有一个角色了:{{name}}"
+    },
+    "finish": {
+      "title": "一切就绪",
+      "description": "你可以稍后随时在设置里调整这些偏好。"
+    }
+  },
+  "voice": {
+    "loading": "正在加载语音…",
+    "emptyTitle": "还没有设置角色",
+    "emptyDescription": "在“身份”标签页创建你的第一个角色以设置其语音。",
+    "subtitle": "该角色的语音设置",
+    "muteAll": "静音所有语音",
+    "unmuteAll": "取消静音",
+    "muteError": "无法更改静音状态",
+    "saved": "语音设置已保存",
+    "saveError": "无法保存语音设置",
+    "loadError": "无法加载语音配置",
+    "testVoice": "测试语音",
+    "stopPreview": "停止",
+    "previewError": "无法播放语音",
+    "previewDefaultText": "你好，我是{{name}}。这就是使用这个配置时我的声音。",
+    "fields": {
+      "enabled": "朗读回复",
+      "enabledHint": "自动使用该语音播放聊天中的每条回复。",
+      "voice": "语音",
+      "voiceDefault": "系统默认语音",
+      "voiceHintHttp": "HTTP 服务器不支持列出语音——请输入所需的 ID。",
+      "voiceHttpPlaceholder": "例如：alloy",
+      "rate": "语速",
+      "pitch": "音调",
+      "pitchHintHttp": "HTTP 服务器不支持调整音调——该值将被忽略。",
+      "pitchHintElevenlabs": "ElevenLabs 不支持调整音调——该值将被忽略。",
+      "volume": "音量",
+      "volumeHintHttp": "HTTP 服务器不支持调整音量——该值将被忽略。",
+      "volumeHintElevenlabs": "ElevenLabs 不支持调整音量——该值将被忽略。",
+      "previewText": "测试文本",
+      "voiceCustomId": "自定义语音 ID",
+      "voiceCustomIdHint": "如果列表中没有你的语音，请在此粘贴其 ID（位于其 fish.audio 页面的 URL 中）。",
+      "voiceSearch": "在 Fish Audio 搜索语音",
+      "voiceSearchHint": "按名称搜索其公开目录，点击一个即可选择。",
+      "voiceSearchPlaceholder": "例如：旁白、动漫、西班牙语…",
+      "voiceSearchError": "无法搜索语音。",
+      "voiceSearchEmpty": "没有结果。"
+    }
+  },
+  "mood": {
+    "label": "心情",
+    "hint": "角色此刻的状态——只会随对话和时间变化，与它（固定的）性格不同。",
+    "resetButton": "重置",
+    "resetSuccess": "心情已重置",
+    "resetError": "无法重置心情",
+    "states": {
+      "neutral": "平静",
+      "lowLow": "低落",
+      "lowMid": "情绪不佳",
+      "lowHigh": "烦躁",
+      "midLow": "平和",
+      "midHigh": "活跃",
+      "highLow": "放松而满足",
+      "highMid": "心情很好",
+      "highHigh": "兴高采烈"
+    }
+  },
+  "proactive": {
+    "label": "主动模式",
+    "hint": "让角色根据你们多久没聊天、它的心情和记忆，偶尔主动给你发消息——最多每隔几个小时一次。",
+    "toggleError": "无法更改主动模式"
+  },
+  "avatar": {
+    "loading": "正在加载头像…",
+    "emptyTitle": "还没有设置角色",
+    "emptyDescription": "在“身份”标签页创建你的第一个角色以设置其头像。",
+    "subtitle": "该角色的动态头像",
+    "statesTitle": "各状态图片",
+    "statesHint": "为每个状态上传一张图片——如果缺少某个状态的图片，将暂时使用角色的头像代替。",
+    "states": {
+      "idle": "静止",
+      "thinking": "思考中",
+      "talking": "说话中"
+    },
+    "noImage": "无图片",
+    "stateImageUpdated": "图片已更新",
+    "stateImageError": "无法更新图片",
+    "live": "实时：{{state}}",
+    "obsSectionTitle": "OBS 浏览器源",
+    "obsHint": "开启此项并将该 URL 粘贴到 OBS 的浏览器源（Browser Source）中——无需窗口捕获即可实时反应。",
+    "obsEnable": "启用 OBS 浏览器源",
+    "obsCopyUrl": "复制 URL",
+    "obsCopied": "URL 已复制",
+    "obsServerError": "无法启动头像服务器"
+  },
+  "call": {
+    "loading": "正在加载通话…",
+    "emptyTitle": "还没有设置角色",
+    "emptyDescription": "在\"身份\"标签页创建你的第一个角色，即可用语音与它对话。",
+    "settingsTitle": "通话设置",
+    "policyTitle": "语音通话",
+    "policyDescription": "通过麦克风与当前角色实时对话。",
+    "startCall": "开始通话",
+    "end": "挂断",
+    "mute": "静音麦克风",
+    "unmute": "取消静音麦克风",
+    "muted": "已静音",
+    "saving": "正在保存…",
+    "saveError": "无法保存配置",
+    "toggleError": "无法开始/结束通话",
+    "exportToChat": "导出到聊天",
+    "exportedToChat": "通话已导出到聊天",
+    "exportError": "无法导出通话",
+    "status": {
+      "stopped": "未连接",
+      "starting": "正在开始…",
+      "running": "通话中",
+      "error": "错误",
+      "stopping": "正在结束…"
+    },
+    "callState": {
+      "idle": "等待中",
+      "listening": "正在聆听",
+      "transcribing": "正在转录",
+      "thinking": "思考中",
+      "speaking": "说话中",
+      "error": "错误"
+    },
+    "indicators": {
+      "you": "你",
+      "character": "角色"
+    },
+    "fields": {
+      "microphone": "麦克风",
+      "microphoneDefault": "使用系统默认设备",
+      "responseMode": "角色何时回应",
+      "responseModeAll": "只要检测到你在说话就回应",
+      "responseModeWakePhrase": "仅在你呼叫时回应",
+      "responseModeWakePhraseHint": "适合在你打游戏或直播时保持通话开启，而不让角色对你说的每句话都作出回应。",
+      "wakePhrase": "呼叫用的短语",
+      "wakePhraseHint": "留空则使用角色的名字或昵称（在“身份”中设置）作为呼叫短语。",
+      "wakePhrasePlaceholder": "例如：喂 Ciel",
+      "vadMode": "麦克风灵敏度",
+      "vadModeHint": "检测你的声音时过滤背景噪音的严格程度——越严格越能避免误判，但可能会漏掉小声说话。",
+      "vadModeQuality": "低（更灵敏，噪音也更容易被捕捉）",
+      "vadModeLowBitrate": "中低",
+      "vadModeAggressive": "中高（推荐）",
+      "vadModeVeryAggressive": "高（更严格，误判更少）",
+      "silenceTimeout": "回应前的等待时间（毫秒）",
+      "silenceTimeoutHint": "需要多长的静默才会判断为你已经说完话。",
+      "micLevelHint": "说话并确认条形在移动，这说明所选麦克风能收到你的声音。",
+      "micLevelError": "无法打开麦克风来测量音量。",
+      "speaker": "语音输出设备",
+      "speakerDefault": "使用系统默认",
+      "speakerHint": "角色声音播放的位置。不影响系统语音（Windows 免费语音），它始终使用默认输出。更改会中断正在播放的内容。",
+      "echoGuard": "我在使用扬声器",
+      "echoGuardHint": "角色说话时会忽略麦克风，避免听到自己的声音或自己打断自己。使用耳机时请保持关闭，这样你可以说话打断它。"
+    },
+    "feedTitle": "转录内容",
+    "feedEmpty": "开始通话并说话，即可在此处看到转录内容。",
+    "characterLabel": "角色",
+    "userLabel": "你",
+    "errorLabel": "错误",
+    "micLevel": "麦克风音量"
+  },
+  "twitch": {
+    "loading": "正在加载 Twitch…",
+    "connectionTitle": "Twitch 账号",
+    "connectionDescription": "连接将在聊天中发言的账号。",
+    "connectedAs": "已以 {{channel}} 身份连接",
+    "notConnected": "未连接",
+    "saveError": "无法保存",
+    "connect": "连接账号",
+    "connecting": "正在等待浏览器授权…",
+    "connectError": "无法连接账号",
+    "connected": "账号已连接",
+    "disconnect": "断开连接",
+    "disconnectError": "无法断开连接",
+    "disconnected": "账号已断开",
+    "targetChannel": "要加入的频道",
+    "targetChannelHint": "在这里输入你希望角色回应的频道，如果需要可以给它“/mod”权限。留空则在自己的账号中回应。要使用专用机器人，请为机器人单独连接一个账号。",
+    "targetChannelRestartNote": "更换频道前请先停止监听——更改不会实时生效。",
+    "targetChannelPlaceholder": "你的 Twitch 频道名（留空 = 已连接账号自己的频道）",
+    "targetChannelSaved": "频道已保存",
+    "policyTitle": "角色何时回应",
+    "policyDescription": "角色永远不会回应已连接账号自己发送的消息。要在真实聊天中测试回应，请使用另一个账号发言，或使用下方的“测试回复”。",
+    "startListening": "开始监听",
+    "stopListening": "停止监听",
+    "toggleError": "无法更改连接状态",
+    "saving": "正在保存…",
+    "settingsTitle": "Twitch 设置",
+    "pauseResponses": "暂停回应",
+    "resumeResponses": "恢复回应",
+    "pausedStatus": "已暂停",
+    "status": {
+      "stopped": "已停止",
+      "starting": "正在连接…",
+      "running": "正在监听",
+      "error": "错误",
+      "stopping": "正在停止…"
+    },
+    "fields": {
+      "responseMode": "回应模式",
+      "responseModeMentioned": "仅在被提及时",
+      "responseModeMentionedHint": "当有人在聊天中提到角色的名字或昵称（在“身份”中设置）时，角色会回应。",
+      "responseModeAll": "回应所有消息",
+      "cooldown": "回应之间的最小间隔（秒）",
+      "cooldownHint": "避免角色在活跃的聊天室中回应过于频繁。"
+    },
+    "feedEmpty": "目前还没有收到任何消息。",
+    "emptyFeedTitle": "连接你的账号以查看聊天",
+    "emptyFeedDescription": "连接 Twitch 账号后，实时聊天将显示在这里。",
+    "testTitle": "测试回复",
+    "testDescription": "用一条消息试试看，不会发布到聊天室。",
+    "testPlaceholder": "输入一条测试消息…",
+    "testSend": "测试",
+    "testSending": "正在生成…",
+    "testError": "无法生成测试回复",
+    "emotes": {
+      "title": "7TV/FFZ/BTTV 表情",
+      "enable": "使用 7TV/FFZ/BTTV 表情",
+      "statusLabel": "已缓存 {{total}} 个表情，其中 {{described}} 个已有描述",
+      "refreshButton": "刷新列表",
+      "refreshError": "无法刷新表情列表",
+      "visionHint": "使用支持视觉的 AI 提供商分析表情，为每个表情生成描述，让 AI 能够使用这些表情。",
+      "generateButton": "生成描述",
+      "generating": "正在生成描述… {{done}}/{{total}}",
+      "generateError": "无法生成描述"
+    }
+  },
+  "discord": {
+    "loading": "正在加载 Discord…",
+    "connectionTitle": "Discord 机器人",
+    "connectionDescription": "连接机器人自己的账号，而不是你的个人账号。",
+    "connectedAs": "已以 {{bot}} 身份连接",
+    "notConnected": "未连接",
+    "botToken": "机器人 Token",
+    "botTokenHint": "在 discord.com/developers/applications 中你的应用的 Bot 部分创建它——同时在那里启用“Message Content Intent”。",
+    "botTokenPlaceholder": "你的 Discord 应用的机器人 Token",
+    "connect": "连接机器人",
+    "connecting": "正在连接…",
+    "connectError": "无法连接机器人——请检查 Token 是否正确",
+    "connected": "机器人已连接",
+    "disconnect": "断开连接",
+    "disconnectError": "无法断开连接",
+    "disconnected": "机器人已断开",
+    "saveError": "无法保存",
+    "policyTitle": "角色何时回应",
+    "policyDescription": "适用于机器人正在监听其所加入服务器的期间。",
+    "startListening": "开始监听",
+    "stopListening": "停止监听",
+    "toggleError": "无法更改连接状态",
+    "saving": "正在保存…",
+    "settingsTitle": "Discord 设置",
+    "pauseResponses": "暂停回应",
+    "resumeResponses": "恢复回应",
+    "pausedStatus": "已暂停",
+    "status": {
+      "stopped": "已停止",
+      "starting": "正在连接…",
+      "running": "正在监听",
+      "error": "错误",
+      "stopping": "正在停止…"
+    },
+    "fields": {
+      "responseMode": "回应模式",
+      "responseModeMentioned": "仅在被提及时",
+      "responseModeMentionedHint": "当有人用 @ 提及角色，或写出它的名字/昵称（在“身份”中设置）时，角色会回应。",
+      "responseModeAll": "回应所有消息",
+      "cooldown": "回应之间的最小间隔（秒）",
+      "cooldownHint": "避免角色在活跃的服务器中回应过于频繁。"
+    },
+    "feedEmpty": "目前还没有收到任何消息。",
+    "emptyFeedTitle": "连接机器人以查看消息",
+    "emptyFeedDescription": "连接 Discord 机器人后，实时消息将显示在这里。",
+    "testTitle": "测试回复",
+    "testDescription": "用一条消息试试看，不会发布到聊天室。",
+    "testPlaceholder": "输入一条测试消息…",
+    "testSend": "测试",
+    "testSending": "正在生成…",
+    "testError": "无法生成测试回复"
+  },
+  "commandPalette": {
+    "placeholder": "搜索标签页或设置…",
+    "noResults": "无结果"
+  },
+  "contextMenu": {
+    "cut": "剪切",
+    "copy": "复制",
+    "paste": "粘贴",
+    "selectAll": "全选",
+    "copyMessage": "复制消息",
+    "settings": "设置",
+    "inspect": "检查"
+  },
+  "trayMenu": {
+    "show": "显示 Project Ciel",
+    "reload": "重新加载界面",
+    "quit": "退出"
+  },
+  "failover": {
+    "quota_exceeded": "已切换到{{to}}：{{from}}的额度已用尽。",
+    "rate_limited": "已切换到{{to}}：{{from}}达到了使用上限。",
+    "unreachable": "已切换到{{to}}：{{from}}没有响应（是否已关闭？）。",
+    "timeout": "已切换到{{to}}：{{from}}响应时间过长。",
+    "server_error": "已切换到{{to}}：{{from}}出现服务器错误。",
+    "restored": "{{to}}已恢复响应：重新使用它。",
+    "generic": "已从{{from}}切换到{{to}}。"
+  }
+}

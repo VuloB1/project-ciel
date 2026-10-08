@@ -1,0 +1,35 @@
+[package]
+name = "aivt-service-call"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+aivt-core.workspace = true
+aivt-database.workspace = true
+aivt-eventbus.workspace = true
+aivt-memory.workspace = true
+aivt-orchestrator.workspace = true
+aivt-provider-llm.workspace = true
+aivt-provider-stt.workspace = true
+aivt-provider-tools.workspace = true
+aivt-provider-tts.workspace = true
+aivt-secrets.workspace = true
+aivt-service-manager.workspace = true
+aivt-service-settings.workspace = true
+async-trait.workspace = true
+chrono.workspace = true
+# Pinned to match what's already resolved transitively via `rodio` (see
+# Cargo.lock) — a direct dependency at a different version would otherwise
+# pull in a second copy of cpal.
+cpal = "0.17"
+futures.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+tracing.workspace = true
+uuid.workspace = true
+webrtc-vad = "0.4"
+
+[dev-dependencies]
+aivt-testing.workspace = true

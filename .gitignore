@@ -1,0 +1,62 @@
+# Node
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Rust
+target/
+# Cargo.lock SE SUBE: es una aplicación, no una librería (compilaciones reproducibles).
+
+# Tauri
+src-tauri/target/
+src-tauri/gen/
+
+# Editor / OS
+.vscode/*
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+
+# Env / local
+.env
+.env.local
+*.local
+
+# Logs
+*.log
+npm-debug.log*
+
+# sqlx offline data (regenerate with `cargo sqlx prepare`)
+.sqlx/
+
+# Carpetas de compilación alternativas (CARGO_TARGET_DIR) y cachés
+cgt-aivt/
+/release/
+.cache/
+
+# Instaladores, zips y binarios: la app se distribuye por itch.io, nunca por el repositorio
+*.exe
+*.msi
+*.zip
+*.7z
+*.dll
+*.pdb
+
+# Datos y secretos locales (nunca al repositorio)
+.env.*
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+*.sqlite3
+*.aivtbackup
+*.aivtprofile
+*.pem
+*.key
+*.pfx
+*.p12
+*.crt
+/secrets/
+.claude/scheduled_tasks.lock
+.claude/settings.local.json

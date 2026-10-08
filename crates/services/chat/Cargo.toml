@@ -1,0 +1,26 @@
+[package]
+name = "aivt-service-chat"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+aivt-database.workspace = true
+aivt-eventbus.workspace = true
+aivt-memory.workspace = true
+aivt-orchestrator.workspace = true
+aivt-provider-llm.workspace = true
+aivt-provider-tts.workspace = true
+chrono.workspace = true
+futures.workspace = true
+serde.workspace = true
+sha2.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+tracing.workspace = true
+uuid.workspace = true
+
+[dev-dependencies]
+aivt-testing.workspace = true
+tempfile = "3"

@@ -1,0 +1,62 @@
+[package]
+name = "aivt-companion"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[lib]
+name = "aivt_companion_lib"
+crate-type = ["staticlib", "cdylib", "rlib"]
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["macos-private-api", "tray-icon"] }
+tauri-plugin-autostart = "2"
+tauri-plugin-single-instance = "2"
+tauri-plugin-dialog = "2"
+tauri-plugin-notification = "2"
+
+serde.workspace = true
+serde_json.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+tracing-subscriber.workspace = true
+tracing-appender.workspace = true
+chrono.workspace = true
+base64 = "0.22"
+
+aivt-core.workspace = true
+aivt-database.workspace = true
+aivt-eventbus.workspace = true
+aivt-memory.workspace = true
+aivt-orchestrator.workspace = true
+aivt-provider-llm.workspace = true
+aivt-provider-tools.workspace = true
+aivt-secrets.workspace = true
+aivt-service-settings.workspace = true
+aivt-service-activity.workspace = true
+aivt-service-profiles.workspace = true
+aivt-service-backup.workspace = true
+aivt-service-diagnostics.workspace = true
+aivt-service-chat.workspace = true
+aivt-provider-tts.workspace = true
+aivt-provider-stt.workspace = true
+aivt-provider-embedding.workspace = true
+tauri-plugin-opener = "2.5.4"
+aivt-service-twitch.workspace = true
+aivt-service-discord.workspace = true
+aivt-service-manager.workspace = true
+aivt-service-call.workspace = true
+aivt-service-proactive.workspace = true
+aivt-service-avatar.workspace = true
+
+[target.'cfg(windows)'.dependencies]
+# Ícono circular (estilo WhatsApp) en el aviso de mensajes proactivos — el
+# bridge de JS de tauri-plugin-notification no expone esa opción en
+# Windows (solo reenvía título/cuerpo/sonido), así que
+# commands/notifications.rs habla directo con esta librería, que ya vive
+# en el árbol de dependencias (vía notify-rust) pero no como dependencia
+# directa.
+tauri-winrt-notification = "0.7.3"

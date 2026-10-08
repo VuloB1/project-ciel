@@ -1,0 +1,19 @@
+[package]
+name = "aivt-provider-tts"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+aivt-eventbus.workspace = true
+async-trait.workspace = true
+base64.workspace = true
+regex.workspace = true
+reqwest.workspace = true
+rodio = "0.22.2"
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tokio = { workspace = true, features = ["macros"] }
+tracing.workspace = true
+tts = "0.26.3"

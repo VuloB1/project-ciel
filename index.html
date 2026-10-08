@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/app-icon.png" />
+    <title>Project Ciel</title>
+    <meta name="color-scheme" content="dark" />
+    <!-- Mismo valor que `--color-background` (src/globals.css) y que
+         `backgroundColor` de la ventana principal en tauri.conf.json: evita el
+         destello blanco antes de que cargue el CSS y el tema del perfil. -->
+    <style>
+      html,
+      body {
+        background-color: #0d0d11;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

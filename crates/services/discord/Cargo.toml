@@ -1,0 +1,29 @@
+[package]
+name = "aivt-service-discord"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+aivt-core.workspace = true
+aivt-database.workspace = true
+aivt-eventbus.workspace = true
+aivt-memory.workspace = true
+aivt-orchestrator.workspace = true
+aivt-provider-llm.workspace = true
+aivt-provider-tools.workspace = true
+aivt-secrets.workspace = true
+aivt-service-manager.workspace = true
+aivt-service-settings.workspace = true
+async-trait.workspace = true
+chrono.workspace = true
+futures.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+tracing.workspace = true
+twilight-gateway = "0.17.1"
+twilight-http = "0.17.1"
+twilight-model = "0.17.1"

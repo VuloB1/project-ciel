@@ -1,0 +1,1162 @@
+{
+  "app": {
+    "name": "Project Ciel"
+  },
+  "titlebar": {
+    "minimize": "Minimizar",
+    "maximize": "Maximizar",
+    "restore": "Restaurar",
+    "close": "Cerrar"
+  },
+  "common": {
+    "cancel": "Cancelar",
+    "close": "Cerrar"
+  },
+  "sidebar": {
+    "chat": "Chat",
+    "identity": "Identidad",
+    "memory": "Memoria",
+    "voice": "Voz",
+    "call": "Llamada",
+    "twitch": "Twitch",
+    "discord": "Discord",
+    "avatar": "Avatar",
+    "settings": "Configuración",
+    "collapse": "Colapsar",
+    "expand": "Expandir",
+    "groups": {
+      "character": "Personaje",
+      "platforms": "Plataformas"
+    }
+  },
+  "profileSwitcher": {
+    "subtitle": "Personaje activo",
+    "noProfile": "Sin personaje",
+    "create": "Crear personaje",
+    "import": "Importar personaje…",
+    "imported": "Personaje importado",
+    "importError": "No se pudo importar el personaje"
+  },
+  "placeholder": {
+    "comingSoon": "Disponible próximamente",
+    "chat": {
+      "noProfileTitle": "Todavía no hay un personaje configurado",
+      "noProfileDescription": "Crea tu primer personaje en la pestaña Identidad para empezar.",
+      "goToIdentity": "Ir a Identidad"
+    },
+    "voice": {
+      "description": "Aquí configurarás la voz de cada personaje."
+    },
+    "call": {
+      "description": "Aquí podrás mantener una llamada de voz en tiempo real con el personaje activo."
+    },
+    "twitch": {
+      "description": "Aquí conectarás tu canal de Twitch y configurarás cómo participa el personaje en el chat."
+    },
+    "discord": {
+      "description": "Aquí conectarás un bot de Discord para que el personaje participe en tus servidores."
+    },
+    "avatar": {
+      "description": "Aquí configurarás el avatar reactivo del personaje."
+    }
+  },
+  "chat": {
+    "conversations": {
+      "title": "Conversaciones",
+      "new": "Nueva conversación",
+      "search": "Buscar conversación",
+      "empty": "Aún no hay conversaciones",
+      "options": "Opciones",
+      "rename": "Renombrar",
+      "delete": "Eliminar",
+      "deleteConfirmTitle": "¿Eliminar \"{{title}}\"?",
+      "deleteConfirmDescription": "Se eliminará esta conversación de forma permanente. Esta acción no se puede deshacer.",
+      "extractFirstLabel": "Extraer memorias antes de eliminar",
+      "loading": "Cargando conversaciones…",
+      "extractMemories": "Extraer memorias",
+      "extractingMemories": "Extrayendo memorias…",
+      "memoriesExtracted_one": "{{count}} memoria nueva extraída",
+      "memoriesExtracted_other": "{{count}} memorias nuevas extraídas",
+      "noNewMemories": "No había nada nuevo que recordar",
+      "extractMemoriesError": "No se pudieron extraer memorias",
+      "pinnedGroup": "Fijados",
+      "pin": "Fijar",
+      "unpin": "Quitar fijado",
+      "pinError": "No se pudo fijar la conversación",
+      "reorderError": "No se pudo guardar el nuevo orden",
+      "importedFromCallLabel": "Importado de una Llamada"
+    },
+    "status": {
+      "thinking": "Pensando…",
+      "ready": "Lista"
+    },
+    "immersive": {
+      "enter": "Modo inmersivo",
+      "exit": "Salir del modo inmersivo"
+    },
+    "composer": {
+      "placeholder": "Escribe un mensaje…",
+      "send": "Enviar",
+      "stop": "Detener",
+      "attachImage": "Adjuntar imagen",
+      "attachImageDisabled": "Activa la visión en Configuración > Proveedores IA para adjuntar imágenes",
+      "removeImage": "Quitar imagen"
+    },
+    "message": {
+      "cancelled": "(cancelado)",
+      "thinking": "Pensando…",
+      "attachmentAlt": "Imagen adjunta",
+      "speak": "Reproducir en voz alta",
+      "stopSpeaking": "Detener"
+    },
+    "noConversationTitle": "¿De qué quieres hablar hoy con {{name}}?",
+    "noConversationDescription": "Elige una conversación de la lista o crea una nueva para empezar a chatear.",
+    "continueLast": "Continuar «{{title}}»",
+    "dictation": {
+      "start": "Dictar mensaje (mantén pulsado; desliza hacia arriba para fijar)",
+      "stop": "Detener y transcribir",
+      "transcribing": "Transcribiendo…",
+      "slideToLock": "Desliza hacia arriba para fijar la grabación",
+      "lockedHint": "Escuchando… pulsa Detener cuando termines",
+      "cancel": "Cancelar",
+      "empty": "No se entendió nada. Inténtalo de nuevo.",
+      "error": "No se pudo transcribir",
+      "startError": "No se pudo empezar a grabar"
+    }
+  },
+  "memory": {
+    "noProfileDescription": "Crea tu primer personaje en la pestaña Identidad para que empiece a tener memoria propia.",
+    "loading": "Cargando memorias…",
+    "search": "Buscar en las memorias",
+    "emptyTitle": "Todavía no hay memorias",
+    "emptyDescription": "Charla un poco con el personaje — extraerá memorias automáticamente cada pocos mensajes, o puedes añadir una a mano.",
+    "emptySearchTitle": "Sin resultados",
+    "emptySearchDescription": "Ninguna memoria coincide con esa búsqueda.",
+    "category": "Categoría",
+    "categories": {
+      "person": "Persona",
+      "preference": "Preferencia",
+      "event": "Evento",
+      "fact": "Hecho",
+      "other": "Otro"
+    },
+    "importance": "Importancia",
+    "importanceLabel": "Importancia: {{value}}",
+    "pin": "Fijar",
+    "unpin": "Quitar fijado",
+    "delete": "Eliminar",
+    "deleteConfirmTitle": "¿Eliminar \"{{title}}\"?",
+    "deleteConfirmDescription": "Se eliminará esta memoria de forma permanente. Esta acción no se puede deshacer.",
+    "showMore": "Ver detalle",
+    "showLess": "Ocultar detalle",
+    "fields": {
+      "title": "Título",
+      "summary": "Resumen",
+      "summaryHint": "La versión corta que el personaje recuerda en cada conversación — si la dejas vacía, se usa el detalle.",
+      "content": "Detalle",
+      "contentHint": "La versión más completa, para consultar más adelante — no hace falta que sea muy extensa."
+    },
+    "new": {
+      "title": "Nueva memoria",
+      "save": "Guardar"
+    },
+    "edit": {
+      "title": "Editar memoria"
+    },
+    "scope": {
+      "makePublic": "Hacer pública",
+      "makePrivate": "Hacer privada",
+      "publicBadge": "Pública",
+      "publicTitle": "También la usan Twitch y Discord. Las privadas solo las usan el Chat y la Llamada.",
+      "confirmTitle": "¿Hacer pública «{{title}}»?",
+      "confirmDescription": "Twitch y Discord podrán usar este recuerdo al responder, y cualquiera que escriba allí podría llegar a verlo reflejado en una respuesta. Puedes volver a hacerla privada cuando quieras."
+    }
+  },
+  "activity": {
+    "loading": "Cargando actividad…",
+    "emptyTitle": "Todavía no hay actividad",
+    "emptyDescription": "Aquí verás el registro en vivo de la app: respuestas generadas, búsquedas web, conexiones de cada canal.",
+    "emptyFilteredTitle": "Sin resultados",
+    "emptyFilteredDescription": "Ningún evento coincide con estos filtros.",
+    "levelFilter": "Nivel",
+    "categoryFilter": "Categoría",
+    "allLevels": "Todos los niveles",
+    "allCategories": "Todas las categorías",
+    "levels": {
+      "DEBUG": "Debug",
+      "INFO": "Info",
+      "WARNING": "Advertencia",
+      "ERROR": "Error",
+      "CRITICAL": "Crítico"
+    },
+    "durationLabel": "{{value}} ms",
+    "options": "Opciones",
+    "showSystemEvents": "Ver eventos del sistema",
+    "hideSystemEvents": "Ocultar eventos del sistema",
+    "clear": "Limpiar eventos",
+    "clearConfirmTitle": "¿Limpiar el registro de actividad?",
+    "clearConfirmDescription": "Se eliminará todo el registro de actividad. Esta acción no se puede deshacer.",
+    "clearError": "No se pudo limpiar el registro de actividad"
+  },
+  "identity": {
+    "loading": "Cargando personajes…",
+    "emptyTitle": "Crea tu primer personaje",
+    "emptyDescription": "Los personajes de Project Ciel son creados por ti — no hay ninguno predeterminado. Dale un nombre para empezar; podrás completar el resto después.",
+    "createFirst": "Crear personaje",
+    "defaultName": "Nuevo personaje",
+    "untitled": "Sin nombre",
+    "subtitle": "Identidad del personaje",
+    "changeAvatar": "Cambiar imagen de perfil",
+    "save": "Guardar",
+    "saving": "Guardando…",
+    "saved": "Cambios guardados",
+    "saveError": "No se pudieron guardar los cambios",
+    "avatarUpdated": "Imagen de perfil actualizada",
+    "avatarError": "No se pudo actualizar la imagen",
+    "duplicateSuffix": "{{name}} (copia)",
+    "duplicated": "Personaje duplicado",
+    "duplicateError": "No se pudo duplicar el personaje",
+    "exported": "Personaje exportado",
+    "exportError": "No se pudo exportar el personaje",
+    "exportConfirmTitle": "Exportar a {{name}}",
+    "exportConfirmDescription": "Se va a crear un archivo .aivtprofile con su identidad, personalidad, imagen de perfil y avatar reactivo (si tiene).",
+    "exportIncludeChatsLabel": "Incluir historial de chats",
+    "deleted": "Personaje eliminado",
+    "deleteError": "No se pudo eliminar el personaje",
+    "deleteConfirmTitle": "¿Eliminar a {{name}}?",
+    "deleteConfirmDescription": "Se eliminará su identidad y personalidad de forma permanente. Esta acción no se puede deshacer.",
+    "previewEmpty": "Escribe algo en Información o Personalidad para ver aquí el prompt generado.",
+    "actions": {
+      "import": "Importar",
+      "duplicate": "Duplicar",
+      "export": "Exportar",
+      "delete": "Eliminar"
+    },
+    "tabs": {
+      "info": "Información",
+      "lore": "Lore y relación",
+      "personality": "Personalidad",
+      "appearance": "Apariencia",
+      "preview": "Vista previa del prompt"
+    },
+    "fields": {
+      "name": "Nombre",
+      "nickname": "Apodo",
+      "pronouns": "Pronombres",
+      "ageFictional": "Edad (ficticia)",
+      "occupation": "Ocupación / rol",
+      "species": "Especie / fantasía",
+      "accentColor": "Color del perfil",
+      "description": "Descripción breve",
+      "lore": "Historia, mundo y contexto narrativo",
+      "relationshipToUser": "¿Quién eres para el usuario?",
+      "relationshipToUserHint": "Ej.: compañera, amiga, asistente, VTuber, compañera de streaming…",
+      "userRole": "¿Quién es el usuario para ti?",
+      "userRoleHint": "Escribe libremente cómo ve tu personaje al usuario.",
+      "speakingStyle": "Forma de hablar",
+      "specialInstructions": "Instrucciones especiales"
+    },
+    "personality": {
+      "freeDescription": "Descripción libre de la personalidad",
+      "freeDescriptionPlaceholder": "Describe con tus palabras cómo quieres que sea…",
+      "traits": {
+        "warmth": "Calidez",
+        "empathy": "Empatía",
+        "humor": "Humor",
+        "sarcasm": "Sarcasmo",
+        "formality": "Formalidad",
+        "curiosity": "Curiosidad",
+        "energy": "Energía",
+        "spontaneity": "Espontaneidad",
+        "initiative": "Iniciativa",
+        "affection": "Cariño",
+        "shyness": "Timidez",
+        "confidence": "Seguridad",
+        "expressiveness": "Expresividad",
+        "verbosity": "Verbosidad",
+        "flirtiness": "Coquetería",
+        "emotionalIntensity": "Intensidad emocional",
+        "teasingTendency": "Tendencia a bromear",
+        "questionTendency": "Tendencia a preguntar",
+        "initiateConversationTendency": "Tendencia a iniciar conversaciones"
+      }
+    }
+  },
+  "settings": {
+    "tabs": {
+      "general": "General",
+      "appearance": "Apariencia",
+      "aiProviders": "Proveedores IA",
+      "stt": "Transcripción de voz",
+      "tts": "Motor de voz",
+      "webSearch": "Búsqueda web",
+      "memory": "Memoria",
+      "privacy": "Privacidad",
+      "activity": "Actividad",
+      "credits": "Acerca de",
+      "backup": "Copia de seguridad",
+      "diagnostics": "Diagnóstico"
+    },
+    "appearance": {
+      "themeTitle": "Tema visual",
+      "themeDescription": "Elige un tema completo para el personaje activo, o déjalo sin tema y personaliza solo el acento.",
+      "customAccent": "Acento personalizado",
+      "customAccentDescription": "Reemplaza el color de acento del tema elegido (o del tema por defecto) por uno propio.",
+      "saveError": "No se pudo guardar el cambio",
+      "modeTitle": "Modo de color",
+      "mode": {
+        "dark": "Oscuro",
+        "light": "Claro",
+        "system": "Sistema"
+      },
+      "roundnessTitle": "Redondez",
+      "roundnessAuto": "Sigue el radio propio de cada tema.",
+      "roundnessCustom": "Se aplica a todos los temas, sin importar cuál elijas.",
+      "roundnessReset": "Restablecer",
+      "roundnessAngular": "Angular",
+      "roundnessRounded": "Redondeado",
+      "densityTitle": "Densidad de mensajes",
+      "density": {
+        "compact": "Compacto",
+        "normal": "Normal",
+        "spacious": "Espacioso"
+      },
+      "fontSizeTitle": "Tamaño de fuente",
+      "fontTitle": "Fuente"
+    },
+    "themePresets": {
+      "cozy": "Cozy",
+      "cyberpunk": "Cyberpunk",
+      "minimal": "Minimal",
+      "pastel": "Pastel",
+      "luxury": "Luxury",
+      "vaporwave": "Vaporwave",
+      "forest": "Forest",
+      "industrial": "Industrial",
+      "ocean": "Ocean",
+      "sakura": "Sakura",
+      "terminal": "Terminal",
+      "noir": "Noir",
+      "autumn": "Autumn",
+      "royal": "Royal",
+      "paper": "Paper"
+    },
+    "general": {
+      "avatar": "Tu foto",
+      "avatarDescription": "Se muestra junto a tus mensajes en el chat.",
+      "changeAvatar": "Cambiar tu foto",
+      "avatarUpdated": "Foto actualizada",
+      "avatarError": "No se pudo actualizar la foto",
+      "language": "Idioma",
+      "languageDescription": "Idioma de la interfaz de Project Ciel.",
+      "languageSaved": "Idioma actualizado",
+      "startWithSystem": "Iniciar con el sistema",
+      "startWithSystemDescription": "Abre Project Ciel automáticamente al iniciar sesión.",
+      "minimizeToTray": "Minimizar a la bandeja al cerrar",
+      "minimizeToTrayHint": "La X ya no cierra la app — solo la esconde y sigue funcionando en la bandeja del sistema. Para salir de verdad, click derecho en su ícono y elegí \"Salir\".",
+      "notifyProactive": "Notificaciones de mensajes espontáneos",
+      "notifyProactiveHint": "Una notificación de escritorio cuando el personaje te escribe por su cuenta.",
+      "voiceWhileHidden": "Reproducir voz estando en la bandeja",
+      "voiceWhileHiddenHint": "Por defecto la voz se silencia mientras la app está minimizada en la bandeja. Solo tiene efecto si \"Minimizar a la bandeja al cerrar\" está activado.",
+      "saveError": "No se pudo guardar el cambio"
+    },
+    "aiProviders": {
+      "loading": "Cargando proveedores…",
+      "title": "Proveedores de IA",
+      "description": "Conecta uno o más proveedores. Activa los que quieras poder elegir a mano, y fija los que quieras que el sistema use automáticamente si el que está en uso se queda sin créditos, alcanza su límite de uso o deja de responder — así la conversación nunca se corta.",
+      "addSectionTitle": "Agregar proveedor",
+      "addAction": "Agregar {{name}}",
+      "addOther": "Otro proveedor",
+      "empty": "Todavía no agregaste ningún proveedor — elige uno de arriba para empezar.",
+      "kinds": {
+        "openai": "OpenAI",
+        "anthropic": "Anthropic Claude",
+        "gemini": "Google Gemini",
+        "groq": "Groq",
+        "openrouter": "OpenRouter",
+        "cerebras": "Cerebras",
+        "mistral": "Mistral",
+        "deepseek": "DeepSeek",
+        "together": "Together AI",
+        "xai": "xAI Grok",
+        "sambanova": "SambaNova",
+        "generic": "Servidor local"
+      },
+      "inUse": "En uso",
+      "noModel": "Sin modelo configurado todavía",
+      "enable": "Activar",
+      "enableTitle": "Disponible para elegir a mano en cualquier momento.",
+      "pin": "Fijar",
+      "pinTitle": "Además de activo, entra en el cambio automático si el proveedor en uso se queda sin créditos, alcanza su límite o deja de responder.",
+      "useNow": "Usar ahora",
+      "edit": "Editar",
+      "remove": "Eliminar",
+      "editing": "Editando {{name}}",
+      "close": "Cerrar",
+      "name": "Nombre",
+      "connected": "Conectado",
+      "notConnected": "Sin conexión",
+      "baseUrl": "URL del servidor",
+      "model": "Modelo",
+      "modelPlaceholder": "nombre-del-modelo",
+      "apiKey": "API key",
+      "apiKeyStored": "Ya hay una guardada — déjalo en blanco para conservarla.",
+      "apiKeyPlaceholder": "Opcional en servidores locales",
+      "temperature": "Temperatura",
+      "maxTokens": "Máximo de tokens",
+      "latency": "Latencia: {{ms}} ms",
+      "modelsFound": "{{count}} modelos encontrados",
+      "modelAutoCorrected": "Se detectó un modelo distinto en el servidor — se seleccionó automáticamente \"{{model}}\".",
+      "visionAutoDetected": "Este modelo parece aceptar imágenes — se activó Visión automáticamente.",
+      "test": "Probar conexión",
+      "testing": "Probando…",
+      "testError": "No se pudo conectar",
+      "saved": "Configuración guardada",
+      "saveError": "No se pudo guardar la configuración",
+      "vision": "Visión (imágenes)",
+      "visionHint": "Actívalo solo si el modelo cargado en el servidor acepta imágenes — no se detecta automáticamente.",
+      "keyHints": {
+        "openai": "Crea tu clave en platform.openai.com/api-keys.",
+        "anthropic": "Crea tu clave en console.anthropic.com/settings/keys.",
+        "gemini": "Consíguela en aistudio.google.com/apikey — el plan gratuito tiene límites de uso.",
+        "groq": "Consíguela en console.groq.com/keys — tiene plan gratuito con límites de uso.",
+        "openrouter": "Consíguela en openrouter.ai/keys — los modelos cuyo nombre termina en «:free» no tienen costo.",
+        "cerebras": "Consíguela en cloud.cerebras.ai — tiene plan gratuito con límites de uso.",
+        "mistral": "Consíguela en console.mistral.ai/api-keys — el plan «Experiment» es gratuito con límites.",
+        "deepseek": "Crea tu clave en platform.deepseek.com/api_keys — es de pago (saldo prepago).",
+        "together": "Consíguela en api.together.ai/settings/api-keys.",
+        "xai": "Consíguela en console.x.ai — es de pago por uso.",
+        "sambanova": "Consíguela en cloud.sambanova.ai/apis — ofrece un plan gratuito con límites (revisa sus condiciones actuales)."
+      },
+      "preferred": "Preferido",
+      "preferredTitle": "Se vuelve a este proveedor solo cuando responda de nuevo.",
+      "local": "Local",
+      "cloud": "Nube",
+      "localTitle": "Corre en tu propia red: lo que se le manda no sale a internet.",
+      "cloudTitle": "Es un servicio en internet: lo que se le manda sale de tu equipo.",
+      "privacy": {
+        "title": "Privacidad de este proveedor",
+        "localNote": "Corre en tu red: este ajuste solo importa si lo apuntas a un servidor remoto.",
+        "cloudNote": "Es un servicio en la nube: elige qué datos tuyos puede recibir.",
+        "visionOff": "Desactivado: en el modo mínimo no se mandan imágenes.",
+        "modes": {
+          "full": {
+            "label": "Completo",
+            "badge": "Privacidad completa",
+            "hint": "Recibe la conversación y todo lo que el personaje recuerda de ti (recuerdos privados y públicos), su estado de ánimo y las imágenes que adjuntes."
+          },
+          "public_only": {
+            "label": "Solo recuerdos públicos",
+            "badge": "Solo recuerdos públicos",
+            "hint": "Recibe la conversación, el estado de ánimo y las imágenes, pero de tus recuerdos solo los marcados como públicos. No puede fusionar memorias."
+          },
+          "minimal": {
+            "label": "Mínimo",
+            "badge": "Privacidad mínima",
+            "hint": "Recibe solo la conversación: ni recuerdos, ni estado de ánimo, ni imágenes. No puede fusionar memorias. Lo que escribes en el chat sí le llega: sin eso no podría responder."
+          }
+        }
+      },
+      "usage": {
+        "title": "Uso",
+        "description": "Cuánto se ha usado cada proveedor. Son cifras de este equipo; nunca se guarda el texto de tus mensajes.",
+        "period": "Periodo",
+        "periods": {
+          "today": "Hoy",
+          "last7_days": "Últimos 7 días",
+          "last30_days": "Últimos 30 días",
+          "all": "Todo"
+        },
+        "empty": "Todavía no hay uso en este periodo.",
+        "requests_one": "{{count}} petición",
+        "requests_other": "{{count}} peticiones",
+        "tokens": "≈ {{input}} tokens enviados · ≈ {{output}} recibidos",
+        "errors_one": "{{count}} fallo",
+        "errors_other": "{{count}} fallos",
+        "lastUsed": "último uso {{date}}",
+        "lastError": "Último error: {{message}}",
+        "estimateNote": "Los tokens son una estimación a partir del texto, no lo que factura el proveedor.",
+        "reset": "Reiniciar",
+        "resetConfirmTitle": "¿Reiniciar el uso?",
+        "resetConfirmDescription": "Se borran las cifras de uso de todos los proveedores. No afecta a tus conversaciones ni a la configuración.",
+        "loadError": "No se pudo cargar el uso",
+        "resetError": "No se pudo reiniciar el uso"
+      }
+    },
+    "tts": {
+      "loading": "Cargando proveedores…",
+      "title": "Motor de voz",
+      "description": "Conecta uno o más proveedores de voz. Activa los que quieras tener disponibles y usa \"Usar ahora\" para elegir cuál habla en este momento — la voz nativa del sistema siempre está lista, sin configurar nada.",
+      "addSectionTitle": "Agregar proveedor",
+      "addAction": "Agregar {{name}}",
+      "addOther": "Otro proveedor",
+      "kinds": {
+        "elevenlabs": "ElevenLabs",
+        "openai": "OpenAI",
+        "google": "Google Cloud",
+        "azure": "Azure Speech",
+        "fishaudio": "Fish Audio",
+        "deepgram": "Deepgram",
+        "groq": "Groq",
+        "together": "Together AI",
+        "http": "Servidor genérico"
+      },
+      "inUse": "En uso",
+      "alwaysAvailable": "Siempre disponible — no necesita configuración.",
+      "enable": "Activar",
+      "enableTitle": "Disponible para elegir a mano en cualquier momento.",
+      "useNow": "Usar ahora",
+      "edit": "Editar",
+      "remove": "Eliminar",
+      "editing": "Editando {{name}}",
+      "close": "Cerrar",
+      "name": "Nombre",
+      "baseUrl": "URL del servidor",
+      "region": "Región",
+      "regionHint": "Región de Azure donde creaste el recurso de Speech — por ejemplo \"eastus\".",
+      "apiKey": "API key",
+      "apiKeyStored": "Ya hay una guardada — déjalo en blanco para conservarla.",
+      "apiKeyPlaceholder": "Opcional en servidores locales",
+      "connected": "Conectado",
+      "notConnected": "Sin conexión",
+      "voicesFound": "{{count}} voces encontradas",
+      "testPhrase": "Esto es una prueba de conexión de voz.",
+      "test": "Probar conexión",
+      "testing": "Probando…",
+      "testError": "No se pudo conectar",
+      "testPlayedHint": "Deberías haber escuchado un audio de prueba por los parlantes.",
+      "saved": "Configuración guardada",
+      "saveError": "No se pudo guardar la configuración",
+      "keyHints": {
+        "elevenlabs": "Consíguela en elevenlabs.io/app/settings/api-keys.",
+        "openai": "Crea tu clave en platform.openai.com/api-keys — es de pago.",
+        "google": "Activa la API Cloud Text-to-Speech en tu proyecto de Google Cloud y crea una clave en console.cloud.google.com/apis/credentials.",
+        "azure": "Crea un recurso Speech en portal.azure.com y usa su clave junto con su región.",
+        "fishaudio": "Consíguela en fish.audio (sección API). En la pestaña Voz pega el ID de la voz — está en la URL de su página; si lo dejas vacío usa la voz por defecto.",
+        "deepgram": "Consíguela en console.deepgram.com. En la pestaña Voz escribe el modelo de voz, por ejemplo «aura-2-thalia-en»; si lo dejas vacío usa ese.",
+        "groq": "Consíguela en console.groq.com/keys. La voz de Groq (Orpheus) solo habla inglés (y árabe saudí) y acepta 200 caracteres por petición: los mensajes largos se dividen y se unen solos, pero gastan varias peticiones.",
+        "together": "Consíguela en api.together.ai/settings/api-keys. Su voz por defecto (Orpheus) está pensada para inglés; otros modelos como Kokoro tienen otras voces."
+      },
+      "model": "Modelo",
+      "modelHints": {
+        "fishaudio": "Vacío usa «s2.1-pro-free»: gratuito para pruebas, sin crédito de API (hasta el 30/11/2026; Fish Audio puede usar las peticiones para mejorar su modelo). Para uso real escribe «s2.1-pro».",
+        "groq": "Vacío usa «canopylabs/orpheus-v1-english». Para árabe saudí escribe «canopylabs/orpheus-arabic-saudi».",
+        "together": "Vacío usa «canopylabs/orpheus-3b-0.1-ft». Otros modelos de su catálogo: «hexgrad/Kokoro-82M», etc. — cambia también la voz."
+      }
+    },
+    "webSearch": {
+      "loading": "Cargando configuración…",
+      "title": "Búsqueda web para el personaje",
+      "description": "Permite que el personaje busque en la web para responder preguntas que necesitan un dato actual — clima, hora en otro país, noticias. Se aplica en Chat, Twitch, Discord y Llamada.",
+      "enable": "Activar búsqueda web",
+      "networkHint": "Con esto activado, esos canales pueden necesitar conexión a Internet para responder algunas preguntas.",
+      "apiKey": "API key de Brave Search",
+      "apiKeyStored": "Ya hay una guardada — déjalo en blanco para conservarla.",
+      "apiKeyHint": "Consíguela gratis en brave.com/search/api",
+      "apiKeyPlaceholder": "Pega tu API key de Brave",
+      "saved": "Configuración guardada",
+      "saveError": "No se pudo guardar la configuración"
+    },
+    "stt": {
+      "loading": "Cargando configuración…",
+      "title": "Transcripción de voz",
+      "description": "La transcripción de tu voz para la Llamada IA corre integrada en la app — no necesitas instalar ni configurar ningún servidor externo. Descarga un modelo una vez y ya funciona sin conexión.",
+      "sizeLabel": {
+        "tiny": "Tiny",
+        "base": "Base",
+        "small": "Small",
+        "medium": "Medium"
+      },
+      "sizeHint": {
+        "tiny": "La más rápida, precisión limitada — útil en equipos modestos.",
+        "base": "Buen equilibrio entre velocidad y precisión.",
+        "small": "Más precisa, algo más lenta — recomendada para la mayoría.",
+        "medium": "La más precisa, requiere más tiempo por respuesta."
+      },
+      "approxSize": "~{{size}} MB",
+      "gpuToggle": "Usar aceleración GPU (Vulkan)",
+      "gpuToggleHint": "Funciona en cualquier GPU (NVIDIA, AMD, Intel) sin drivers aparte. Si no detecta una GPU compatible, usa CPU automáticamente.",
+      "download": "Descargar",
+      "downloading": "Descargando…",
+      "downloaded": "Descargado",
+      "active": "Activo",
+      "select": "Seleccionar",
+      "delete": "Eliminar",
+      "downloadError": "No se pudo descargar el modelo",
+      "saveError": "No se pudo guardar la configuración",
+      "dictationAutoSend": "Enviar automáticamente lo dictado",
+      "dictationAutoSendHint": "Al detener la grabación del micrófono del chat, el texto transcrito se envía solo. Si está apagado, queda en el cuadro para que lo revises antes de enviarlo."
+    },
+    "memory": {
+      "loading": "Cargando…",
+      "title": "Búsqueda semántica de memoria",
+      "description": "Descarga un modelo local para que la búsqueda de memoria entienda el significado de lo que preguntas, no solo las palabras exactas. Corre integrado en la app y sin conexión, una vez descargado.",
+      "approxSize": "~{{size}} MB",
+      "download": "Descargar",
+      "downloading": "Descargando…",
+      "downloaded": "Descargado",
+      "delete": "Eliminar",
+      "downloadError": "No se pudo descargar el modelo",
+      "backfillHint": "Las memorias que ya tenías antes de descargar el modelo no se van a encontrar por significado hasta que las rellenes una vez.",
+      "backfill": "Rellenar memorias antiguas",
+      "backfilling": "Rellenando…",
+      "backfillProgress": "{{embedded}} / {{total}} memorias",
+      "backfillError": "No se pudo completar el relleno de memorias",
+      "fusionTitle": "Fusionar memorias",
+      "fusionHint": "La IA revisa las memorias del personaje y propone combinar las que sean redundantes o hablen de lo mismo — tú decides cuáles aplicar antes de que se borre nada.",
+      "fusionButton": "Fusionar memorias",
+      "fusionDialogTitle": "Revisar fusión de memorias",
+      "fusionAnalyzing": "Analizando memorias…",
+      "fusionEmptyTitle": "No se encontraron memorias para fusionar",
+      "fusionEmptyDescription": "Todas las memorias actuales parecen lo bastante distintas entre sí.",
+      "fusionIncludeGroup": "Incluir este grupo",
+      "fusionConfirm": "Fusionar {{count}}",
+      "fusionApplied": "Se fusionaron {{count}} grupos de memorias",
+      "fusionError": "No se pudo completar la fusión de memorias"
+    },
+    "privacy": {
+      "loading": "Cargando…",
+      "title": "Registro de personas",
+      "description": "La app aprende nombres de personas reales (de tus conversaciones y de los chats de Twitch y Discord conectados) para reconocerlos mejor al hablar por voz. Los personajes de IA que crees se agregan aquí automáticamente. Todo se guarda localmente, nunca se envía a ningún servidor.",
+      "twitchAutoLearn": "Aprender nombres del chat de Twitch automáticamente",
+      "twitchAutoLearnHint": "Cada persona que escribe en tu chat conectado se registra por su nombre — se puede desactivar en cualquier momento.",
+      "discordAutoLearn": "Aprender nombres del servidor de Discord automáticamente",
+      "discordAutoLearnHint": "Cada persona que escribe en tu servidor de Discord conectado se registra por su nombre — se puede desactivar en cualquier momento.",
+      "chatAudio": {
+        "title": "Guardar audio de los mensajes",
+        "hint": "Guarda el audio del Chat para reescucharlo después sin regenerarlo. Solo funciona con ElevenLabs o Servidor HTTP — las voces nativas del sistema no generan un archivo guardable.",
+        "retentionLabel": "Borrar automáticamente después de",
+        "retentionOneDay": "1 día",
+        "retentionOneWeek": "1 semana",
+        "retentionOneMonth": "1 mes",
+        "retentionTwoMonths": "2 meses",
+        "retentionThreeMonths": "3 meses",
+        "retentionSixMonths": "6 meses",
+        "loadError": "No se pudo cargar la configuración de audio guardado",
+        "saveError": "No se pudo guardar la configuración de audio guardado"
+      },
+      "peopleTitle": "Personas registradas",
+      "addPerson": "Agregar persona",
+      "empty": "Todavía no hay personas registradas",
+      "emptyHint": "Aparecerán aquí a medida que las menciones en conversaciones o en los chats de Twitch y Discord.",
+      "name": "Nombre",
+      "roleLabel": "Relación",
+      "role": {
+        "self": "Tú",
+        "nickname": "Tu apodo",
+        "ai": "Personaje de IA",
+        "friend": "Amigo/a",
+        "twitch_chatter": "Chat de Twitch",
+        "discord_chatter": "Chat de Discord"
+      },
+      "delete": "Eliminar",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "saveError": "No se pudo guardar el cambio"
+    },
+    "credits": {
+      "version": "Versión {{version}}",
+      "loading": "Cargando versión…",
+      "tagline": "Tu compañera de IA para chatear, hablar y hacer streaming, con tus datos siempre contigo.",
+      "builtWith": "Creado con",
+      "madeWithClaude": "Desarrollado con la ayuda de Claude, de Anthropic",
+      "authorTitle": "Creador y autor",
+      "website": "Sitio web",
+      "supportDescription": "Si Project Ciel te gusta, puedes apoyar su desarrollo.",
+      "supportAction": "Invítame a un café en Ko-fi",
+      "thanksTitle": "Agradecimientos",
+      "koreanReview": "Verificó que la traducción al coreano es lo suficientemente correcta para el uso.",
+      "legalTitle": "Legal",
+      "eula": "Acuerdo de uso",
+      "thirdParty": "Licencias de terceros"
+    },
+    "backup": {
+      "createTitle": "Crear una copia de seguridad",
+      "createDescription": "Guarda todo lo tuyo en un solo archivo, para recuperarlo si cambias de equipo o algo sale mal.",
+      "includes": "Incluye: personajes, chats, memorias, ajustes, adjuntos y avatares.",
+      "excludesSecrets": "No incluye tus API keys ni los tokens de Twitch/Discord: por seguridad se quedan en el almacén seguro de este equipo. Tendrás que volver a escribirlos si restauras en otro equipo.",
+      "excludesDownloads": "Tampoco incluye los modelos descargados (voz, memoria semántica), que se pueden volver a descargar.",
+      "createAction": "Crear copia de seguridad",
+      "working": "Trabajando…",
+      "created": "Copia de seguridad creada",
+      "createdDetail": "{{size}} · {{files}} archivos de adjuntos y avatares",
+      "createError": "No se pudo crear la copia",
+      "restoreTitle": "Restaurar desde una copia",
+      "restoreDescription": "Elige un archivo de copia de seguridad. Antes de cambiar nada se comprueba que esté íntegro, y tus datos actuales se conservan aparte.",
+      "restoreAction": "Restaurar desde un archivo…",
+      "restoreError": "No se pudo restaurar la copia",
+      "confirmTitle": "¿Restaurar esta copia?",
+      "confirmDescription": "Copia del {{date}} ({{files}} archivos de adjuntos y avatares, {{size}}). Se reemplazarán tus datos actuales por los de la copia; los actuales se guardan en la carpeta «pre-restore» dentro de los datos de la app. La app se reiniciará.",
+      "confirmAction": "Restaurar y reiniciar"
+    },
+    "diagnostics": {
+      "title": "Centro de diagnóstico",
+      "description": "El estado de la app de un vistazo: qué funciona, qué no y por qué.",
+      "overall": {
+        "ok": "Todo en orden",
+        "info": "Todo en orden",
+        "warning": "Hay avisos",
+        "error": "Hay problemas"
+      },
+      "running": "Comprobando…",
+      "refresh": "Volver a comprobar",
+      "copy": "Copiar informe",
+      "save": "Guardar informe…",
+      "copied": "Informe copiado",
+      "copyError": "No se pudo copiar el informe",
+      "saved": "Informe guardado",
+      "saveError": "No se pudo guardar el informe",
+      "runError": "No se pudo ejecutar el diagnóstico",
+      "noSecrets": "El informe nunca incluye API keys ni tokens: solo dice si hay una guardada. Es seguro compartirlo para pedir ayuda.",
+      "generatedAt": "Comprobado el {{date}}",
+      "checksTitle": "Comprobaciones",
+      "servicesTitle": "Servicios",
+      "aiTitle": "IA, voz y modelos",
+      "databaseTitle": "Base de datos",
+      "storageTitle": "Almacenamiento",
+      "systemTitle": "Sistema",
+      "problemsTitle": "Problemas recientes",
+      "noProblems": "No hay avisos ni errores recientes.",
+      "serviceNames": {
+        "twitch": "Twitch",
+        "discord": "Discord",
+        "call": "Llamada",
+        "proactive": "Modo proactivo",
+        "avatar_server": "Avatar para OBS"
+      },
+      "serviceStatus": {
+        "stopped": "Detenido",
+        "starting": "Iniciando",
+        "running": "En marcha",
+        "error": "Con error",
+        "stopping": "Deteniendo"
+      },
+      "inUse": "en uso",
+      "ready": "listo",
+      "notReady": "sin configurar",
+      "pausedFor": "en pausa {{seconds}} s",
+      "voice": "Voz",
+      "available": "disponible",
+      "transcription": "Transcripción",
+      "semanticSearch": "Búsqueda semántica",
+      "downloaded": "descargado",
+      "notDownloaded": "sin descargar",
+      "integrity": "Integridad",
+      "integrityOk": "correcta",
+      "integrityBad": "con errores",
+      "schema": "Versión del esquema",
+      "size": "Tamaño",
+      "tables": {
+        "profiles": "Personajes",
+        "conversations": "Conversaciones",
+        "messages": "Mensajes",
+        "memories": "Memorias",
+        "people": "Personas",
+        "activity_events": "Eventos de actividad"
+      },
+      "attachments": "Adjuntos",
+      "avatars": "Avatares",
+      "models": "Modelos descargados",
+      "logs": "Registros (logs)",
+      "preRestore": "Datos previos a una restauración",
+      "version": "Versión de la app",
+      "system": "Sistema",
+      "dataDir": "Carpeta de datos",
+      "checks": {
+        "unknown": "Comprobación «{{id}}».",
+        "database_integrity": {
+          "ok": "La base de datos está íntegra.",
+          "error": "La base de datos tiene errores: {{message}}. Haz una copia de seguridad y considera restaurar una anterior."
+        },
+        "database_schema": {
+          "ok": "El esquema de la base de datos está al día.",
+          "warning": "El esquema de la base es {{version}} y esta app espera {{latest}}."
+        },
+        "llm_ready": {
+          "default": "El proveedor de IA en uso está listo."
+        },
+        "llm_not_ready": {
+          "default": "Ningún proveedor de IA está listo para responder. Configura uno en Proveedores IA (modelo y, si es de nube, API key)."
+        },
+        "llm_current_not_ready": {
+          "default": "El proveedor en uso, {{label}}, no está bien configurado (falta el modelo o la API key)."
+        },
+        "llm_cooling_down": {
+          "default": "{{label}} falló hace poco y está en pausa unos {{seconds}} s; mientras tanto se usa otro proveedor si lo hay."
+        },
+        "llm_no_current": {
+          "default": "No hay un proveedor de IA en uso. Elige uno en Proveedores IA."
+        },
+        "llm_no_fallback": {
+          "default": "Solo hay un proveedor de IA listo: si falla, no hay otro al que pasar solo. Fija otro en Proveedores IA."
+        },
+        "tts_ready": {
+          "default": "El motor de voz está listo."
+        },
+        "tts_missing_key": {
+          "default": "El motor de voz {{label}} necesita una API key y no tiene ninguna."
+        },
+        "service_error": {
+          "default": "El servicio «{{name}}» está en error. Revisa su configuración o la pestaña Actividad."
+        },
+        "stt_model_missing": {
+          "default": "El modelo de transcripción «{{size}}» no está descargado: el dictado y la Llamada no podrán entender tu voz hasta que lo descargues."
+        },
+        "embedding_missing": {
+          "default": "El modelo de búsqueda semántica no está descargado: la memoria busca solo por palabras exactas. Es opcional."
+        },
+        "recent_errors": {
+          "default": "Hay {{count}} error(es) recientes en la actividad; mira «Problemas recientes» más abajo."
+        },
+        "pre_restore_leftover": {
+          "default": "Hay {{size}} de datos de antes de una restauración en la carpeta «pre-restore». Puedes borrarla a mano para liberar espacio cuando estés seguro."
+        }
+      }
+    }
+  },
+  "onboarding": {
+    "back": "Atrás",
+    "continue": "Continuar",
+    "start": "Comenzar",
+    "finishCta": "Empezar a usar Project Ciel",
+    "skipAll": "Omitir todo",
+    "stepIndicator": "Paso {{current}} de {{total}}",
+    "intro": {
+      "title": "Bienvenido a Project Ciel",
+      "description": "Vamos a configurar lo esencial en unos pocos pasos — puedes omitir cualquiera y ajustarlo después desde Configuración."
+    },
+    "language": {
+      "title": "Elige tu idioma",
+      "description": "Se aplica a toda la app, incluyendo lo que Ciel entiende y responde."
+    },
+    "appearance": {
+      "title": "Personaliza la apariencia",
+      "description": "Modo claro u oscuro, redondez, densidad y tipografía — se guarda al instante."
+    },
+    "aiProvider": {
+      "title": "Conecta tu proveedor de IA",
+      "description": "Project Ciel necesita un servidor compatible con OpenAI (por ejemplo LM Studio) para poder responder."
+    },
+    "sttVoice": {
+      "title": "Reconocimiento de voz (opcional)",
+      "description": "Descarga un modelo local si quieres hablarle a Ciel en vez de escribir."
+    },
+    "ttsVoice": {
+      "title": "Síntesis de voz (opcional)",
+      "description": "Configura cómo suena Ciel al responder por voz."
+    },
+    "character": {
+      "title": "Crea tu primer personaje",
+      "description": "Los personajes de Project Ciel son creados por ti — dale un nombre para empezar.",
+      "nameLabel": "Nombre del personaje",
+      "create": "Crear personaje",
+      "alreadyHave": "Ya tienes un personaje: {{name}}"
+    },
+    "finish": {
+      "title": "Todo listo",
+      "description": "Puedes ajustar cualquiera de estas preferencias más tarde desde Configuración."
+    },
+    "importConfirmTitle": "¿Importar \"{{name}}\"?",
+    "importConfirmDescription": "Se va a crear un personaje nuevo a partir de este archivo, con su identidad, personalidad, imagen de perfil, avatar reactivo y chats (los que incluya).",
+    "importConfirmAction": "Importar",
+    "importSuccess": "Se importó \"{{name}}\"",
+    "importError": "No se pudo importar el archivo"
+  },
+  "voice": {
+    "loading": "Cargando voz…",
+    "emptyTitle": "Todavía no hay un personaje configurado",
+    "emptyDescription": "Crea tu primer personaje en la pestaña Identidad para configurar su voz.",
+    "subtitle": "Configuración de voz de este personaje",
+    "muteAll": "Silenciar voz",
+    "unmuteAll": "Activar voz",
+    "muteError": "No se pudo cambiar el silencio",
+    "saved": "Voz guardada",
+    "saveError": "No se pudo guardar la voz",
+    "loadError": "No se pudo cargar la configuración de voz",
+    "testVoice": "Probar voz",
+    "stopPreview": "Detener",
+    "previewError": "No se pudo reproducir la voz",
+    "previewDefaultText": "Hola, soy {{name}}. Así sueno con esta configuración.",
+    "fields": {
+      "enabled": "Leer respuestas en voz alta",
+      "enabledHint": "Reproduce automáticamente cada respuesta del chat con esta voz.",
+      "voice": "Voz",
+      "voiceDefault": "Voz predeterminada del sistema",
+      "voiceHintFreeText": "Este proveedor no permite listar voces — escribe el id que espera.",
+      "voiceFreeTextPlaceholder": "p. ej. alloy",
+      "rate": "Velocidad",
+      "pitch": "Tono",
+      "pitchHintExternal": "Este proveedor no soporta ajustar el tono — este valor se ignora.",
+      "volume": "Volumen",
+      "volumeHintExternal": "Este proveedor no soporta ajustar el volumen — este valor se ignora.",
+      "previewText": "Texto de prueba",
+      "voiceCustomId": "ID de voz personalizado",
+      "voiceCustomIdHint": "Si tu voz no aparece en la lista, pega aquí su ID (está en la URL de su página en fish.audio).",
+      "voiceSearch": "Buscar voz en Fish Audio",
+      "voiceSearchHint": "Busca por nombre en su catálogo público y pulsa una para elegirla.",
+      "voiceSearchPlaceholder": "p. ej. narrador, anime, español…",
+      "voiceSearchError": "No se pudo buscar voces.",
+      "voiceSearchEmpty": "Sin resultados."
+    }
+  },
+  "mood": {
+    "label": "Estado de ánimo",
+    "hint": "Cómo está el personaje ahora mismo — cambia solo con la conversación y el tiempo, distinto de su personalidad (fija).",
+    "resetButton": "Reiniciar",
+    "resetSuccess": "Estado de ánimo reiniciado",
+    "resetError": "No se pudo reiniciar el estado de ánimo",
+    "states": {
+      "neutral": "Neutral",
+      "lowLow": "Decaída",
+      "lowMid": "De bajón",
+      "lowHigh": "Irritable",
+      "midLow": "Tranquila",
+      "midHigh": "Activa",
+      "highLow": "Relajada y contenta",
+      "highMid": "De buen humor",
+      "highHigh": "Eufórica"
+    }
+  },
+  "proactive": {
+    "label": "Modo proactivo",
+    "hint": "Deja que el personaje te escriba por su cuenta de vez en cuando, según cuánto hace que no hablan, su ánimo y sus recuerdos — nunca más de una vez cada varias horas.",
+    "toggleError": "No se pudo cambiar el modo proactivo"
+  },
+  "avatar": {
+    "loading": "Cargando avatar…",
+    "emptyTitle": "Todavía no hay un personaje configurado",
+    "emptyDescription": "Crea tu primer personaje en la pestaña Identidad para configurar su avatar.",
+    "subtitle": "Avatar reactivo de este personaje",
+    "statesTitle": "Imágenes por estado",
+    "statesHint": "Sube una imagen para cada estado — si falta alguna, se usa la foto de perfil del personaje mientras tanto.",
+    "states": {
+      "idle": "En reposo",
+      "thinking": "Pensando",
+      "talking": "Hablando"
+    },
+    "noImage": "Sin imagen",
+    "stateImageUpdated": "Imagen actualizada",
+    "stateImageError": "No se pudo actualizar la imagen",
+    "live": "En vivo: {{state}}",
+    "obsSectionTitle": "Fuente OBS",
+    "obsHint": "Activa esto y pega la URL en una fuente de navegador (Browser Source) de OBS — reacciona en vivo sin necesidad de capturar una ventana.",
+    "obsEnable": "Activar fuente de navegador para OBS",
+    "obsCopyUrl": "Copiar URL",
+    "obsCopied": "URL copiada",
+    "obsServerError": "No se pudo iniciar el servidor del avatar"
+  },
+  "call": {
+    "loading": "Cargando Llamada…",
+    "emptyTitle": "Todavía no hay un personaje configurado",
+    "emptyDescription": "Crea tu primer personaje en la pestaña Identidad para hablar con él por voz.",
+    "settingsTitle": "Ajustes de la llamada",
+    "policyTitle": "Llamada de voz",
+    "policyDescription": "Habla con el personaje activo en tiempo real por micrófono.",
+    "startCall": "Empezar llamada",
+    "end": "Colgar",
+    "mute": "Silenciar micrófono",
+    "unmute": "Activar micrófono",
+    "muted": "Silenciado",
+    "saving": "Guardando…",
+    "saveError": "No se pudo guardar la configuración",
+    "toggleError": "No se pudo iniciar/terminar la llamada",
+    "exportToChat": "Exportar a Chat",
+    "exportedToChat": "Llamada exportada a Chat",
+    "exportError": "No se pudo exportar la llamada",
+    "status": {
+      "stopped": "Sin conectar",
+      "starting": "Iniciando…",
+      "running": "En llamada",
+      "error": "Error",
+      "stopping": "Terminando…"
+    },
+    "callState": {
+      "idle": "Esperando",
+      "listening": "Escuchando",
+      "transcribing": "Transcribiendo",
+      "thinking": "Pensando",
+      "speaking": "Hablando",
+      "error": "Error"
+    },
+    "indicators": {
+      "you": "Tú",
+      "character": "Personaje"
+    },
+    "fields": {
+      "microphone": "Micrófono",
+      "microphoneDefault": "Usar el predeterminado del sistema",
+      "responseMode": "Cuándo responde el personaje",
+      "responseModeAll": "Siempre que detecte que hablas",
+      "responseModeWakePhrase": "Solo cuando lo llames",
+      "responseModeWakePhraseHint": "Útil para dejar la llamada abierta mientras juegas o transmites, sin que el personaje responda a todo lo que digas.",
+      "wakePhrase": "Frase para llamarlo",
+      "wakePhraseHint": "Déjalo en blanco para usar el nombre o apodo del personaje (configurados en Identidad) como la frase.",
+      "wakePhrasePlaceholder": "Por ejemplo: oye Ciel",
+      "vadMode": "Sensibilidad del micrófono",
+      "vadModeHint": "Qué tan estricto es filtrando ruido de fondo al detectar tu voz — más estricto evita falsos positivos, pero puede perderse voz baja.",
+      "vadModeQuality": "Baja (más sensible, capta más ruido)",
+      "vadModeLowBitrate": "Media-baja",
+      "vadModeAggressive": "Media-alta (recomendada)",
+      "vadModeVeryAggressive": "Alta (más estricta, menos falsos positivos)",
+      "silenceTimeout": "Espera antes de responder (milisegundos)",
+      "silenceTimeoutHint": "Cuánto silencio tiene que pasar para considerar que terminaste de hablar.",
+      "micLevelHint": "Habla y comprueba que la barra se mueve: así sabes que se oye el micrófono elegido.",
+      "micLevelError": "No se pudo abrir el micrófono para medir su nivel.",
+      "speaker": "Salida de audio de las voces",
+      "speakerDefault": "Usar la predeterminada del sistema",
+      "speakerHint": "Dónde suena la voz del personaje. No afecta a la voz del sistema (la gratuita de Windows), que siempre sale por la salida predeterminada. Cambiarla corta lo que esté sonando.",
+      "echoGuard": "Uso altavoces",
+      "echoGuardHint": "Mientras el personaje habla, el micrófono se ignora para que no se escuche a sí mismo ni se interrumpa sola. Con auriculares déjalo apagado: así puedes interrumpirla hablando."
+    },
+    "feedTitle": "Transcripción",
+    "feedEmpty": "Empieza la llamada y habla para ver la transcripción aquí.",
+    "characterLabel": "Personaje",
+    "userLabel": "Tú",
+    "errorLabel": "Error",
+    "micLevel": "Nivel del micrófono"
+  },
+  "twitch": {
+    "loading": "Cargando Twitch…",
+    "connectionTitle": "Cuenta de Twitch",
+    "connectionDescription": "Conecta la cuenta que va a hablar en el chat.",
+    "connectedAs": "Conectado como {{channel}}",
+    "notConnected": "Sin conectar",
+    "saveError": "No se pudo guardar",
+    "connect": "Conectar cuenta",
+    "connecting": "Esperando autorización en el navegador…",
+    "connectError": "No se pudo conectar la cuenta",
+    "connected": "Cuenta conectada",
+    "disconnect": "Desconectar",
+    "disconnectError": "No se pudo desconectar",
+    "disconnected": "Cuenta desconectada",
+    "targetChannel": "Canal al que se une",
+    "targetChannelHint": "Escribe aquí el canal donde quieres que responda, dale \"/mod\" si gustas. Si está vacío responde en su propia cuenta. Para un bot dedicado, conecta una cuenta propia para el bot.",
+    "targetChannelRestartNote": "Detén la escucha para cambiar el canal — el cambio no se aplica en vivo.",
+    "targetChannelPlaceholder": "Nombre de tu canal de Twitch (vacío = el propio de la cuenta conectada)",
+    "targetChannelSaved": "Canal guardado",
+    "policyTitle": "Cuándo responde el personaje",
+    "policyDescription": "El personaje nunca responde a mensajes de la propia cuenta conectada. Para probar las respuestas en el chat real, escribe desde otra cuenta, o usa \"Probar respuesta\" más abajo.",
+    "startListening": "Empezar a escuchar",
+    "stopListening": "Dejar de escuchar",
+    "toggleError": "No se pudo cambiar el estado de la conexión",
+    "saving": "Guardando…",
+    "settingsTitle": "Ajustes de Twitch",
+    "pauseResponses": "Pausar respuestas",
+    "resumeResponses": "Reanudar respuestas",
+    "pausedStatus": "Pausado",
+    "status": {
+      "stopped": "Detenido",
+      "starting": "Conectando…",
+      "running": "Escuchando",
+      "error": "Error",
+      "stopping": "Deteniendo…"
+    },
+    "fields": {
+      "responseMode": "Modo de respuesta",
+      "responseModeMentioned": "Solo cuando lo mencionan",
+      "responseModeMentionedHint": "El personaje responde cuando alguien escribe su nombre o apodo (configurados en Identidad) en el chat.",
+      "responseModeAll": "A todos los mensajes",
+      "cooldown": "Espera mínima entre respuestas (segundos)",
+      "cooldownHint": "Evita que el personaje responda demasiado seguido en un chat activo."
+    },
+    "feedEmpty": "Todavía no ha llegado ningún mensaje.",
+    "emptyFeedTitle": "Conecta tu cuenta para ver el chat",
+    "emptyFeedDescription": "El chat en vivo aparecerá aquí una vez que conectes tu cuenta de Twitch.",
+    "testTitle": "Probar respuesta",
+    "testDescription": "Haz una prueba con un mensaje, sin publicarlo en el chat.",
+    "testPlaceholder": "Escribe un mensaje de prueba…",
+    "testSend": "Probar",
+    "testSending": "Generando...",
+    "testError": "No se pudo generar una respuesta de prueba",
+    "emotes": {
+      "title": "Emotes de 7TV/FFZ/BTTV",
+      "enable": "Usar emotes de 7TV/FFZ/BTTV",
+      "statusLabel": "{{total}} emotes en caché, {{described}} con descripción",
+      "refreshButton": "Actualizar lista",
+      "refreshError": "No se pudo actualizar la lista de emotes",
+      "visionHint": "Usa un proveedor de IA con Visión para analizar los emotes y tener una descripción de los emotes para que la IA pueda usar los emotes.",
+      "generateButton": "Generar descripciones",
+      "generating": "Describiendo… {{done}}/{{total}}",
+      "generateError": "No se pudo generar las descripciones"
+    }
+  },
+  "discord": {
+    "loading": "Cargando Discord…",
+    "connectionTitle": "Bot de Discord",
+    "connectionDescription": "Conecta el perfil del bot, no tu cuenta personal.",
+    "connectedAs": "Conectado como {{bot}}",
+    "notConnected": "Sin conectar",
+    "botToken": "Token del bot",
+    "botTokenHint": "Créalo en discord.com/developers/applications, en la sección Bot de tu aplicación — activa también el \"Message Content Intent\" ahí mismo.",
+    "botTokenPlaceholder": "Token del bot de tu aplicación de Discord",
+    "connect": "Conectar bot",
+    "connecting": "Conectando…",
+    "connectError": "No se pudo conectar el bot — revisa que el token sea correcto",
+    "connected": "Bot conectado",
+    "disconnect": "Desconectar",
+    "disconnectError": "No se pudo desconectar",
+    "disconnected": "Bot desconectado",
+    "saveError": "No se pudo guardar",
+    "policyTitle": "Cuándo responde el personaje",
+    "policyDescription": "Se aplica mientras el bot esté escuchando los servidores donde está invitado.",
+    "startListening": "Empezar a escuchar",
+    "stopListening": "Dejar de escuchar",
+    "toggleError": "No se pudo cambiar el estado de la conexión",
+    "saving": "Guardando…",
+    "settingsTitle": "Ajustes de Discord",
+    "pauseResponses": "Pausar respuestas",
+    "resumeResponses": "Reanudar respuestas",
+    "pausedStatus": "Pausado",
+    "status": {
+      "stopped": "Detenido",
+      "starting": "Conectando…",
+      "running": "Escuchando",
+      "error": "Error",
+      "stopping": "Deteniendo…"
+    },
+    "fields": {
+      "responseMode": "Modo de respuesta",
+      "responseModeMentioned": "Solo cuando lo mencionan",
+      "responseModeMentionedHint": "El personaje responde cuando alguien lo menciona con @ o escribe su nombre o apodo (configurados en Identidad).",
+      "responseModeAll": "A todos los mensajes",
+      "cooldown": "Espera mínima entre respuestas (segundos)",
+      "cooldownHint": "Evita que el personaje responda demasiado seguido en un servidor activo."
+    },
+    "feedEmpty": "Todavía no ha llegado ningún mensaje.",
+    "emptyFeedTitle": "Conecta el bot para ver los mensajes",
+    "emptyFeedDescription": "Los mensajes en vivo aparecerán aquí una vez que conectes el bot de Discord.",
+    "testTitle": "Probar respuesta",
+    "testDescription": "Haz una prueba con un mensaje, sin publicarlo en el chat.",
+    "testPlaceholder": "Escribe un mensaje de prueba…",
+    "testSend": "Probar",
+    "testSending": "Generando...",
+    "testError": "No se pudo generar una respuesta de prueba"
+  },
+  "commandPalette": {
+    "placeholder": "Buscar una pestaña o ajuste…",
+    "noResults": "Sin resultados"
+  },
+  "contextMenu": {
+    "cut": "Cortar",
+    "copy": "Copiar",
+    "paste": "Pegar",
+    "selectAll": "Seleccionar todo",
+    "copyMessage": "Copiar mensaje",
+    "settings": "Configuración",
+    "inspect": "Inspeccionar"
+  },
+  "trayMenu": {
+    "show": "Mostrar Project Ciel",
+    "reload": "Recargar interfaz",
+    "quit": "Salir"
+  },
+  "failover": {
+    "quota_exceeded": "Cambié a {{to}}: {{from}} se quedó sin créditos.",
+    "rate_limited": "Cambié a {{to}}: {{from}} alcanzó su límite de uso.",
+    "unreachable": "Cambié a {{to}}: {{from}} no responde (¿está apagado?).",
+    "timeout": "Cambié a {{to}}: {{from}} tardó demasiado en responder.",
+    "server_error": "Cambié a {{to}}: {{from}} tuvo un error del servidor.",
+    "restored": "{{to}} volvió a responder: vuelvo a usarlo.",
+    "generic": "Cambié de {{from}} a {{to}}."
+  }
+}

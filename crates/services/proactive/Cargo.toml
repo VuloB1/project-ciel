@@ -1,0 +1,29 @@
+[package]
+name = "aivt-service-proactive"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+aivt-database.workspace = true
+aivt-eventbus.workspace = true
+aivt-memory.workspace = true
+aivt-orchestrator.workspace = true
+aivt-provider-llm.workspace = true
+aivt-secrets.workspace = true
+aivt-service-chat.workspace = true
+aivt-service-manager.workspace = true
+aivt-service-settings.workspace = true
+async-trait.workspace = true
+chrono.workspace = true
+futures.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+tracing.workspace = true
+
+[dev-dependencies]
+aivt-provider-embedding.workspace = true
+aivt-testing.workspace = true
+sqlx.workspace = true

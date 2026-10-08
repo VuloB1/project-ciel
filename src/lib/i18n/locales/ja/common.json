@@ -1,0 +1,1153 @@
+{
+  "app": {
+    "name": "Project Ciel"
+  },
+  "titlebar": {
+    "minimize": "最小化",
+    "maximize": "最大化",
+    "restore": "元に戻す",
+    "close": "閉じる"
+  },
+  "common": {
+    "cancel": "キャンセル",
+    "close": "閉じる"
+  },
+  "sidebar": {
+    "chat": "チャット",
+    "identity": "アイデンティティ",
+    "memory": "メモリー",
+    "voice": "音声",
+    "call": "通話",
+    "twitch": "Twitch",
+    "discord": "Discord",
+    "avatar": "アバター",
+    "settings": "設定",
+    "collapse": "折りたたむ",
+    "expand": "展開",
+    "groups": {
+      "character": "キャラクター",
+      "platforms": "プラットフォーム"
+    }
+  },
+  "profileSwitcher": {
+    "subtitle": "アクティブなキャラクター",
+    "noProfile": "キャラクターなし",
+    "create": "キャラクターを作成",
+    "import": "キャラクターをインポート…",
+    "imported": "キャラクターをインポートしました",
+    "importError": "キャラクターをインポートできませんでした"
+  },
+  "placeholder": {
+    "comingSoon": "近日公開",
+    "chat": {
+      "noProfileTitle": "まだキャラクターが設定されていません",
+      "noProfileDescription": "「アイデンティティ」タブで最初のキャラクターを作成して始めましょう。",
+      "goToIdentity": "アイデンティティへ移動"
+    },
+    "voice": {
+      "description": "ここで各キャラクターの音声を設定します。"
+    },
+    "call": {
+      "description": "ここでアクティブなキャラクターとリアルタイムで音声通話ができます。"
+    },
+    "twitch": {
+      "description": "ここでTwitchチャンネルを接続し、チャットへのキャラクターの参加方法を設定します。"
+    },
+    "discord": {
+      "description": "ここでDiscordボットを接続し、サーバーにキャラクターを参加させます。"
+    },
+    "avatar": {
+      "description": "ここでキャラクターのリアクティブアバターを設定します。"
+    }
+  },
+  "chat": {
+    "conversations": {
+      "title": "会話",
+      "new": "新しい会話",
+      "search": "会話を検索",
+      "empty": "まだ会話がありません",
+      "options": "オプション",
+      "rename": "名前を変更",
+      "delete": "削除",
+      "deleteConfirmTitle": "「{{title}}」を削除しますか？",
+      "deleteConfirmDescription": "この会話は完全に削除されます。この操作は取り消せません。",
+      "extractFirstLabel": "削除前にメモリーを抽出する",
+      "loading": "会話を読み込み中…",
+      "extractMemories": "メモリーを抽出",
+      "extractingMemories": "メモリーを抽出中…",
+      "memoriesExtracted_other": "{{count}}件の新しいメモリーを抽出しました",
+      "noNewMemories": "新しく記憶することはありませんでした",
+      "extractMemoriesError": "メモリーを抽出できませんでした",
+      "pinnedGroup": "固定",
+      "pin": "固定",
+      "unpin": "固定を解除",
+      "pinError": "会話を固定できませんでした",
+      "reorderError": "新しい順序を保存できませんでした",
+      "importedFromCallLabel": "通話からインポート"
+    },
+    "status": {
+      "thinking": "考え中…",
+      "ready": "準備完了"
+    },
+    "immersive": {
+      "enter": "没入モード",
+      "exit": "没入モードを終了"
+    },
+    "composer": {
+      "placeholder": "メッセージを入力…",
+      "send": "送信",
+      "stop": "停止",
+      "attachImage": "画像を添付",
+      "attachImageDisabled": "画像を添付するには設定 > AIプロバイダーでビジョンを有効にしてください",
+      "removeImage": "画像を削除"
+    },
+    "message": {
+      "cancelled": "（キャンセル済み）",
+      "thinking": "考え中…",
+      "attachmentAlt": "添付画像",
+      "speak": "音声で再生",
+      "stopSpeaking": "停止"
+    },
+    "noConversationTitle": "今日は{{name}}と何について話しますか？",
+    "noConversationDescription": "リストから会話を選ぶか、新しい会話を作成して話し始めましょう。",
+    "continueLast": "「{{title}}」を続ける",
+    "dictation": {
+      "start": "音声入力（長押し、上にスライドして固定）",
+      "stop": "停止して文字起こし",
+      "transcribing": "文字起こし中…",
+      "slideToLock": "上にスライドして録音を固定",
+      "lockedHint": "聞き取り中… 終わったら「停止」を押してください",
+      "cancel": "キャンセル",
+      "empty": "聞き取れませんでした。もう一度お試しください。",
+      "error": "文字起こしできませんでした",
+      "startError": "録音を開始できませんでした"
+    }
+  },
+  "memory": {
+    "noProfileDescription": "「アイデンティティ」タブで最初のキャラクターを作成すると、そのキャラクター自身のメモリーを持ち始めます。",
+    "loading": "メモリーを読み込み中…",
+    "search": "メモリーを検索",
+    "emptyTitle": "まだメモリーがありません",
+    "emptyDescription": "キャラクターと少し会話してみましょう — 数メッセージごとに自動でメモリーが抽出されます。手動で追加することもできます。",
+    "emptySearchTitle": "結果がありません",
+    "emptySearchDescription": "その検索に一致するメモリーはありません。",
+    "category": "カテゴリー",
+    "categories": {
+      "person": "人物",
+      "preference": "好み",
+      "event": "出来事",
+      "fact": "事実",
+      "other": "その他"
+    },
+    "importance": "重要度",
+    "importanceLabel": "重要度：{{value}}",
+    "pin": "ピン留め",
+    "unpin": "ピン留めを解除",
+    "delete": "削除",
+    "deleteConfirmTitle": "「{{title}}」を削除しますか？",
+    "deleteConfirmDescription": "このメモリーは完全に削除されます。この操作は取り消せません。",
+    "showMore": "詳細を見る",
+    "showLess": "詳細を隠す",
+    "fields": {
+      "title": "タイトル",
+      "summary": "要約",
+      "summaryHint": "キャラクターが毎回の会話で覚えている短いバージョンです — 空欄の場合は詳細が使われます。",
+      "content": "詳細",
+      "contentHint": "後で参照するための、より詳しいバージョンです — 長くする必要はありません。"
+    },
+    "new": {
+      "title": "新しいメモリー",
+      "save": "保存"
+    },
+    "edit": {
+      "title": "メモリーを編集"
+    },
+    "scope": {
+      "makePublic": "公開にする",
+      "makePrivate": "非公開にする",
+      "publicBadge": "公開",
+      "publicTitle": "TwitchとDiscordでも使われます。非公開のメモリーはチャットと通話でのみ使われます。",
+      "confirmTitle": "「{{title}}」を公開にしますか？",
+      "confirmDescription": "TwitchとDiscordが返信時にこのメモリーを使えるようになり、そこで書き込む誰もが返答に反映された内容を目にする可能性があります。いつでも非公開に戻せます。"
+    }
+  },
+  "activity": {
+    "loading": "アクティビティを読み込み中…",
+    "emptyTitle": "まだアクティビティがありません",
+    "emptyDescription": "ここではアプリの動作 — 生成された返信、ウェブ検索、各チャンネルの接続 — がリアルタイムで表示されます。",
+    "emptyFilteredTitle": "結果がありません",
+    "emptyFilteredDescription": "このフィルターに一致するイベントはありません。",
+    "levelFilter": "レベル",
+    "categoryFilter": "カテゴリー",
+    "allLevels": "すべてのレベル",
+    "allCategories": "すべてのカテゴリー",
+    "levels": {
+      "DEBUG": "デバッグ",
+      "INFO": "情報",
+      "WARNING": "警告",
+      "ERROR": "エラー",
+      "CRITICAL": "重大"
+    },
+    "durationLabel": "{{value}} ミリ秒",
+    "options": "オプション",
+    "showSystemEvents": "システムイベントを表示",
+    "hideSystemEvents": "システムイベントを非表示",
+    "clear": "イベントを消去",
+    "clearConfirmTitle": "アクティビティ履歴を消去しますか？",
+    "clearConfirmDescription": "アクティビティ履歴がすべて削除されます。この操作は取り消せません。",
+    "clearError": "アクティビティ履歴を消去できませんでした"
+  },
+  "identity": {
+    "loading": "キャラクターを読み込み中…",
+    "emptyTitle": "最初のキャラクターを作成",
+    "emptyDescription": "Project Cielのキャラクターはあなたが作成します — デフォルトのキャラクターはありません。まず名前を付けてください。他の項目は後から入力できます。",
+    "createFirst": "キャラクターを作成",
+    "defaultName": "新しいキャラクター",
+    "untitled": "名前なし",
+    "subtitle": "キャラクターのアイデンティティ",
+    "changeAvatar": "プロフィール画像を変更",
+    "save": "保存",
+    "saving": "保存中…",
+    "saved": "変更を保存しました",
+    "saveError": "変更を保存できませんでした",
+    "avatarUpdated": "プロフィール画像を更新しました",
+    "avatarError": "画像を更新できませんでした",
+    "duplicateSuffix": "{{name}}（コピー）",
+    "duplicated": "キャラクターを複製しました",
+    "duplicateError": "キャラクターを複製できませんでした",
+    "exported": "キャラクターをエクスポートしました",
+    "exportError": "キャラクターをエクスポートできませんでした",
+    "deleted": "キャラクターを削除しました",
+    "deleteError": "キャラクターを削除できませんでした",
+    "deleteConfirmTitle": "{{name}}を削除しますか？",
+    "deleteConfirmDescription": "そのアイデンティティと性格は完全に削除されます。この操作は取り消せません。",
+    "previewEmpty": "「情報」または「性格」に何か入力すると、生成されたプロンプトがここに表示されます。",
+    "actions": {
+      "import": "インポート",
+      "duplicate": "複製",
+      "export": "エクスポート",
+      "delete": "削除"
+    },
+    "tabs": {
+      "info": "情報",
+      "lore": "設定と関係",
+      "personality": "性格",
+      "appearance": "外観",
+      "preview": "プロンプトのプレビュー"
+    },
+    "fields": {
+      "name": "名前",
+      "nickname": "ニックネーム",
+      "pronouns": "代名詞",
+      "ageFictional": "年齢（設定上）",
+      "occupation": "職業・役割",
+      "species": "種族・ファンタジー設定",
+      "accentColor": "プロフィールカラー",
+      "description": "簡単な説明",
+      "lore": "背景設定・世界観・物語のコンテキスト",
+      "relationshipToUser": "あなたはユーザーにとって何者ですか？",
+      "relationshipToUserHint": "例：恋人、友人、アシスタント、VTuber、配信仲間…",
+      "userRole": "ユーザーはあなたにとって何者ですか？",
+      "userRoleHint": "あなたのキャラクターがユーザーをどう見ているか、自由に書いてください。",
+      "speakingStyle": "話し方",
+      "specialInstructions": "特別な指示"
+    },
+    "personality": {
+      "freeDescription": "性格の自由記述",
+      "freeDescriptionPlaceholder": "どんな性格にしたいか、自分の言葉で書いてください…",
+      "traits": {
+        "warmth": "温かさ",
+        "empathy": "共感力",
+        "humor": "ユーモア",
+        "sarcasm": "皮肉",
+        "formality": "フォーマルさ",
+        "curiosity": "好奇心",
+        "energy": "エネルギー",
+        "spontaneity": "自発性",
+        "initiative": "積極性",
+        "affection": "愛情",
+        "shyness": "恥ずかしがり屋度",
+        "confidence": "自信",
+        "expressiveness": "表現力",
+        "verbosity": "饒舌さ",
+        "flirtiness": "色っぽさ",
+        "emotionalIntensity": "感情の強さ",
+        "teasingTendency": "からかう傾向",
+        "questionTendency": "質問する傾向",
+        "initiateConversationTendency": "自分から会話を始める傾向"
+      }
+    }
+  },
+  "settings": {
+    "tabs": {
+      "general": "一般",
+      "appearance": "外観",
+      "aiProviders": "AIプロバイダー",
+      "stt": "音声認識",
+      "tts": "音声エンジン",
+      "webSearch": "ウェブ検索",
+      "memory": "メモリー",
+      "privacy": "プライバシー",
+      "activity": "アクティビティ",
+      "credits": "アプリについて",
+      "backup": "バックアップ",
+      "diagnostics": "診断"
+    },
+    "appearance": {
+      "themeTitle": "ビジュアルテーマ",
+      "themeDescription": "アクティブなキャラクターにテーマ一式を選ぶか、テーマなしでアクセントだけカスタマイズできます。",
+      "customAccent": "カスタムアクセント",
+      "customAccentDescription": "選んだテーマ（またはデフォルトテーマ）のアクセントカラーを独自の色に置き換えます。",
+      "saveError": "変更を保存できませんでした",
+      "modeTitle": "カラーモード",
+      "mode": {
+        "dark": "ダーク",
+        "light": "ライト",
+        "system": "システム"
+      },
+      "roundnessTitle": "角の丸み",
+      "roundnessAuto": "各テーマ本来の角丸に従います。",
+      "roundnessCustom": "どのテーマを選んでも、この設定が適用されます。",
+      "roundnessReset": "リセット",
+      "roundnessAngular": "角形",
+      "roundnessRounded": "丸形",
+      "densityTitle": "メッセージの密度",
+      "density": {
+        "compact": "コンパクト",
+        "normal": "標準",
+        "spacious": "ゆったり"
+      },
+      "fontSizeTitle": "フォントサイズ",
+      "fontTitle": "フォント"
+    },
+    "themePresets": {
+      "cozy": "Cozy",
+      "cyberpunk": "Cyberpunk",
+      "minimal": "Minimal",
+      "pastel": "Pastel",
+      "luxury": "Luxury",
+      "vaporwave": "Vaporwave",
+      "forest": "Forest",
+      "industrial": "Industrial",
+      "ocean": "Ocean",
+      "sakura": "Sakura",
+      "terminal": "Terminal",
+      "noir": "Noir",
+      "autumn": "Autumn",
+      "royal": "Royal",
+      "paper": "Paper"
+    },
+    "general": {
+      "avatar": "あなたの写真",
+      "avatarDescription": "チャットであなたのメッセージの横に表示されます。",
+      "changeAvatar": "写真を変更",
+      "avatarUpdated": "写真を更新しました",
+      "avatarError": "写真を更新できませんでした",
+      "language": "言語",
+      "languageDescription": "Project Cielのインターフェース言語です。",
+      "languageSaved": "言語を更新しました",
+      "startWithSystem": "システム起動時に開始",
+      "startWithSystemDescription": "ログイン時にProject Cielを自動的に起動します。",
+      "minimizeToTray": "閉じるときにトレイに最小化",
+      "minimizeToTrayHint": "閉じるボタンではアプリが終了しなくなり、トレイに隠れて動き続けます。本当に終了するには、トレイのアイコンを右クリックして「終了」を選んでください。",
+      "notifyProactive": "自発的なメッセージの通知",
+      "notifyProactiveHint": "キャラクターが自分から話しかけてきたときにデスクトップ通知を表示します。",
+      "voiceWhileHidden": "トレイにいる間も音声を再生",
+      "voiceWhileHiddenHint": "アプリがトレイに最小化されている間、音声は既定でミュートされます。「閉じるときにトレイに最小化」が有効な場合のみ意味があります。",
+      "saveError": "変更を保存できませんでした"
+    },
+    "aiProviders": {
+      "loading": "プロバイダーを読み込み中…",
+      "title": "AIプロバイダー",
+      "description": "1つ以上のプロバイダーを接続します。手動で選択できるようにしたいものは「有効化」、使用中のプロバイダーのクレジットが切れた・利用制限に達した・応答しなくなったときに自動的に切り替えたいものは「固定」してください — こうすることで会話が途切れません。",
+      "addSectionTitle": "プロバイダーを追加",
+      "addAction": "{{name}}を追加",
+      "addOther": "他のプロバイダー",
+      "empty": "まだプロバイダーが追加されていません — 上から選んで始めましょう。",
+      "kinds": {
+        "openai": "OpenAI",
+        "anthropic": "Anthropic Claude",
+        "gemini": "Google Gemini",
+        "groq": "Groq",
+        "openrouter": "OpenRouter",
+        "cerebras": "Cerebras",
+        "mistral": "Mistral",
+        "deepseek": "DeepSeek",
+        "together": "Together AI",
+        "xai": "xAI Grok",
+        "sambanova": "SambaNova",
+        "generic": "ローカルサーバー"
+      },
+      "inUse": "使用中",
+      "noModel": "モデルが未設定です",
+      "enable": "有効化",
+      "enableTitle": "いつでも手動で選択できるようになります。",
+      "pin": "固定",
+      "pinTitle": "有効化に加えて、使用中のプロバイダーのクレジットが切れた・利用制限に達した・応答しなくなった際の自動切り替え対象になります。",
+      "useNow": "今すぐ使う",
+      "edit": "編集",
+      "remove": "削除",
+      "editing": "{{name}}を編集中",
+      "close": "閉じる",
+      "name": "名前",
+      "connected": "接続済み",
+      "notConnected": "未接続",
+      "baseUrl": "サーバーURL",
+      "model": "モデル",
+      "modelPlaceholder": "モデル名",
+      "apiKey": "APIキー",
+      "apiKeyStored": "すでに保存されています — 変更しない場合は空欄のままにしてください。",
+      "apiKeyPlaceholder": "ローカルサーバーでは省略可能",
+      "temperature": "temperature（温度）",
+      "maxTokens": "最大トークン数",
+      "latency": "レイテンシ: {{ms}} ms",
+      "modelsFound": "{{count}}個のモデルが見つかりました",
+      "modelAutoCorrected": "サーバー上で別のモデルが検出されたため、「{{model}}」が自動的に選択されました。",
+      "visionAutoDetected": "このモデルは画像に対応しているようです — 視覚機能が自動的に有効になりました。",
+      "test": "接続をテスト",
+      "testing": "テスト中…",
+      "testError": "接続できませんでした",
+      "saved": "設定を保存しました",
+      "saveError": "設定を保存できませんでした",
+      "vision": "視覚機能（画像）",
+      "visionHint": "サーバーに読み込まれているモデルが実際に画像に対応している場合のみ有効にしてください — 自動検出はされません。",
+      "keyHints": {
+        "openai": "platform.openai.com/api-keys でキーを作成してください。",
+        "anthropic": "console.anthropic.com/settings/keys でキーを作成してください。",
+        "gemini": "aistudio.google.com/apikey で取得できます — 無料プランには利用制限があります。",
+        "groq": "console.groq.com/keys で取得できます — 利用制限付きの無料プランがあります。",
+        "openrouter": "openrouter.ai/keys で取得できます — 名前が「:free」で終わるモデルは無料です。",
+        "cerebras": "cloud.cerebras.ai で取得できます — 利用制限付きの無料プランがあります。",
+        "mistral": "console.mistral.ai/api-keys で取得できます — 「Experiment」プランは制限付きで無料です。",
+        "deepseek": "platform.deepseek.com/api_keys でキーを作成してください — 有料です（プリペイド残高）。",
+        "together": "api.together.ai/settings/api-keys で取得できます。",
+        "xai": "console.x.ai で取得できます — 従量課金です。",
+        "sambanova": "cloud.sambanova.ai/apis で取得できます — 制限付きの無料プランがあります（最新の条件をご確認ください）。"
+      },
+      "preferred": "優先",
+      "preferredTitle": "このプロバイダーが再び応答できるようになると、自動的に戻ります。",
+      "local": "ローカル",
+      "cloud": "クラウド",
+      "localTitle": "自分のネットワーク内で動作します。送った内容はインターネットに出ません。",
+      "cloudTitle": "インターネット上のサービスです。送った内容はパソコンの外に出ます。",
+      "privacy": {
+        "title": "このプロバイダーのプライバシー",
+        "localNote": "自分のネットワークで動作します。この設定はリモートサーバーを指定した場合にだけ意味があります。",
+        "cloudNote": "クラウドサービスです。受け取れるデータを選んでください。",
+        "visionOff": "オフ：最小モードでは画像を送りません。",
+        "modes": {
+          "full": {
+            "label": "フル",
+            "badge": "プライバシー：フル",
+            "hint": "会話、キャラクターがあなたについて覚えているすべて（非公開と公開の記憶）、気分、添付した画像を受け取ります。"
+          },
+          "public_only": {
+            "label": "公開の記憶のみ",
+            "badge": "公開の記憶のみ",
+            "hint": "会話、気分、画像を受け取りますが、記憶は公開に設定したものだけです。記憶の統合はできません。"
+          },
+          "minimal": {
+            "label": "最小",
+            "badge": "プライバシー：最小",
+            "hint": "会話だけを受け取ります。記憶、気分、画像は送りません。記憶の統合はできません。チャットに入力した内容は届きます。そうしないと返事ができないためです。"
+          }
+        }
+      },
+      "usage": {
+        "title": "使用状況",
+        "description": "各プロバイダーの使用量です。数値はこのパソコンにだけ保存され、メッセージの本文は保存されません。",
+        "period": "期間",
+        "periods": {
+          "today": "今日",
+          "last7_days": "過去7日間",
+          "last30_days": "過去30日間",
+          "all": "すべて"
+        },
+        "empty": "この期間の使用はまだありません。",
+        "requests_other": "{{count}} 件のリクエスト",
+        "tokens": "≈ {{input}} トークン送信 · ≈ {{output}} 受信",
+        "errors_other": "{{count}} 件の失敗",
+        "lastUsed": "最終使用 {{date}}",
+        "lastError": "最後のエラー：{{message}}",
+        "estimateNote": "トークン数はテキストからの推定値で、プロバイダーの請求とは異なります。",
+        "reset": "リセット",
+        "resetConfirmTitle": "使用状況をリセットしますか？",
+        "resetConfirmDescription": "すべてのプロバイダーの使用数値が消去されます。会話や設定には影響しません。",
+        "loadError": "使用状況を読み込めませんでした",
+        "resetError": "使用状況をリセットできませんでした"
+      }
+    },
+    "tts": {
+      "loading": "プロバイダーを読み込み中…",
+      "title": "音声エンジン",
+      "description": "1つ以上の音声プロバイダーを接続します。使えるようにしたいものは「有効化」し、「今すぐ使う」で現在話すプロバイダーを選択してください — システム標準の音声は設定不要でいつでも使えます。",
+      "addSectionTitle": "プロバイダーを追加",
+      "addAction": "{{name}}を追加",
+      "addOther": "他のプロバイダー",
+      "kinds": {
+        "elevenlabs": "ElevenLabs",
+        "openai": "OpenAI",
+        "google": "Google Cloud",
+        "azure": "Azure Speech",
+        "fishaudio": "Fish Audio",
+        "deepgram": "Deepgram",
+        "groq": "Groq",
+        "together": "Together AI",
+        "http": "汎用サーバー"
+      },
+      "inUse": "使用中",
+      "alwaysAvailable": "常に利用可能 — 設定は不要です。",
+      "enable": "有効化",
+      "enableTitle": "いつでも手動で選択できるようになります。",
+      "useNow": "今すぐ使う",
+      "edit": "編集",
+      "remove": "削除",
+      "editing": "{{name}}を編集中",
+      "close": "閉じる",
+      "name": "名前",
+      "baseUrl": "サーバーURL",
+      "region": "リージョン",
+      "regionHint": "Speechリソースを作成したAzureのリージョン — 例: 「eastus」。",
+      "apiKey": "APIキー",
+      "apiKeyStored": "すでに保存されています — 変更しない場合は空欄のままにしてください。",
+      "apiKeyPlaceholder": "ローカルサーバーでは省略可能",
+      "connected": "接続済み",
+      "notConnected": "未接続",
+      "voicesFound": "{{count}}個の音声が見つかりました",
+      "testPhrase": "これは音声接続のテストです。",
+      "test": "接続をテスト",
+      "testing": "テスト中…",
+      "testError": "接続できませんでした",
+      "testPlayedHint": "スピーカーからテスト音声が再生されたはずです。",
+      "saved": "設定を保存しました",
+      "saveError": "設定を保存できませんでした",
+      "keyHints": {
+        "elevenlabs": "elevenlabs.io/app/settings/api-keys で取得できます。",
+        "openai": "platform.openai.com/api-keys でキーを作成してください — 有料です。",
+        "google": "Google Cloud プロジェクトで Cloud Text-to-Speech API を有効にし、console.cloud.google.com/apis/credentials でキーを作成してください。",
+        "azure": "portal.azure.com で Speech リソースを作成し、そのキーとリージョンを使用してください。",
+        "fishaudio": "fish.audio（API セクション）で取得できます。「音声」タブに音声 ID を貼り付けてください — 音声ページの URL にあります。空欄の場合は既定の音声を使います。",
+        "deepgram": "console.deepgram.com で取得できます。「音声」タブに音声モデル（例: 「aura-2-thalia-en」）を入力してください。空欄の場合はこれを使います。",
+        "groq": "console.groq.com/keys で取得できます。Groq の音声（Orpheus）は英語（とサウジアラビア語）のみ対応で、1 リクエストあたり 200 文字までです。長いメッセージは自動で分割・結合されますが、複数のリクエストを消費します。",
+        "together": "api.together.ai/settings/api-keys で取得できます。既定の音声（Orpheus）は英語向けです。Kokoro など他のモデルは別の音声を持ちます。"
+      },
+      "model": "モデル",
+      "modelHints": {
+        "fishaudio": "空欄の場合は「s2.1-pro-free」を使用します。テスト用の無料モデルで、API クレジットは不要です（2026/11/30 まで。Fish Audio がリクエストをモデル改善に使用することがあります）。本番では「s2.1-pro」を入力してください。",
+        "groq": "空欄の場合は「canopylabs/orpheus-v1-english」を使用します。サウジアラビア語は「canopylabs/orpheus-arabic-saudi」を入力してください。",
+        "together": "空欄の場合は「canopylabs/orpheus-3b-0.1-ft」を使用します。カタログ内の他のモデル（「hexgrad/Kokoro-82M」など）を使う場合は音声も変更してください。"
+      }
+    },
+    "webSearch": {
+      "loading": "設定を読み込み中…",
+      "title": "キャラクターのウェブ検索",
+      "description": "天気、他国の時刻、ニュースなど最新情報が必要な質問にキャラクターが答えられるよう、ウェブ検索を許可します。チャット、Twitch、Discord、通話で適用されます。",
+      "enable": "ウェブ検索を有効にする",
+      "networkHint": "これを有効にすると、これらのチャンネルは一部の質問に答えるためにインターネット接続が必要になる場合があります。",
+      "apiKey": "Brave SearchのAPIキー",
+      "apiKeyStored": "すでに保存されています — そのままにすると保持されます。",
+      "apiKeyHint": "brave.com/search/apiで無料で取得できます",
+      "apiKeyPlaceholder": "BraveのAPIキーを貼り付け",
+      "saved": "設定を保存しました",
+      "saveError": "設定を保存できませんでした"
+    },
+    "stt": {
+      "loading": "設定を読み込み中…",
+      "title": "音声認識",
+      "description": "AI通話向けの音声認識はアプリに統合されており、外部サーバーのインストールや設定は不要です。一度モデルをダウンロードすればオフラインで動作します。",
+      "sizeLabel": {
+        "tiny": "Tiny",
+        "base": "Base",
+        "small": "Small",
+        "medium": "Medium"
+      },
+      "sizeHint": {
+        "tiny": "最速ですが精度は限定的です — 性能が控えめな環境向けです。",
+        "base": "速度と精度のバランスが良好です。",
+        "small": "より高精度で少し低速です — ほとんどの場合におすすめです。",
+        "medium": "最も高精度ですが、応答ごとに時間がかかります。"
+      },
+      "approxSize": "約{{size}} MB",
+      "gpuToggle": "GPUアクセラレーションを使用（Vulkan）",
+      "gpuToggleHint": "追加のドライバーなしで、任意のGPU（NVIDIA、AMD、Intel）で動作します。対応GPUが検出されない場合は自動的にCPUを使用します。",
+      "download": "ダウンロード",
+      "downloading": "ダウンロード中…",
+      "downloaded": "ダウンロード済み",
+      "active": "使用中",
+      "select": "選択",
+      "delete": "削除",
+      "downloadError": "モデルをダウンロードできませんでした",
+      "saveError": "設定を保存できませんでした",
+      "dictationAutoSend": "音声入力したテキストを自動送信",
+      "dictationAutoSendHint": "チャットのマイクを停止すると、文字起こしされたテキストがすぐに送信されます。オフの場合は、送信前に確認できるよう入力欄に残ります。"
+    },
+    "memory": {
+      "loading": "読み込み中…",
+      "title": "メモリーのセマンティック検索",
+      "description": "ローカルモデルをダウンロードすると、メモリー検索が単なる単語の一致ではなく、質問の意味を理解できるようになります。ダウンロード後はアプリに統合され、オフラインで動作します。",
+      "approxSize": "約{{size}} MB",
+      "download": "ダウンロード",
+      "downloading": "ダウンロード中…",
+      "downloaded": "ダウンロード済み",
+      "delete": "削除",
+      "downloadError": "モデルをダウンロードできませんでした",
+      "backfillHint": "モデルをダウンロードする前からあったメモリーは、一度補完するまで意味検索でヒットしません。",
+      "backfill": "古いメモリーを補完",
+      "backfilling": "補完中…",
+      "backfillProgress": "{{embedded}} / {{total}} 件のメモリー",
+      "backfillError": "メモリーの補完を完了できませんでした",
+      "fusionTitle": "メモリーを統合",
+      "fusionHint": "AIがキャラクターのメモリーを確認し、重複または同じ内容のものを統合するよう提案します — 何かを削除する前に、適用するものはあなたが選べます。",
+      "fusionButton": "メモリーを統合",
+      "fusionDialogTitle": "メモリー統合の確認",
+      "fusionAnalyzing": "メモリーを分析中…",
+      "fusionEmptyTitle": "統合できるメモリーが見つかりませんでした",
+      "fusionEmptyDescription": "現在のメモリーはどれも十分に異なっているようです。",
+      "fusionIncludeGroup": "このグループを含める",
+      "fusionConfirm": "{{count}}件を統合",
+      "fusionApplied": "{{count}}件のメモリーグループを統合しました",
+      "fusionError": "メモリーの統合を完了できませんでした"
+    },
+    "privacy": {
+      "loading": "読み込み中…",
+      "title": "人物の登録",
+      "description": "アプリは（会話や接続中のTwitch・Discordのチャットから）実在の人物の名前を学習し、音声で話す際によりよく認識できるようにします。作成したAIキャラクターもここに自動的に追加されます。すべてローカルに保存され、サーバーへ送信されることはありません。",
+      "twitchAutoLearn": "Twitchチャットの名前を自動的に学習する",
+      "twitchAutoLearnHint": "接続中のチャットに書き込む人は名前で登録されます — いつでも無効にできます。",
+      "discordAutoLearn": "Discordサーバーの名前を自動的に学習する",
+      "discordAutoLearnHint": "接続中のDiscordサーバーに書き込む人は名前で登録されます — いつでも無効にできます。",
+      "chatAudio": {
+        "title": "メッセージの音声を保存",
+        "hint": "チャットで生成された音声を保存し、再生成せずに後で聞き直せるようにします。ElevenLabsまたはHTTPサーバーの音声でのみ機能します — システムのネイティブ音声は直接発話するため、保存できるファイルを生成しません。",
+        "retentionLabel": "自動削除までの期間",
+        "retentionOneDay": "1日",
+        "retentionOneWeek": "1週間",
+        "retentionOneMonth": "1か月",
+        "retentionTwoMonths": "2か月",
+        "retentionThreeMonths": "3か月",
+        "retentionSixMonths": "6か月",
+        "loadError": "保存音声の設定を読み込めませんでした",
+        "saveError": "保存音声の設定を保存できませんでした"
+      },
+      "peopleTitle": "登録済みの人物",
+      "addPerson": "人物を追加",
+      "empty": "まだ登録された人物がいません",
+      "emptyHint": "会話やTwitch・Discordのチャットで言及されると、ここに表示されます。",
+      "name": "名前",
+      "roleLabel": "関係",
+      "role": {
+        "self": "あなた",
+        "nickname": "あなたのニックネーム",
+        "ai": "AIキャラクター",
+        "friend": "友人",
+        "twitch_chatter": "Twitchチャット",
+        "discord_chatter": "Discordチャット"
+      },
+      "delete": "削除",
+      "cancel": "キャンセル",
+      "save": "保存",
+      "saveError": "変更を保存できませんでした"
+    },
+    "credits": {
+      "version": "バージョン {{version}}",
+      "loading": "バージョンを読み込み中…",
+      "tagline": "チャットも会話も配信もできるAIコンパニオン。あなたのデータは常にあなたの手元に。",
+      "builtWith": "使用技術",
+      "madeWithClaude": "Anthropic の Claude の協力で開発",
+      "authorTitle": "制作者・作者",
+      "website": "ウェブサイト",
+      "supportDescription": "Project Ciel を気に入っていただけたら、開発を応援できます。",
+      "supportAction": "Ko-fi でコーヒーをおごる",
+      "thanksTitle": "謝辞",
+      "koreanReview": "韓国語訳が実用に十分な品質であることを確認してくれました。",
+      "legalTitle": "法的情報",
+      "eula": "使用許諾契約",
+      "thirdParty": "サードパーティライセンス"
+    },
+    "backup": {
+      "createTitle": "バックアップを作成",
+      "createDescription": "あなたのデータをすべて1つのファイルに保存します。PCを替えたり問題が起きたりしたときに復元できます。",
+      "includes": "含まれるもの: キャラクター、チャット、メモリー、設定、添付ファイル、アバター。",
+      "excludesSecrets": "APIキーやTwitch/Discordのトークンは含まれません。安全のため、このPCの安全な保管領域に残ります。別のPCで復元する場合は再入力が必要です。",
+      "excludesDownloads": "ダウンロード済みのモデル（音声、意味検索）も含まれません。再ダウンロードできます。",
+      "createAction": "バックアップを作成",
+      "working": "処理中…",
+      "created": "バックアップを作成しました",
+      "createdDetail": "{{size}} · 添付とアバターのファイル {{files}} 個",
+      "createError": "バックアップを作成できませんでした",
+      "restoreTitle": "バックアップから復元",
+      "restoreDescription": "バックアップファイルを選んでください。変更前に整合性を確認し、現在のデータは別に保管されます。",
+      "restoreAction": "ファイルから復元…",
+      "restoreError": "バックアップを復元できませんでした",
+      "confirmTitle": "このバックアップを復元しますか？",
+      "confirmDescription": "{{date}} のバックアップ（添付とアバターのファイル {{files}} 個、{{size}}）。現在のデータはバックアップの内容に置き換えられ、元のデータはアプリのデータ内の「pre-restore」フォルダーに保管されます。アプリが再起動します。",
+      "confirmAction": "復元して再起動"
+    },
+    "diagnostics": {
+      "title": "診断センター",
+      "description": "アプリの状態をひと目で: 何が動いていて、何が動いていないか、その理由。",
+      "overall": {
+        "ok": "問題なし",
+        "info": "問題なし",
+        "warning": "警告あり",
+        "error": "問題あり"
+      },
+      "running": "確認中…",
+      "refresh": "もう一度確認",
+      "copy": "レポートをコピー",
+      "save": "レポートを保存…",
+      "copied": "レポートをコピーしました",
+      "copyError": "レポートをコピーできませんでした",
+      "saved": "レポートを保存しました",
+      "saveError": "レポートを保存できませんでした",
+      "runError": "診断を実行できませんでした",
+      "noSecrets": "レポートにAPIキーやトークンは含まれません。保存されているかどうかだけが分かります。助けを求めるときに安全に共有できます。",
+      "generatedAt": "{{date}} に確認",
+      "checksTitle": "チェック",
+      "servicesTitle": "サービス",
+      "aiTitle": "AI・音声・モデル",
+      "databaseTitle": "データベース",
+      "storageTitle": "ストレージ",
+      "systemTitle": "システム",
+      "problemsTitle": "最近の問題",
+      "noProblems": "最近の警告やエラーはありません。",
+      "serviceNames": {
+        "twitch": "Twitch",
+        "discord": "Discord",
+        "call": "通話",
+        "proactive": "プロアクティブモード",
+        "avatar_server": "OBS用アバター"
+      },
+      "serviceStatus": {
+        "stopped": "停止中",
+        "starting": "開始中",
+        "running": "動作中",
+        "error": "エラー",
+        "stopping": "停止処理中"
+      },
+      "inUse": "使用中",
+      "ready": "準備完了",
+      "notReady": "未設定",
+      "pausedFor": "{{seconds}}秒間一時停止",
+      "voice": "音声",
+      "available": "利用可能",
+      "transcription": "文字起こし",
+      "semanticSearch": "意味検索",
+      "downloaded": "ダウンロード済み",
+      "notDownloaded": "未ダウンロード",
+      "integrity": "整合性",
+      "integrityOk": "正常",
+      "integrityBad": "エラーあり",
+      "schema": "スキーマのバージョン",
+      "size": "サイズ",
+      "tables": {
+        "profiles": "キャラクター",
+        "conversations": "会話",
+        "messages": "メッセージ",
+        "memories": "メモリー",
+        "people": "人物",
+        "activity_events": "アクティビティイベント"
+      },
+      "attachments": "添付ファイル",
+      "avatars": "アバター",
+      "models": "ダウンロード済みモデル",
+      "logs": "ログ",
+      "preRestore": "復元前のデータ",
+      "version": "アプリのバージョン",
+      "system": "システム",
+      "dataDir": "データフォルダー",
+      "checks": {
+        "unknown": "チェック「{{id}}」。",
+        "database_integrity": {
+          "ok": "データベースは正常です。",
+          "error": "データベースにエラーがあります: {{message}}。バックアップを作成し、以前のものからの復元を検討してください。"
+        },
+        "database_schema": {
+          "ok": "データベースのスキーマは最新です。",
+          "warning": "データベースのスキーマは {{version}} ですが、このアプリは {{latest}} を想定しています。"
+        },
+        "llm_ready": {
+          "default": "使用中のAIプロバイダーは準備完了です。"
+        },
+        "llm_not_ready": {
+          "default": "応答できるAIプロバイダーがありません。AIプロバイダーで設定してください（モデルと、クラウドの場合はAPIキー）。"
+        },
+        "llm_current_not_ready": {
+          "default": "使用中のプロバイダー {{label}} の設定が不完全です（モデルまたはAPIキーがありません）。"
+        },
+        "llm_cooling_down": {
+          "default": "{{label}} は最近失敗したため、約{{seconds}}秒間一時停止中です。その間は他のプロバイダーがあればそれを使います。"
+        },
+        "llm_no_current": {
+          "default": "使用中のAIプロバイダーがありません。AIプロバイダーで選択してください。"
+        },
+        "llm_no_fallback": {
+          "default": "準備完了のAIプロバイダーが1つだけです。失敗しても自動で切り替える先がありません。AIプロバイダーで別のものを固定してください。"
+        },
+        "tts_ready": {
+          "default": "音声エンジンは準備完了です。"
+        },
+        "tts_missing_key": {
+          "default": "音声エンジン {{label}} にはAPIキーが必要ですが、設定されていません。"
+        },
+        "service_error": {
+          "default": "サービス「{{name}}」でエラーが発生しています。設定またはアクティビティタブを確認してください。"
+        },
+        "stt_model_missing": {
+          "default": "文字起こしモデル「{{size}}」がダウンロードされていません。ダウンロードするまで、音声入力と通話はあなたの声を理解できません。"
+        },
+        "embedding_missing": {
+          "default": "意味検索モデルがダウンロードされていません。メモリーは完全一致の単語でのみ検索します。これは任意です。"
+        },
+        "recent_errors": {
+          "default": "アクティビティに最近のエラーが {{count}} 件あります。下の「最近の問題」を確認してください。"
+        },
+        "pre_restore_leftover": {
+          "default": "「pre-restore」フォルダーに復元前のデータが {{size}} あります。確認のうえ、手動で削除して容量を空けられます。"
+        }
+      }
+    }
+  },
+  "onboarding": {
+    "back": "戻る",
+    "continue": "続ける",
+    "start": "始める",
+    "finishCta": "Project Cielを使い始める",
+    "skipAll": "すべてスキップ",
+    "stepIndicator": "ステップ {{current}} / {{total}}",
+    "intro": {
+      "title": "Project Cielへようこそ",
+      "description": "いくつかのステップで基本設定をします — どのステップもスキップでき、後から設定画面で変更できます。"
+    },
+    "language": {
+      "title": "言語を選択",
+      "description": "アプリ全体に適用されます。Cielが理解し、返答する言語にも反映されます。"
+    },
+    "appearance": {
+      "title": "外観をカスタマイズ",
+      "description": "ライト/ダークモード、角の丸み、密度、フォント — すぐに保存されます。"
+    },
+    "aiProvider": {
+      "title": "AIプロバイダーを接続",
+      "description": "Project Cielが返答するには、OpenAI互換サーバー(LM Studioなど)が必要です。"
+    },
+    "sttVoice": {
+      "title": "音声認識(任意)",
+      "description": "入力の代わりにCielに話しかけたい場合は、ローカルモデルをダウンロードしてください。"
+    },
+    "ttsVoice": {
+      "title": "音声合成(任意)",
+      "description": "音声で返答する際のCielの声を設定します。"
+    },
+    "character": {
+      "title": "最初のキャラクターを作成",
+      "description": "Project Cielのキャラクターはあなたが作成します — 名前を付けて始めましょう。",
+      "nameLabel": "キャラクター名",
+      "create": "キャラクターを作成",
+      "alreadyHave": "すでにキャラクターがいます: {{name}}"
+    },
+    "finish": {
+      "title": "準備完了",
+      "description": "これらの設定はあとから設定画面でいつでも変更できます。"
+    }
+  },
+  "voice": {
+    "loading": "音声を読み込み中…",
+    "emptyTitle": "まだキャラクターが設定されていません",
+    "emptyDescription": "「アイデンティティ」タブで最初のキャラクターを作成して、音声を設定してください。",
+    "subtitle": "このキャラクターの音声設定",
+    "muteAll": "音声をミュート",
+    "unmuteAll": "音声を有効化",
+    "muteError": "ミュート状態を変更できませんでした",
+    "saved": "音声を保存しました",
+    "saveError": "音声を保存できませんでした",
+    "loadError": "音声設定を読み込めませんでした",
+    "testVoice": "音声をテスト",
+    "stopPreview": "停止",
+    "previewError": "音声を再生できませんでした",
+    "previewDefaultText": "こんにちは、{{name}}です。この設定ではこんな声になります。",
+    "fields": {
+      "enabled": "返信を音声で読み上げる",
+      "enabledHint": "チャットの各返信をこの音声で自動的に再生します。",
+      "voice": "音声",
+      "voiceDefault": "システムのデフォルト音声",
+      "voiceHintHttp": "HTTPサーバーでは音声の一覧を取得できません — 必要なIDを入力してください。",
+      "voiceHttpPlaceholder": "例：alloy",
+      "rate": "速度",
+      "pitch": "ピッチ",
+      "pitchHintHttp": "HTTPサーバーではピッチを調整できません — この値は無視されます。",
+      "pitchHintElevenlabs": "ElevenLabsではピッチを調整できません — この値は無視されます。",
+      "volume": "音量",
+      "volumeHintHttp": "HTTPサーバーでは音量を調整できません — この値は無視されます。",
+      "volumeHintElevenlabs": "ElevenLabsでは音量を調整できません — この値は無視されます。",
+      "previewText": "テスト用テキスト",
+      "voiceCustomId": "カスタム音声 ID",
+      "voiceCustomIdHint": "リストにない音声は、ここにその ID を貼り付けてください（fish.audio の音声ページの URL にあります）。",
+      "voiceSearch": "Fish Audio で音声を検索",
+      "voiceSearchHint": "公開カタログを名前で検索し、クリックして選択します。",
+      "voiceSearchPlaceholder": "例: ナレーター、アニメ、スペイン語…",
+      "voiceSearchError": "音声を検索できませんでした。",
+      "voiceSearchEmpty": "結果がありません。"
+    }
+  },
+  "mood": {
+    "label": "気分",
+    "hint": "キャラクターの今の状態です — 会話と時間の経過だけで変化し、（固定的な）性格とは異なります。",
+    "resetButton": "リセット",
+    "resetSuccess": "気分をリセットしました",
+    "resetError": "気分をリセットできませんでした",
+    "states": {
+      "neutral": "普通",
+      "lowLow": "落ち込んでいる",
+      "lowMid": "気分が沈んでいる",
+      "lowHigh": "イライラしている",
+      "midLow": "穏やか",
+      "midHigh": "元気",
+      "highLow": "リラックスして満足",
+      "highMid": "機嫌がいい",
+      "highHigh": "有頂天"
+    }
+  },
+  "proactive": {
+    "label": "プロアクティブモード",
+    "hint": "会話が途絶えている時間、気分、記憶に応じて、キャラクターが時々自分から連絡してくるようにします — 数時間に一度を超えることはありません。",
+    "toggleError": "プロアクティブモードを変更できませんでした"
+  },
+  "avatar": {
+    "loading": "アバターを読み込み中…",
+    "emptyTitle": "まだキャラクターが設定されていません",
+    "emptyDescription": "「アイデンティティ」タブで最初のキャラクターを作成して、アバターを設定してください。",
+    "subtitle": "このキャラクターのリアクティブアバター",
+    "statesTitle": "状態ごとの画像",
+    "statesHint": "各状態に画像をアップロードしてください — 未設定の状態はキャラクターのプロフィール画像が代わりに使用されます。",
+    "states": {
+      "idle": "待機中",
+      "thinking": "考え中",
+      "talking": "話し中"
+    },
+    "noImage": "画像なし",
+    "stateImageUpdated": "画像を更新しました",
+    "stateImageError": "画像を更新できませんでした",
+    "live": "ライブ：{{state}}",
+    "obsSectionTitle": "OBS用ブラウザソース",
+    "obsHint": "これを有効にして、URLをOBSのブラウザソースに貼り付けてください — ウィンドウキャプチャなしでリアルタイムに反応します。",
+    "obsEnable": "OBS用ブラウザソースを有効にする",
+    "obsCopyUrl": "URLをコピー",
+    "obsCopied": "URLをコピーしました",
+    "obsServerError": "アバターサーバーを起動できませんでした"
+  },
+  "call": {
+    "loading": "通話を読み込み中…",
+    "emptyTitle": "まだキャラクターが設定されていません",
+    "emptyDescription": "「アイデンティティ」タブで最初のキャラクターを作成して、音声で会話してください。",
+    "settingsTitle": "通話の設定",
+    "policyTitle": "音声通話",
+    "policyDescription": "マイクを使ってアクティブなキャラクターとリアルタイムで話します。",
+    "startCall": "通話を開始",
+    "end": "通話を終了",
+    "mute": "マイクをミュート",
+    "unmute": "マイクを有効化",
+    "muted": "ミュート中",
+    "saving": "保存中…",
+    "saveError": "設定を保存できませんでした",
+    "toggleError": "通話を開始/終了できませんでした",
+    "exportToChat": "チャットにエクスポート",
+    "exportedToChat": "通話をチャットにエクスポートしました",
+    "exportError": "通話をエクスポートできませんでした",
+    "status": {
+      "stopped": "未接続",
+      "starting": "開始中…",
+      "running": "通話中",
+      "error": "エラー",
+      "stopping": "終了中…"
+    },
+    "callState": {
+      "idle": "待機中",
+      "listening": "聞き取り中",
+      "transcribing": "文字起こし中",
+      "thinking": "考え中",
+      "speaking": "話し中",
+      "error": "エラー"
+    },
+    "indicators": {
+      "you": "あなた",
+      "character": "キャラクター"
+    },
+    "fields": {
+      "microphone": "マイク",
+      "microphoneDefault": "システムのデフォルトを使用",
+      "responseMode": "キャラクターが応答するタイミング",
+      "responseModeAll": "話していることを検知したら常に",
+      "responseModeWakePhrase": "呼びかけたときだけ",
+      "responseModeWakePhraseHint": "ゲームや配信をしながら通話を開いたままにしておき、話したことすべてにキャラクターが反応しないようにするのに便利です。",
+      "wakePhrase": "呼びかけるフレーズ",
+      "wakePhraseHint": "空欄のままにすると、キャラクターの名前またはニックネーム（「アイデンティティ」で設定）がフレーズとして使われます。",
+      "wakePhrasePlaceholder": "例：ねえCiel",
+      "vadMode": "マイクの感度",
+      "vadModeHint": "声を検知する際に周囲の雑音をどれだけ厳しくフィルタリングするか — 厳しくすると誤検知は減りますが、小さい声を聞き逃す可能性があります。",
+      "vadModeQuality": "低（より敏感で、雑音も拾いやすい）",
+      "vadModeLowBitrate": "中低",
+      "vadModeAggressive": "中高（推奨）",
+      "vadModeVeryAggressive": "高（より厳しく、誤検知が少ない）",
+      "silenceTimeout": "応答までの待機時間（ミリ秒）",
+      "silenceTimeoutHint": "話し終えたと判断するまでに必要な無音の長さです。",
+      "micLevelHint": "話してバーが動くか確認してください。選んだマイクが音を拾っていることがわかります。",
+      "micLevelError": "レベルを測るためにマイクを開けませんでした。",
+      "speaker": "音声の出力先",
+      "speakerDefault": "システムの既定を使う",
+      "speakerHint": "キャラクターの声が再生される場所です。システム音声（Windows の無料のもの）には影響せず、常に既定の出力から出ます。変更すると再生中の音声は止まります。",
+      "echoGuard": "スピーカーで使っている",
+      "echoGuardHint": "キャラクターが話している間はマイクを無視し、自分の声を聞いたり自分で割り込んだりしないようにします。ヘッドホンの場合はオフのままにすると、話して割り込めます。"
+    },
+    "feedTitle": "文字起こし",
+    "feedEmpty": "通話を開始して話すと、ここに文字起こしが表示されます。",
+    "characterLabel": "キャラクター",
+    "userLabel": "あなた",
+    "errorLabel": "エラー",
+    "micLevel": "マイクのレベル"
+  },
+  "twitch": {
+    "loading": "Twitchを読み込み中…",
+    "connectionTitle": "Twitchアカウント",
+    "connectionDescription": "チャットで発言するアカウントを接続します。",
+    "connectedAs": "{{channel}}として接続中",
+    "notConnected": "未接続",
+    "saveError": "保存できませんでした",
+    "connect": "アカウントを接続",
+    "connecting": "ブラウザでの認証を待っています…",
+    "connectError": "アカウントを接続できませんでした",
+    "connected": "アカウントを接続しました",
+    "disconnect": "切断",
+    "disconnectError": "切断できませんでした",
+    "disconnected": "アカウントを切断しました",
+    "targetChannel": "参加するチャンネル",
+    "targetChannelHint": "応答してほしいチャンネルをここに入力してください。必要なら「/mod」を与えてください。空欄の場合は自分自身のアカウントで応答します。専用ボットにする場合は、ボット用に別のアカウントを接続してください。",
+    "targetChannelRestartNote": "チャンネルを変更するには受信を停止してください — 変更はライブ中には適用されません。",
+    "targetChannelPlaceholder": "あなたのTwitchチャンネル名（空欄＝接続中のアカウント自身）",
+    "targetChannelSaved": "チャンネルを保存しました",
+    "policyTitle": "キャラクターが応答するタイミング",
+    "policyDescription": "キャラクターは接続中のアカウント自身のメッセージには応答しません。実際のチャットで応答をテストするには、別のアカウントから書き込むか、下の「応答をテスト」を使用してください。",
+    "startListening": "受信を開始",
+    "stopListening": "受信を停止",
+    "toggleError": "接続状態を変更できませんでした",
+    "saving": "保存中…",
+    "settingsTitle": "Twitchの設定",
+    "pauseResponses": "応答を一時停止",
+    "resumeResponses": "応答を再開",
+    "pausedStatus": "一時停止中",
+    "status": {
+      "stopped": "停止中",
+      "starting": "接続中…",
+      "running": "受信中",
+      "error": "エラー",
+      "stopping": "停止処理中…"
+    },
+    "fields": {
+      "responseMode": "応答モード",
+      "responseModeMentioned": "メンションされたときだけ",
+      "responseModeMentionedHint": "誰かがチャットにキャラクターの名前またはニックネーム（「アイデンティティ」で設定）を書き込むと応答します。",
+      "responseModeAll": "すべてのメッセージに",
+      "cooldown": "応答の最小間隔（秒）",
+      "cooldownHint": "活発なチャットでキャラクターが応答しすぎるのを防ぎます。"
+    },
+    "feedEmpty": "まだメッセージが届いていません。",
+    "emptyFeedTitle": "アカウントを接続してチャットを表示",
+    "emptyFeedDescription": "Twitchアカウントを接続すると、ここにライブチャットが表示されます。",
+    "testTitle": "応答をテスト",
+    "testDescription": "メッセージでテストできます。チャットには投稿されません。",
+    "testPlaceholder": "テストメッセージを入力…",
+    "testSend": "テスト",
+    "testSending": "生成中...",
+    "testError": "テスト応答を生成できませんでした",
+    "emotes": {
+      "title": "7TV/FFZ/BTTVのエモート",
+      "enable": "7TV/FFZ/BTTVのエモートを使う",
+      "statusLabel": "{{total}}個のエモートをキャッシュ済み、{{described}}個に説明あり",
+      "refreshButton": "リストを更新",
+      "refreshError": "エモートのリストを更新できませんでした",
+      "visionHint": "Vision対応のAIプロバイダーを使ってエモートを解析し、それぞれの説明を生成します。これによりAIがエモートを使えるようになります。",
+      "generateButton": "説明を生成",
+      "generating": "説明を生成中… {{done}}/{{total}}",
+      "generateError": "説明を生成できませんでした"
+    }
+  },
+  "discord": {
+    "loading": "Discordを読み込み中…",
+    "connectionTitle": "Discordボット",
+    "connectionDescription": "個人アカウントではなく、ボットのプロフィールを接続してください。",
+    "connectedAs": "{{bot}}として接続中",
+    "notConnected": "未接続",
+    "botToken": "ボットトークン",
+    "botTokenHint": "discord.com/developers/applicationsのアプリケーションのBotセクションで作成してください — 同じ場所で「Message Content Intent」も有効にしてください。",
+    "botTokenPlaceholder": "Discordアプリケーションのボットトークン",
+    "connect": "ボットを接続",
+    "connecting": "接続中…",
+    "connectError": "ボットを接続できませんでした — トークンが正しいか確認してください",
+    "connected": "ボットを接続しました",
+    "disconnect": "切断",
+    "disconnectError": "切断できませんでした",
+    "disconnected": "ボットを切断しました",
+    "saveError": "保存できませんでした",
+    "policyTitle": "キャラクターが応答するタイミング",
+    "policyDescription": "ボットが招待されたサーバーを受信している間に適用されます。",
+    "startListening": "受信を開始",
+    "stopListening": "受信を停止",
+    "toggleError": "接続状態を変更できませんでした",
+    "saving": "保存中…",
+    "settingsTitle": "Discordの設定",
+    "pauseResponses": "応答を一時停止",
+    "resumeResponses": "応答を再開",
+    "pausedStatus": "一時停止中",
+    "status": {
+      "stopped": "停止中",
+      "starting": "接続中…",
+      "running": "受信中",
+      "error": "エラー",
+      "stopping": "停止処理中…"
+    },
+    "fields": {
+      "responseMode": "応答モード",
+      "responseModeMentioned": "メンションされたときだけ",
+      "responseModeMentionedHint": "誰かが@でメンションするか、名前・ニックネーム（「アイデンティティ」で設定）を書き込むと応答します。",
+      "responseModeAll": "すべてのメッセージに",
+      "cooldown": "応答の最小間隔（秒）",
+      "cooldownHint": "活発なサーバーでキャラクターが応答しすぎるのを防ぎます。"
+    },
+    "feedEmpty": "まだメッセージが届いていません。",
+    "emptyFeedTitle": "ボットを接続してメッセージを表示",
+    "emptyFeedDescription": "Discordボットを接続すると、ここにライブメッセージが表示されます。",
+    "testTitle": "応答をテスト",
+    "testDescription": "メッセージでテストできます。チャットには投稿されません。",
+    "testPlaceholder": "テストメッセージを入力…",
+    "testSend": "テスト",
+    "testSending": "生成中...",
+    "testError": "テスト応答を生成できませんでした"
+  },
+  "commandPalette": {
+    "placeholder": "タブや設定を検索…",
+    "noResults": "見つかりません"
+  },
+  "contextMenu": {
+    "cut": "切り取り",
+    "copy": "コピー",
+    "paste": "貼り付け",
+    "selectAll": "すべて選択",
+    "copyMessage": "メッセージをコピー",
+    "settings": "設定",
+    "inspect": "検証"
+  },
+  "trayMenu": {
+    "show": "Project Ciel を表示",
+    "reload": "インターフェースを再読み込み",
+    "quit": "終了"
+  },
+  "failover": {
+    "quota_exceeded": "{{to}}に切り替えました: {{from}}のクレジットが切れました。",
+    "rate_limited": "{{to}}に切り替えました: {{from}}が利用制限に達しました。",
+    "unreachable": "{{to}}に切り替えました: {{from}}が応答しません（電源が切れていませんか？）。",
+    "timeout": "{{to}}に切り替えました: {{from}}の応答に時間がかかりすぎました。",
+    "server_error": "{{to}}に切り替えました: {{from}}でサーバーエラーが発生しました。",
+    "restored": "{{to}}が再び応答しています: 元に戻します。",
+    "generic": "{{from}}から{{to}}に切り替えました。"
+  }
+}

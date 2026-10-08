@@ -1,0 +1,18 @@
+[package]
+name = "aivt-service-avatar"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+aivt-eventbus.workspace = true
+aivt-service-manager.workspace = true
+aivt-service-profiles.workspace = true
+aivt-service-settings.workspace = true
+axum.workspace = true
+tokio.workspace = true
+tokio-util.workspace = true
+async-trait.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+tracing.workspace = true

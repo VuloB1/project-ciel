@@ -1,0 +1,25 @@
+[package]
+name = "aivt-memory"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+
+[dependencies]
+aivt-database.workspace = true
+aivt-eventbus.workspace = true
+aivt-provider-embedding.workspace = true
+aivt-provider-llm.workspace = true
+aivt-secrets.workspace = true
+aivt-service-settings.workspace = true
+async-trait.workspace = true
+futures.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+tokio.workspace = true
+tracing.workspace = true
+
+[dev-dependencies]
+aivt-testing.workspace = true
+chrono.workspace = true
+sqlx.workspace = true

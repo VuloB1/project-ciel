@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ThemeEngine tokens (sección 65 del brief; ADR-008/009). Estos 12
+     valores son los defaults de "Personalizado" antes de que
+     `useActiveProfileTheme` corra (perfil sin `theme` ni `accentColor`, o
+     carga inicial) — un perfil con `theme` fijo a uno de los 15 presets
+     los pisa todos vía `THEME_PRESETS` (src/lib/theme/presets.ts). */
+  --color-background: 13 13 17;
+  --color-surface: 19 19 24;
+  --color-surface-secondary: 27 27 34;
+  --color-border: 38 38 48;
+  --color-text-primary: 237 237 241;
+  --color-text-secondary: 156 156 168;
+  --color-accent: 150 255 243;
+  --color-accent-secondary: 211 255 250;
+  --color-accent-foreground: 23 23 23;
+  --color-success: 52 199 89;
+  --color-warning: 255 159 10;
+  --color-error: 255 132 124;
+  --color-error-foreground: 23 23 23;
+  --color-control-border: 102 102 113;
+
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+
+  /* Apariencia > Preferencias de la app (globales, no por personaje) —
+     `useAppearanceSettings` las pisa desde `AppearanceSettings`. */
+  --font-scale: 1;
+  --font-family-app: "Inter";
+
+  /* Densidad de mensajes del chat — 3 variantes fijas seleccionadas por
+     `[data-density]` en `<html>`; "normal" son los valores que el chat ya
+     usaba antes de que esto existiera (sin cambio visual por default). */
+  --chat-message-gap: 0.75rem;
+  --chat-message-padding-x: 0.875rem;
+  --chat-message-padding-y: 0.625rem;
+}
+
+[data-density="compact"] {
+  --chat-message-gap: 0.375rem;
+  --chat-message-padding-x: 0.625rem;
+  --chat-message-padding-y: 0.375rem;
+}
+
+[data-density="spacious"] {
+  --chat-message-gap: 1.25rem;
+  --chat-message-padding-x: 1.125rem;
+  --chat-message-padding-y: 0.875rem;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  background-color: rgb(var(--color-background));
+  color: rgb(var(--color-text-primary));
+  font-family: var(--font-family-app), "Inter", "Segoe UI", system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@keyframes pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.animate-pop-in {
+  animation: pop-in 120ms ease-out;
+}
+
+/* Same pop as .animate-pop-in, but keeps the element's centering
+   translate(-50%, -50%) in the transform throughout — a plain `scale(...)`
+   keyframe replaces the whole `transform` property, so a dialog centered
+   via translate would visibly jump from off-center to centered once the
+   animation ends and the utility classes' transform takes back over. */
+@keyframes dialog-pop-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+.animate-dialog-pop-in {
+  animation: dialog-pop-in 120ms ease-out;
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 180ms ease-out;
+}
+
+/* Paso a paso del wizard de bienvenida (WelcomeScreen.tsx) — mismo espíritu
+   que .animate-fade-in (opacity + transform, sin librería de animación)
+   pero con desplazamiento horizontal para que se sienta como pasar páginas:
+   Continuar entra desde la derecha, Atrás desde la izquierda. */
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slide-in-left {
+  from {
+    opacity: 0;
+    transform: translateX(-24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-slide-in-right {
+  animation: slide-in-right 220ms ease-out;
+}
+
+.animate-slide-in-left {
+  animation: slide-in-left 220ms ease-out;
+}
+
+/* Three-dot "thinking" indicator (Discord-style) shown in a streaming
+   message bubble before any real content has arrived — see
+   MessageBubble.tsx. Staggered per-dot via inline animation-delay. */
+@keyframes typing-bounce {
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.4;
+  }
+  30% {
+    transform: translateY(-3px);
+    opacity: 1;
+  }
+}
+
+.animate-typing-bounce {
+  animation: typing-bounce 1.2s ease-in-out infinite;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: rgb(var(--color-surface-secondary));
+  border-radius: var(--radius-sm);
+}
+
+::-webkit-scrollbar-track {
+  background-color: transparent;
+}

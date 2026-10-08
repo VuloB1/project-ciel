@@ -1,0 +1,119 @@
+[workspace]
+resolver = "2"
+members = [
+    "src-tauri",
+    "crates/core",
+    "crates/database",
+    "crates/eventbus",
+    "crates/secrets",
+    "crates/service_manager",
+    "crates/testing",
+    "crates/memory",
+    "crates/orchestrator",
+    "crates/providers/llm",
+    "crates/providers/stt",
+    "crates/providers/tts",
+    "crates/providers/vision",
+    "crates/providers/embedding",
+    "crates/providers/avatar",
+    "crates/providers/tools",
+    "crates/services/chat",
+    "crates/services/call",
+    "crates/services/proactive",
+    "crates/services/profiles",
+    "crates/services/twitch",
+    "crates/services/discord",
+    "crates/services/avatar",
+    "crates/services/activity",
+    "crates/services/settings",
+    "crates/services/backup",
+    "crates/services/diagnostics",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2021"
+license = "UNLICENSED"
+repository = "https://github.com/aivt-companion/aivt-companion"
+
+# Shared dependency versions. Individual crates opt into what they need
+# via `workspace = true` so the whole tree upgrades together.
+[workspace.dependencies]
+aivt-core = { path = "crates/core" }
+aivt-database = { path = "crates/database" }
+aivt-eventbus = { path = "crates/eventbus" }
+aivt-secrets = { path = "crates/secrets" }
+aivt-service-manager = { path = "crates/service_manager" }
+aivt-testing = { path = "crates/testing" }
+aivt-memory = { path = "crates/memory" }
+aivt-orchestrator = { path = "crates/orchestrator" }
+aivt-provider-llm = { path = "crates/providers/llm" }
+aivt-provider-stt = { path = "crates/providers/stt" }
+aivt-provider-tts = { path = "crates/providers/tts" }
+aivt-provider-vision = { path = "crates/providers/vision" }
+aivt-provider-embedding = { path = "crates/providers/embedding" }
+aivt-provider-avatar = { path = "crates/providers/avatar" }
+aivt-provider-tools = { path = "crates/providers/tools" }
+aivt-service-chat = { path = "crates/services/chat" }
+aivt-service-call = { path = "crates/services/call" }
+aivt-service-proactive = { path = "crates/services/proactive" }
+aivt-service-twitch = { path = "crates/services/twitch" }
+aivt-service-discord = { path = "crates/services/discord" }
+aivt-service-avatar = { path = "crates/services/avatar" }
+aivt-service-activity = { path = "crates/services/activity" }
+aivt-service-settings = { path = "crates/services/settings" }
+aivt-service-profiles = { path = "crates/services/profiles" }
+aivt-service-backup = { path = "crates/services/backup" }
+aivt-service-diagnostics = { path = "crates/services/diagnostics" }
+
+tokio = { version = "1.42", features = ["rt-multi-thread", "macros", "sync", "time", "fs"] }
+tokio-util = { version = "0.7", features = ["rt"] }
+async-trait = "0.1"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+thiserror = "2"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter", "json"] }
+tracing-appender = "0.2"
+uuid = { version = "1", features = ["v4", "serde"] }
+chrono = { version = "0.4", features = ["serde"] }
+iana-time-zone = "0.1"
+sqlx = { version = "0.8", features = ["runtime-tokio", "sqlite", "macros", "migrate", "chrono", "uuid"] }
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls", "json"] }
+keyring = { version = "3", features = ["apple-native", "windows-native", "sync-secret-service"] }
+futures = "0.3"
+regex = "1"
+sha2 = "0.10"
+unicode-normalization = "0.1"
+image = "0.25"
+base64 = "0.22"
+axum = { version = "0.8", features = ["ws"] }
+zip = { version = "2", default-features = false, features = ["deflate"] }
+
+# `esaxx-rs` (a transitive dep of `tokenizers`, itself required by
+# `candle-core` — see crates/providers/embedding) hardcodes
+# `.static_crt(true)` in its build script when compiling its C++ file on
+# Windows. That forces MSVC's static C++ runtime (/MT) for just that one
+# object, which duplicate-symbol-conflicts at link time (LNK2005,
+# libcpmt.lib vs msvcprt.lib) with the dynamic runtime (/MD) every other
+# native dependency in this workspace already links against
+# (whisper-rs-sys for STT, webrtc_vad for Llamada) — `aivt-companion`
+# fails to link entirely without this patch. `esaxx-rs`'s C++ path only
+# accelerates *training* a new Unigram tokenizer from scratch; this app
+# only ever loads an already-trained `tokenizer.json` for inference, so
+# losing that path costs nothing here. `vendor/esaxx-rs-0.1.10` is an
+# unmodified copy of the crate with the two `.static_crt(true)` calls
+# removed (letting `cc` fall back to the toolchain default, which matches
+# everything else) — nothing else about the crate is changed. Revisit if
+# esaxx-rs ships a fix upstream (github.com/Narsil/esaxx-rs).
+[patch.crates-io]
+esaxx-rs = { path = "vendor/esaxx-rs-0.1.10" }
+
+[profile.dev]
+# Keep incremental builds fast; providers/orchestrator crates are still stubs.
+opt-level = 0
+
+[profile.release]
+opt-level = "s"
+lto = true
+strip = true

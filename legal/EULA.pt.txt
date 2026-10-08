@@ -1,0 +1,40 @@
+CONTRATO DE LICENÇA DE USO — PROJECT CIEL
+Última atualização: 7 de outubro de 2026
+
+Ao instalar ou usar o Project Ciel (o «Software»), você aceita este contrato com Vulito («o Autor»). Se não concordar, não instale nem use o Software.
+
+1. LICENÇA
+O Autor concede a você uma licença pessoal, não exclusiva, intransferível e revogável para instalar e usar o Software nos seus próprios dispositivos. Você pode usá-lo nas suas próprias conversas, transmissões ao vivo (streaming) e criação de conteúdo, inclusive com fins comerciais: o conteúdo que você produzir com o Software é seu.
+
+2. RESTRIÇÕES
+Você não pode copiar, revender, alugar, sublicenciar nem redistribuir o Software, nem compartilhar sua chave de licença com outras pessoas. Você não pode descompilar nem fazer engenharia reversa do Software, nem modificá-lo para oferecê-lo a terceiros, exceto na medida em que a lei o permitir expressamente. Você não pode remover os avisos de autoria nem de licença.
+
+3. PROPRIEDADE
+O Software, seu design, seus textos e suas imagens pertencem ao Autor ou a seus licenciantes e são protegidos por lei. Esta licença não transfere nenhuma propriedade a você. O Software inclui componentes de terceiros regidos por suas próprias licenças; você pode consultá-los em «Licenças de terceiros» (em Configurações > Sobre).
+
+4. SEUS DADOS E SUA PRIVACIDADE
+O Software funciona localmente: seus personagens, conversas, memórias e configurações ficam no seu dispositivo, e o Autor não os recebe. As chaves e os tokens ficam no armazenamento seguro do seu sistema. Se você configurar serviços de terceiros (provedores de IA ou de voz, Twitch, Discord, busca na web), o conteúdo necessário é enviado a esses serviços, que têm seus próprios termos e políticas de privacidade.
+
+5. SERVIÇOS DE TERCEIROS
+Você é responsável por suas contas, chaves e custos nos serviços de terceiros que conectar, e por cumprir os termos deles. O Autor não controla esses serviços nem responde por eles.
+
+6. CONTEÚDO GERADO POR IA
+As respostas dos modelos de IA podem ser imprecisas, inadequadas ou inesperadas. Você é responsável pelo uso que fizer delas e por cumprir as regras das plataformas onde as publicar. Não use o Software para fins ilegais nem para prejudicar outras pessoas.
+
+7. SEM GARANTIA E LIMITAÇÃO DE RESPONSABILIDADE
+Na medida permitida por lei, o Software é oferecido «como está», sem garantias de qualquer tipo, e o Autor não responde por danos indiretos, perda de dados ou lucros cessantes decorrentes do seu uso. Recomendamos fazer cópias de segurança periódicas. Nada neste contrato limita os direitos irrenunciáveis que a legislação de defesa do consumidor aplicável a você lhe confira.
+
+8. ATUALIZAÇÕES
+O Autor pode publicar atualizações do Software. Salvo indicação em contrário no momento da compra, as atualizações da mesma versão principal estão incluídas.
+
+9. RESCISÃO
+Se você descumprir este contrato, a licença poderá ser encerrada. Nesse caso, você deve parar de usar o Software e excluir suas cópias.
+
+10. PAGAMENTOS E REEMBOLSOS
+As compras são feitas por meio de uma plataforma de vendas de terceiros. Os reembolsos são regidos pela política dessa plataforma e pela lei aplicável.
+
+11. LEI APLICÁVEL
+Este contrato é regido pelas leis do Chile. Os tribunais do Chile terão competência para qualquer controvérsia, sem prejuízo dos direitos que a lei lhe reconheça como consumidor no seu país de residência.
+
+12. CONTATO
+Vulito — https://vulito.carrd.co/
