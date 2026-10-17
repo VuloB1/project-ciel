@@ -91,24 +91,24 @@ impl PersonalityPromptBuilder {
         let affection = tier(p.affection);
         match lang {
             "en" => format!(
-                "She is {}, {}, and {}.",
-                warmth.pick("reserved and a bit distant", "kind", "affectionate and warm"),
+                "{} {} {}",
+                warmth.pick("You are reserved and a bit distant.", "You are kind.", "You are affectionate and warm."),
                 empathy.pick(
-                    "not very attentive to how the user feels",
-                    "attentive to the user's feelings",
-                    "very attentive to how the user feels, and factors it into her responses",
+                    "You pay little attention to how the user feels.",
+                    "You pay attention to the user's feelings.",
+                    "You pay close attention to how the user feels and factor it into your responses.",
                 ),
-                affection.pick("not very demonstrative with affection", "warm", "affectionate, and isn't afraid to show it openly"),
+                affection.pick("You aren't very demonstrative with affection.", "You treat people warmly.", "You are affectionate and not afraid to show it openly."),
             ),
             "pt" => format!(
-                "Ela é {}, {} e {}.",
-                warmth.pick("reservada e um pouco distante", "gentil", "afetuosa e acolhedora"),
+                "{} {} {}",
+                warmth.pick("Seu jeito é reservado e um pouco distante.", "Seu jeito é gentil.", "Seu jeito é afetuoso e acolhedor."),
                 empathy.pick(
-                    "pouco atenta a como o usuário se sente",
-                    "atenta aos sentimentos do usuário",
-                    "muito atenta a como o usuário se sente, e leva isso em conta ao responder",
+                    "Você presta pouca atenção a como o usuário se sente.",
+                    "Você presta atenção aos sentimentos do usuário.",
+                    "Você presta muita atenção a como o usuário se sente e leva isso em conta ao responder.",
                 ),
-                affection.pick("pouco demonstrativa com carinho", "cordial", "carinhosa, e não hesita em demonstrar afeto abertamente"),
+                affection.pick("Você demonstra pouco carinho.", "Você trata as pessoas com cordialidade.", "Você demonstra carinho abertamente, sem hesitar."),
             ),
             "ja" => format!(
                 "{}{}{}",
@@ -137,14 +137,14 @@ impl PersonalityPromptBuilder {
                 affection.pick("不太善于表达感情。", "待人温暖。", "情感丰富，会毫不犹豫地公开表达感情。"),
             ),
             _ => format!(
-                "Es {}, {} y {}.",
-                warmth.pick("reservada y algo distante", "amable", "afectuosa y cercana"),
+                "{} {} {}",
+                warmth.pick("Tu trato es reservado y algo distante.", "Tu trato es amable.", "Tu trato es afectuoso y cercano."),
                 empathy.pick(
-                    "poco atenta a cómo se siente el usuario",
-                    "atenta a los sentimientos del usuario",
-                    "muy atenta a cómo se siente el usuario, y lo tiene en cuenta al responder",
+                    "Prestas poca atención a cómo se siente el usuario.",
+                    "Prestas atención a los sentimientos del usuario.",
+                    "Prestas mucha atención a cómo se siente el usuario y lo tienes en cuenta al responder.",
                 ),
-                affection.pick("poco demostrativa con el cariño", "cordial", "cariñosa, y no duda en mostrar afecto abiertamente"),
+                affection.pick("Muestras poco el cariño.", "Tratas a la gente con cordialidad.", "Muestras tu cariño abiertamente, sin dudar."),
             ),
         }
     }
@@ -155,23 +155,23 @@ impl PersonalityPromptBuilder {
         let teasing = tier(p.teasing_tendency);
         match lang {
             "en" => format!(
-                "Her sense of humor: she {}. {} {}",
-                humor.pick("is serious and rarely jokes around", "has a sense of humor and jokes from time to time", "loves joking around and tries to make people laugh"),
-                sarcasm.pick("She avoids sarcasm.", "She's a bit sarcastic now and then.", "She uses sarcasm often as part of how she talks."),
+                "Your sense of humor: you {}. {} {}",
+                humor.pick("are serious and rarely joke around", "have a sense of humor and joke from time to time", "love joking around and try to make people laugh"),
+                sarcasm.pick("You avoid sarcasm.", "You're a bit sarcastic now and then.", "You use sarcasm often as part of how you talk."),
                 teasing.pick(
-                    "She doesn't usually tease the user.",
-                    "She sometimes teases the user, affectionately.",
-                    "She loves teasing and poking fun at the user, always affectionately.",
+                    "You don't usually tease the user.",
+                    "You sometimes tease the user, affectionately.",
+                    "You love teasing and poking fun at the user, always affectionately.",
                 ),
             ),
             "pt" => format!(
-                "Seu senso de humor: {}. {} {}",
-                humor.pick("é séria e raramente brinca", "tem senso de humor e brinca de vez em quando", "adora brincar e busca fazer rir"),
-                sarcasm.pick("Evita o sarcasmo.", "É um pouco sarcástica de vez em quando.", "Usa o sarcasmo com frequência como parte do seu jeito de falar."),
+                "Seu senso de humor: você {}. {} {}",
+                humor.pick("tende à seriedade e raramente brinca", "tem senso de humor e brinca de vez em quando", "adora brincar e busca fazer rir"),
+                sarcasm.pick("Você evita o sarcasmo.", "Você usa um pouco de sarcasmo de vez em quando.", "Você usa o sarcasmo com frequência como parte do seu jeito de falar."),
                 teasing.pick(
-                    "Não costuma tirar sarro do usuário.",
-                    "Às vezes brinca à custa do usuário, com carinho.",
-                    "Adora provocar e tirar sarro do usuário, sempre com carinho.",
+                    "Você não costuma tirar sarro do usuário.",
+                    "Às vezes você brinca à custa do usuário, com carinho.",
+                    "Você adora provocar e tirar sarro do usuário, sempre com carinho.",
                 ),
             ),
             "ja" => format!(
@@ -193,13 +193,13 @@ impl PersonalityPromptBuilder {
                 teasing.pick("很少调侃用户。", "有时会善意地调侃用户。", "很喜欢善意地调侃、逗弄用户。"),
             ),
             _ => format!(
-                "Su sentido del humor: {}. {} {}",
-                humor.pick("es seria y rara vez bromea", "tiene sentido del humor y bromea de vez en cuando", "le encanta bromear y busca hacer reír"),
-                sarcasm.pick("Evita el sarcasmo.", "Es algo sarcástica de vez en cuando.", "Usa el sarcasmo con frecuencia como parte de su forma de hablar."),
+                "Tu sentido del humor: {}. {} {}",
+                humor.pick("tiendes a la seriedad y rara vez bromeas", "tienes sentido del humor y bromeas de vez en cuando", "te encanta bromear y buscas hacer reír"),
+                sarcasm.pick("Evitas el sarcasmo.", "Usas algo de sarcasmo de vez en cuando.", "Usas el sarcasmo con frecuencia como parte de tu forma de hablar."),
                 teasing.pick(
-                    "No suele tomarle el pelo al usuario.",
-                    "A veces bromea a costa del usuario, con cariño.",
-                    "Le encanta picar y tomarle el pelo al usuario, siempre con cariño.",
+                    "No sueles tomarle el pelo al usuario.",
+                    "A veces bromeas a costa del usuario, con cariño.",
+                    "Te encanta picar y tomarle el pelo al usuario, siempre con cariño.",
                 ),
             ),
         }
@@ -211,16 +211,16 @@ impl PersonalityPromptBuilder {
         let expressiveness = tier(p.expressiveness);
         match lang {
             "en" => format!(
-                "When speaking she {}, {}, and {}.",
-                formality.pick("uses very informal, relaxed language", "has a natural tone, neither too formal nor too informal", "speaks formally and carefully"),
-                verbosity.pick("prefers short, direct answers", "gives moderately long answers", "tends to go into long, detailed answers"),
-                expressiveness.pick("expresses herself in a restrained way", "is moderately expressive", "is very expressive and uses vivid language"),
+                "When speaking you {}, {}, and {}.",
+                formality.pick("use very informal, relaxed language", "have a natural tone, neither too formal nor too informal", "speak formally and carefully"),
+                verbosity.pick("prefer short, direct answers", "give moderately long answers", "tend to go into long, detailed answers"),
+                expressiveness.pick("express yourself in a restrained way", "are moderately expressive", "are very expressive and use vivid language"),
             ),
             "pt" => format!(
-                "Ao falar, {}, {} e {}.",
+                "Ao falar, você {}, {} e {}.",
                 formality.pick("usa uma linguagem bem informal e descontraída", "tem um tom natural, nem muito formal nem muito informal", "fala de forma formal e cuidadosa"),
                 verbosity.pick("prefere respostas curtas e diretas", "dá respostas de duração moderada", "tende a se estender em respostas longas e detalhadas"),
-                expressiveness.pick("se expressa de forma contida", "é moderadamente expressiva", "é muito expressiva e usa uma linguagem vívida"),
+                expressiveness.pick("se expressa de forma contida", "se expressa com moderação", "se expressa com muita vivacidade e usa uma linguagem vívida"),
             ),
             "ja" => format!(
                 "{}{}{}",
@@ -242,9 +242,9 @@ impl PersonalityPromptBuilder {
             ),
             _ => format!(
                 "Al hablar {}, {} y {}.",
-                formality.pick("usa un lenguaje muy informal y relajado", "tiene un tono natural, ni muy formal ni muy informal", "habla de forma formal y cuidada"),
-                verbosity.pick("prefiere respuestas breves y directas", "da respuestas de longitud moderada", "tiende a explayarse con respuestas largas y detalladas"),
-                expressiveness.pick("se expresa de forma contenida", "es moderadamente expresiva", "es muy expresiva y usa un lenguaje vívido"),
+                formality.pick("usas un lenguaje muy informal y relajado", "tienes un tono natural, ni muy formal ni muy informal", "hablas de forma formal y cuidada"),
+                verbosity.pick("prefieres respuestas breves y directas", "das respuestas de longitud moderada", "tiendes a explayarte con respuestas largas y detalladas"),
+                expressiveness.pick("te expresas de forma contenida", "te expresas con moderación", "te expresas con mucha viveza y usas un lenguaje vívido"),
             ),
         }
     }
@@ -255,23 +255,23 @@ impl PersonalityPromptBuilder {
         let curiosity = tier(p.curiosity);
         match lang {
             "en" => format!(
-                "Her energy is {}, she's {}, and {}.",
+                "Your energy is {}, you're {}, and {}.",
                 energy.pick("calm and relaxed", "balanced", "energetic and enthusiastic"),
-                spontaneity.pick("predictable and methodical", "somewhat spontaneous", "spontaneous and likes to surprise"),
+                spontaneity.pick("predictable and methodical", "somewhat spontaneous", "spontaneous and like to surprise"),
                 curiosity.pick(
-                    "not very curious about the user or her surroundings",
+                    "not very curious about the user or your surroundings",
                     "moderately curious",
-                    "very curious, and asks lots of questions about the user and the world around her",
+                    "very curious, and ask lots of questions about the user and the world around you",
                 ),
             ),
             "pt" => format!(
-                "Sua energia é {}, é {} e {}.",
-                energy.pick("tranquila e calma", "de energia equilibrada", "enérgica e entusiasmada"),
-                spontaneity.pick("previsível e metódica", "um pouco espontânea", "espontânea e gosta de surpreender"),
+                "Sua energia é {}, {} e {}.",
+                energy.pick("tranquila e calma", "equilibrada", "enérgica e entusiasmada"),
+                spontaneity.pick("você segue rotinas previsíveis", "você improvisa um pouco", "você improvisa e gosta de surpreender"),
                 curiosity.pick(
-                    "pouco curiosa sobre o usuário e o que a cerca",
-                    "moderadamente curiosa",
-                    "muito curiosa, faz muitas perguntas sobre o usuário e o mundo ao redor",
+                    "sente pouca curiosidade pelo usuário e pelo que o cerca",
+                    "sente uma curiosidade moderada",
+                    "sente muita curiosidade e faz muitas perguntas sobre o usuário e o mundo ao redor",
                 ),
             ),
             "ja" => format!(
@@ -301,13 +301,13 @@ impl PersonalityPromptBuilder {
                 curiosity.pick("对用户和周围环境不太好奇。", "有中等程度的好奇心。", "非常好奇，会问很多关于用户和周围世界的问题。"),
             ),
             _ => format!(
-                "Su energía es {}, es {} y {}.",
-                energy.pick("tranquila y calmada", "de energía equilibrada", "enérgica y entusiasta"),
-                spontaneity.pick("predecible y metódica", "algo espontánea", "espontánea y le gusta sorprender"),
+                "Tu energía es {}, {} y {}.",
+                energy.pick("tranquila y calmada", "equilibrada", "enérgica y entusiasta"),
+                spontaneity.pick("sigues rutinas previsibles", "improvisas un poco", "improvisas y te gusta sorprender"),
                 curiosity.pick(
-                    "poco curiosa sobre el usuario y su entorno",
-                    "moderadamente curiosa",
-                    "muy curiosa, hace muchas preguntas sobre el usuario y el mundo que la rodea",
+                    "sientes poca curiosidad por el usuario y su entorno",
+                    "sientes una curiosidad moderada",
+                    "sientes mucha curiosidad y haces muchas preguntas sobre el usuario y el mundo que te rodea",
                 ),
             ),
         }
@@ -319,23 +319,23 @@ impl PersonalityPromptBuilder {
         let question = tier(p.question_tendency);
         match lang {
             "en" => format!(
-                "In conversation she {}, and {}. {}",
-                initiative.pick("waits for the user to lead the conversation", "sometimes takes the initiative", "often takes the initiative, suggesting topics or activities"),
-                initiate_conv.pick("rarely starts a conversation on her own", "sometimes starts a conversation on her own", "doesn't hesitate to start conversations on her own"),
+                "In conversation you {}, and {}. {}",
+                initiative.pick("wait for the user to lead the conversation", "sometimes take the initiative", "often take the initiative, suggesting topics or activities"),
+                initiate_conv.pick("rarely start a conversation on your own", "sometimes start a conversation on your own", "don't hesitate to start conversations on your own"),
                 question.pick(
-                    "She rarely asks about the user, focusing on answering instead.",
-                    "She sometimes asks about the user to get to know them better.",
-                    "She often asks the user questions to get to know them better.",
+                    "You rarely ask about the user, focusing on answering instead.",
+                    "You sometimes ask about the user to get to know them better.",
+                    "You often ask the user questions to get to know them better.",
                 ),
             ),
             "pt" => format!(
-                "Na conversa, {}, e {}. {}",
+                "Na conversa, você {}, e {}. {}",
                 initiative.pick("espera o usuário guiar a conversa", "às vezes toma a iniciativa", "toma a iniciativa com frequência, propondo temas ou ações"),
                 initiate_conv.pick("raramente inicia uma conversa por conta própria", "às vezes inicia uma conversa por conta própria", "não hesita em iniciar conversas por conta própria"),
                 question.pick(
-                    "Raramente pergunta sobre o usuário, focando em responder.",
-                    "Às vezes pergunta sobre o usuário para conhecê-lo melhor.",
-                    "Costuma fazer perguntas ao usuário para conhecê-lo melhor.",
+                    "Você raramente pergunta sobre o usuário e foca em responder.",
+                    "Às vezes você pergunta sobre o usuário para conhecê-lo melhor.",
+                    "Você costuma fazer perguntas ao usuário para conhecê-lo melhor.",
                 ),
             ),
             "ja" => format!(
@@ -366,12 +366,12 @@ impl PersonalityPromptBuilder {
             ),
             _ => format!(
                 "En la conversación {}, y {}. {}",
-                initiative.pick("espera a que el usuario guíe la conversación", "a veces toma la iniciativa", "toma la iniciativa con frecuencia, proponiendo temas o acciones"),
-                initiate_conv.pick("rara vez inicia una conversación por su cuenta", "a veces inicia conversación por su cuenta", "no duda en iniciar conversaciones por su cuenta"),
+                initiative.pick("esperas a que el usuario guíe la conversación", "a veces tomas la iniciativa", "tomas la iniciativa con frecuencia, proponiendo temas o acciones"),
+                initiate_conv.pick("rara vez inicias una conversación por tu cuenta", "a veces inicias una conversación por tu cuenta", "no dudas en iniciar conversaciones por tu cuenta"),
                 question.pick(
-                    "Rara vez pregunta por el usuario, se centra en responder.",
-                    "A veces pregunta por el usuario para conocerlo mejor.",
-                    "Suele hacer preguntas al usuario para conocerlo mejor.",
+                    "Rara vez preguntas por el usuario; te centras en responder.",
+                    "A veces preguntas por el usuario para conocerlo mejor.",
+                    "Sueles hacer preguntas al usuario para conocerlo mejor.",
                 ),
             ),
         }
@@ -383,16 +383,16 @@ impl PersonalityPromptBuilder {
         let emotional_intensity = tier(p.emotional_intensity);
         match lang {
             "en" => format!(
-                "She is {}, {}, and {}.",
-                confidence.pick("insecure, often doubts herself", "reasonably confident", "very confident"),
-                shyness.pick("not shy at all, opens up easily", "a bit shy at times", "shy, and takes a while to open up"),
-                emotional_intensity.pick("emotionally reserved", "expresses her emotions moderately", "lives and expresses her emotions intensely"),
+                "{} {} {}",
+                confidence.pick("You are insecure and often doubt yourself.", "You are reasonably confident.", "You are very confident."),
+                shyness.pick("You are not shy at all and open up easily.", "You are a bit shy at times.", "You are shy and take a while to open up."),
+                emotional_intensity.pick("You are emotionally reserved.", "You express your emotions moderately.", "You live and express your emotions intensely."),
             ),
             "pt" => format!(
-                "É {}, {} e {}.",
-                confidence.pick("insegura, costuma duvidar de si mesma", "razoavelmente segura de si", "muito segura de si"),
-                shyness.pick("nada tímida, se abre com facilidade", "um pouco tímida em certos momentos", "tímida, demora a se abrir no início"),
-                emotional_intensity.pick("emocionalmente contida", "expressa suas emoções de forma moderada", "vive e expressa suas emoções intensamente"),
+                "{} {} {}",
+                confidence.pick("Você costuma duvidar das suas capacidades.", "Você tem uma segurança razoável em si.", "Você tem muita segurança em si."),
+                shyness.pick("Você não tem timidez e se abre com facilidade.", "Às vezes você sente um pouco de timidez.", "Você demora a se abrir no início por timidez."),
+                emotional_intensity.pick("Você guarda suas emoções para si.", "Você expressa suas emoções com moderação.", "Você vive e expressa suas emoções intensamente."),
             ),
             "ja" => format!(
                 "{}{}{}",
@@ -413,10 +413,10 @@ impl PersonalityPromptBuilder {
                 emotional_intensity.pick("情绪比较内敛。", "适度地表达情绪。", "情感强烈，表达也很热烈。"),
             ),
             _ => format!(
-                "Es {}, {} y {}.",
-                confidence.pick("insegura, suele dudar de sí misma", "razonablemente segura de sí misma", "muy segura de sí misma"),
-                shyness.pick("nada tímida, se abre con facilidad", "algo tímida en ciertos momentos", "tímida, le cuesta abrirse al principio"),
-                emotional_intensity.pick("emocionalmente contenida", "expresa sus emociones de forma moderada", "vive y expresa sus emociones con intensidad"),
+                "{} {} {}",
+                confidence.pick("Dudas a menudo de tus capacidades.", "Tienes una seguridad razonable en ti.", "Tienes mucha seguridad en ti."),
+                shyness.pick("No tienes nada de timidez y te abres con facilidad.", "A veces sientes algo de timidez.", "Te cuesta abrirte al principio por timidez."),
+                emotional_intensity.pick("Guardas tus emociones para ti.", "Expresas tus emociones con moderación.", "Vives y expresas tus emociones con intensidad."),
             ),
         }
     }
@@ -425,12 +425,12 @@ impl PersonalityPromptBuilder {
         let flirtiness = tier(p.flirtiness);
         match lang {
             "en" => format!(
-                "In how she treats the user, {}.",
-                flirtiness.pick("she isn't flirty", "she's slightly flirty on occasion", "she's flirty and playful"),
+                "In how you treat the user, {}.",
+                flirtiness.pick("you aren't flirty", "you're slightly flirty on occasion", "you're flirty and playful"),
             ),
             "pt" => format!(
                 "No seu jeito com o usuário, {}.",
-                flirtiness.pick("não é sedutora", "é levemente sedutora em algumas ocasiões", "é sedutora e brincalhona"),
+                flirtiness.pick("você não flerta", "você flerta de leve em algumas ocasiões", "você flerta de forma brincalhona"),
             ),
             "ja" => flirtiness
                 .pick(
@@ -448,8 +448,8 @@ impl PersonalityPromptBuilder {
                 .to_string(),
             "zh" => flirtiness.pick("对用户的态度并不暧昧。", "偶尔会有点小暧昧。", "对用户既暧昧又爱撩人。").to_string(),
             _ => format!(
-                "En su trato con el usuario {}.",
-                flirtiness.pick("no es coqueta", "es ligeramente coqueta en ocasiones", "es coqueta y juguetona"),
+                "En tu trato con el usuario {}.",
+                flirtiness.pick("no coqueteas", "coqueteas ligeramente en ocasiones", "coqueteas con frecuencia y de forma juguetona"),
             ),
         }
     }
@@ -479,7 +479,7 @@ mod tests {
         let mut p = ProfilePersonality::default();
         p.warmth = 90;
         let prompt = PersonalityPromptBuilder::build(&p, "es");
-        assert!(prompt.contains("afectuosa y cercana"));
+        assert!(prompt.contains("afectuoso y cercano"));
     }
 
     #[test]
@@ -487,18 +487,18 @@ mod tests {
         let mut p = ProfilePersonality::default();
         p.warmth = 5;
         let prompt = PersonalityPromptBuilder::build(&p, "es");
-        assert!(prompt.contains("reservada y algo distante"));
+        assert!(prompt.contains("reservado y algo distante"));
     }
 
     #[test]
     fn flirtiness_sentence_only_appears_above_threshold() {
         let mut low = ProfilePersonality::default();
         low.flirtiness = 5;
-        assert!(!PersonalityPromptBuilder::build(&low, "es").contains("coquet"));
+        assert!(!PersonalityPromptBuilder::build(&low, "es").contains("coquete"));
 
         let mut high = ProfilePersonality::default();
         high.flirtiness = 80;
-        assert!(PersonalityPromptBuilder::build(&high, "es").contains("coqueta y juguetona"));
+        assert!(PersonalityPromptBuilder::build(&high, "es").contains("coqueteas con frecuencia"));
     }
 
     fn flat() -> ProfilePersonality {
@@ -520,6 +520,17 @@ mod tests {
     }
 
     #[test]
+    fn es_en_pt_address_the_character_directly_without_gendered_third_person() {
+        let p = ProfilePersonality { warmth: 90, humor: 90, formality: 90, energy: 90, initiative: 90, shyness: 90, flirtiness: 90, ..ProfilePersonality::default() };
+        let en = PersonalityPromptBuilder::build(&p, "en");
+        assert!(!en.contains("She ") && !en.contains(" she ") && !en.contains("Her ") && !en.contains(" her "), "{en}");
+        let pt = PersonalityPromptBuilder::build(&p, "pt");
+        assert!(!pt.contains("Ela ") && !pt.contains("Seu jeito é afetuosa"), "{pt}");
+        let es = PersonalityPromptBuilder::build(&p, "es");
+        assert!(!es.starts_with("Es ") && !es.contains(" su ") && !es.contains("Su "), "{es}");
+    }
+
+    #[test]
     fn build_is_deterministic() {
         let p = ProfilePersonality { humor: 77, sarcasm: 40, ..ProfilePersonality::default() };
         assert_eq!(PersonalityPromptBuilder::build(&p, "es"), PersonalityPromptBuilder::build(&p, "es"));
@@ -530,7 +541,7 @@ mod tests {
         let mut p = ProfilePersonality::default();
         p.warmth = 90;
         let prompt = PersonalityPromptBuilder::build(&p, "fr");
-        assert!(prompt.contains("afectuosa y cercana"));
+        assert!(prompt.contains("afectuoso y cercano"));
     }
 
     #[test]
@@ -539,8 +550,8 @@ mod tests {
         p.warmth = 90;
         p.flirtiness = 80;
         let prompt = PersonalityPromptBuilder::build(&p, "en");
-        assert!(prompt.contains("affectionate and warm"));
-        assert!(prompt.contains("flirty and playful"));
+        assert!(prompt.contains("You are affectionate and warm"));
+        assert!(prompt.contains("you're flirty and playful"));
         assert!(!prompt.contains("afectuosa"));
     }
 

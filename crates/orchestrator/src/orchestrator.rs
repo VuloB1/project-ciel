@@ -986,7 +986,7 @@ mod tests {
         let _ = orchestrator.stream_respond(&sample_profile(), &[], None, &[], Some(&mood), None, "es").collect::<Vec<_>>().await;
 
         let requests = mock.received_requests();
-        assert!(full_privacy_system_prompt(&requests[0]).contains("muy buen humor"));
+        assert!(full_privacy_system_prompt(&requests[0]).contains("tu ánimo es excelente"));
     }
 
     #[tokio::test]
