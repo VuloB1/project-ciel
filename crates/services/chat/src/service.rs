@@ -472,9 +472,15 @@ impl ChatService {
 /// messages rather than just the newest one — see the constant's doc
 /// comment for why a single message isn't enough once the conversation
 /// moves into vague follow-ups.
+///
+/// Only the user's messages count: the character's own words must not steer
+/// what it remembers, or something it invented in one reply ("creo que se
+/// llamaba Toby") would pull memories about that invention into the next one.
 fn retrieval_query(history: &[Message]) -> String {
-    let recent = history.len().saturating_sub(RETRIEVAL_QUERY_WINDOW);
-    history[recent..].iter().map(|m| m.content.as_str()).collect::<Vec<_>>().join(" ")
+    let mut user_messages: Vec<&str> =
+        history.iter().rev().filter(|m| m.role == MessageRole::User).take(RETRIEVAL_QUERY_WINDOW).map(|m| m.content.as_str()).collect();
+    user_messages.reverse();
+    user_messages.join(" ")
 }
 
 fn hash_bytes(bytes: &[u8]) -> String {
@@ -1342,6 +1348,20 @@ mod tests {
         // the model has no real memory to draw from (exactly the bug
         // reported: it invented an answer instead).
         assert!(query.contains("senderismo"));
+    }
+
+    #[test]
+    fn retrieval_query_ignores_what_the_assistant_said() {
+        let history = vec![
+            sample_db_message(MessageRole::User, "¿cómo se llamaba mi perro?"),
+            sample_db_message(MessageRole::Assistant, "Creo que se llamaba Toby"),
+            sample_db_message(MessageRole::User, "sí, ese"),
+        ];
+
+        let query = retrieval_query(&history);
+
+        assert!(query.contains("perro") && query.contains("sí, ese"));
+        assert!(!query.contains("Toby"), "query was: {query}");
     }
 
     #[test]

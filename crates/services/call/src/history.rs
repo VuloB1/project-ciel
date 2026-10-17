@@ -48,8 +48,11 @@ impl CallHistory {
     /// por eso se mira una ventana corta y no solo el último mensaje (mismo
     /// criterio que `ChatService::retrieval_query`).
     pub fn retrieval_query_with(&self, new_user_text: &str) -> String {
-        let recent = self.turns.len().saturating_sub(RETRIEVAL_QUERY_WINDOW - 1);
-        let mut parts: Vec<&str> = self.turns[recent..].iter().map(|(_, text)| text.as_str()).collect();
+        // Solo lo que dijo el usuario: las palabras del propio personaje (que pudo
+        // inventar algo) no deben decidir qué recuerda.
+        let mut parts: Vec<&str> =
+            self.turns.iter().rev().filter(|(role, _)| *role == MessageRole::User).take(RETRIEVAL_QUERY_WINDOW - 1).map(|(_, text)| text.as_str()).collect();
+        parts.reverse();
         parts.push(new_user_text.trim());
         parts.join(" ")
     }
@@ -137,6 +140,17 @@ mod tests {
         assert!(query.contains("Bariloche"), "el tema nombrado un turno antes sigue en la consulta");
         assert!(query.contains("cuéntame más de eso"));
         assert!(!query.contains("[Mensaje por voz"), "la marca de voz no debe contaminar la búsqueda");
+    }
+
+    #[test]
+    fn the_retrieval_query_ignores_what_the_character_said() {
+        let mut history = CallHistory::default();
+        history.push(MessageRole::User, "¿cómo se llamaba mi perro?");
+        history.push(MessageRole::Assistant, "Creo que se llamaba Toby");
+
+        let query = history.retrieval_query_with("sí, ese");
+
+        assert!(query.contains("perro") && !query.contains("Toby"), "query was: {query}");
     }
 
     #[test]

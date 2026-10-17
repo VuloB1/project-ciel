@@ -19,6 +19,32 @@ use crate::{MoodPromptBuilder, PromptComposer};
 /// reasonable stand-in that keeps context bounded today.
 const MAX_HISTORY_MESSAGES: usize = 20;
 
+/// Rough token budget for that history. Twenty short messages cost a few hundred
+/// tokens, twenty long ones tens of thousands, and long contexts slow local models
+/// and dilute the instructions at the top, so the count alone is not enough.
+const HISTORY_TOKEN_BUDGET: usize = 3000;
+
+/// Rough token estimate without a tokenizer: ~4 characters per token, one per CJK character.
+fn estimate_tokens(text: &str) -> usize {
+    let (cjk, other) = text.chars().fold((0usize, 0usize), |(cjk, other), c| if (c as u32) >= 0x2E80 { (cjk + 1, other) } else { (cjk, other + 1) });
+    cjk + other.div_ceil(4)
+}
+
+/// How many of the newest messages to keep: at most `MAX_HISTORY_MESSAGES` and at most
+/// about `HISTORY_TOKEN_BUDGET` tokens, but never fewer than the latest one.
+fn recent_within_budget(history: &[DbMessage]) -> usize {
+    let mut tokens = 0;
+    let mut kept = 0;
+    for message in history.iter().rev().take(MAX_HISTORY_MESSAGES) {
+        tokens += estimate_tokens(&message.content);
+        if kept > 0 && tokens > HISTORY_TOKEN_BUDGET {
+            break;
+        }
+        kept += 1;
+    }
+    kept
+}
+
 /// How many of the user's latest messages feed the conversation-pace hint.
 const RECENT_USER_MESSAGES: usize = 5;
 
@@ -168,7 +194,7 @@ impl AIOrchestrator {
         }
         let mut messages = vec![ChatMessage::text(MessageRole::System, system_prompt)];
 
-        let recent = history.len().saturating_sub(MAX_HISTORY_MESSAGES);
+        let recent = history.len() - recent_within_budget(history);
         messages.extend(history[recent..].iter().map(db_message_to_chat_message));
 
         if let Some(image) = latest_user_image {
@@ -832,6 +858,21 @@ pub(crate) mod tests {
         assert_eq!(messages.len(), 22);
         assert_eq!(messages[1].content, "msg-10");
         assert_eq!(messages[messages.len() - 2].content, "msg-29");
+    }
+
+    #[tokio::test]
+    async fn long_messages_shrink_the_history_to_a_token_budget_but_keep_the_latest() {
+        let mock = Arc::new(MockLLMProvider::with_response(["ok"]));
+        let orchestrator = AIOrchestrator::new(mock.clone(), "mock-model".to_string(), None, None);
+        let long = "palabra ".repeat(800); // ~1600 tokens each
+        let history: Vec<_> = (0..10).map(|i| sample_message(DbMessageRole::User, &format!("{i} {long}"))).collect();
+
+        let _ = orchestrator.stream_respond(&sample_profile(), &history, None, &[], None, None, "es").collect::<Vec<_>>().await;
+
+        let messages = &mock.received_requests()[0].messages;
+        // System prompt + only a couple of long messages + the trailing reminder.
+        assert!(messages.len() <= 5, "kept {} messages", messages.len());
+        assert!(messages[messages.len() - 2].content.starts_with("9 "));
     }
 
     #[tokio::test]
