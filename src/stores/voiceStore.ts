@@ -4,6 +4,15 @@ import { getVoiceMuted, setVoiceMuted, speak, stopSpeaking } from "@/lib/ipc/voi
 import type { AppEvent } from "@/lib/ipc/events";
 import type { ProfileVoice } from "@/types/profile";
 
+// One saved clip at a time, owned here (not per chat bubble) so that
+// stop / mute / another message's play can always reach it.
+let storedAudio: HTMLAudioElement | null = null;
+
+function haltStoredAudio() {
+  storedAudio?.pause();
+  storedAudio = null;
+}
+
 interface VoiceState {
   /** `null` when nothing is speaking. `messageId` is `null` for a Voz tab
    * "Probar voz" preview — see `voice_speak`'s Rust doc comment. */
@@ -17,7 +26,11 @@ interface VoiceState {
    * `discordStore`. Global mute covering Chat/Twitch/Discord/Llamada at
    * once, see `commands::voice::voice_set_muted` (Rust). */
   muted: boolean | null;
+  /** Id of the message whose saved clip is playing, if any. */
+  storedPlayingId: string | null;
 
+  /** Plays a saved clip, cutting any other voice (engine or clip) first. */
+  playStored: (messageId: string, src: string) => Promise<void>;
   /** Fire-and-forget: playback state is reflected back via
    * `AppEvent::VoicePlayback*`, not this call's return value. */
   speak: (profileId: string, text: string, messageId?: string, voiceOverride?: ProfileVoice) => Promise<void>;
@@ -32,9 +45,31 @@ export const useVoiceStore = create<VoiceState>((set) => ({
   lastError: null,
   pending: null,
   muted: null,
+  storedPlayingId: null,
+
+  playStored: async (messageId, src) => {
+    haltStoredAudio();
+    await stopSpeaking();
+    const audio = new Audio(src);
+    storedAudio = audio;
+    set({ storedPlayingId: messageId });
+    const clear = () => {
+      if (storedAudio === audio) storedAudio = null;
+      set((state) => (state.storedPlayingId === messageId ? { storedPlayingId: null } : state));
+    };
+    audio.addEventListener("ended", clear);
+    try {
+      await audio.play();
+    } catch (error) {
+      clear();
+      throw error;
+    }
+  },
 
   speak: async (profileId, text, messageId, voiceOverride) => {
     const mine = { profileId, messageId: messageId ?? null };
+    haltStoredAudio();
+    set({ storedPlayingId: null });
     set({ lastError: null, pending: mine });
     try {
       await speak(profileId, text, messageId, voiceOverride);
@@ -44,7 +79,8 @@ export const useVoiceStore = create<VoiceState>((set) => ({
   },
 
   stop: async () => {
-    set({ pending: null });
+    haltStoredAudio();
+    set({ pending: null, storedPlayingId: null });
     await stopSpeaking();
   },
 
@@ -60,6 +96,10 @@ export const useVoiceStore = create<VoiceState>((set) => ({
 
   setMuted: async (muted) => {
     const saved = await setVoiceMuted(muted);
+    if (saved) {
+      haltStoredAudio();
+      set({ storedPlayingId: null });
+    }
     set({ muted: saved });
   },
 

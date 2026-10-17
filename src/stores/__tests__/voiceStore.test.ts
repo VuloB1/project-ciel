@@ -51,4 +51,27 @@ describe("useVoiceStore", () => {
     expect(useVoiceStore.getState().speaking).toEqual({ profileId: "p1", messageId: "m2" });
     expect(useVoiceStore.getState().lastError).toBe("boom");
   });
+
+  it("playing a second saved clip pauses the first, and stop pauses the current one", async () => {
+    const made: { pause: ReturnType<typeof vi.fn> }[] = [];
+    vi.stubGlobal(
+      "Audio",
+      class {
+        pause = vi.fn();
+        play = vi.fn().mockResolvedValue(undefined);
+        addEventListener = vi.fn();
+        constructor() {
+          made.push(this);
+        }
+      },
+    );
+    await useVoiceStore.getState().playStored("m1", "data:audio/mpeg;base64,AA==");
+    await useVoiceStore.getState().playStored("m2", "data:audio/mpeg;base64,AA==");
+    expect(made[0]?.pause).toHaveBeenCalled();
+    expect(useVoiceStore.getState().storedPlayingId).toBe("m2");
+    await useVoiceStore.getState().stop();
+    expect(made[1]?.pause).toHaveBeenCalled();
+    expect(useVoiceStore.getState().storedPlayingId).toBeNull();
+    vi.unstubAllGlobals();
+  });
 });

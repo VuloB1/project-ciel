@@ -1,5 +1,4 @@
 import { Square, Volume2 } from "lucide-react";
-import { useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import ReactMarkdown, { type Components } from "react-markdown";
 import remarkBreaks from "remark-breaks";
@@ -110,9 +109,8 @@ export function MessageBubble({
   const isPendingThis = useVoiceStore((s) => s.pending?.profileId === profile.id && s.pending.messageId === message.id);
   const speak = useVoiceStore((s) => s.speak);
   const stop = useVoiceStore((s) => s.stop);
-
-  const [isPlayingStored, setIsPlayingStored] = useState(false);
-  const storedAudioRef = useRef<HTMLAudioElement | null>(null);
+  const playStored = useVoiceStore((s) => s.playStored);
+  const isPlayingStored = useVoiceStore((s) => s.storedPlayingId === message.id);
 
   const canSpeak = !isUser && message.status === "complete" && message.content.trim().length > 0;
   // Antes de que llegue el primer token todavía no hay nada que mostrar
@@ -133,23 +131,16 @@ export function MessageBubble({
     }
     if (hasStoredAudio) {
       if (isPlayingStored) {
-        storedAudioRef.current?.pause();
-        setIsPlayingStored(false);
+        void stop();
         return;
       }
       try {
         if (!message.attachmentId) throw new Error("missing attachment id");
-        // Cualquier otra voz del motor se corta antes: no se superponen.
-        void stop();
         const base64 = await getAttachmentBase64(message.attachmentId);
-        const audio = new Audio(`data:${message.attachmentMimeType};base64,${base64}`);
-        storedAudioRef.current = audio;
-        audio.addEventListener("ended", () => setIsPlayingStored(false));
-        setIsPlayingStored(true);
-        await audio.play();
+        // El store corta cualquier otra voz (motor o clip) antes de sonar.
+        await playStored(message.id, `data:${message.attachmentMimeType};base64,${base64}`);
         return;
       } catch {
-        setIsPlayingStored(false);
         // Falls through to a live re-synthesis below — the stored clip
         // couldn't be read (deleted, corrupted), but the message can
         // still be spoken the normal way.

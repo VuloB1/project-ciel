@@ -429,11 +429,14 @@ impl Inner {
     /// of being awaited inline, so this loop keeps consuming segmenter
     /// events (in particular `SpeechConfirmed`) while a turn is still
     /// thinking/speaking — that's what makes barge-in possible at all.
-    /// `active_turn` tracks the one currently running (a plain local, not
-    /// behind a lock: only this single task ever touches it).
+    /// `active_turn` is the reply turn currently thinking/speaking. A turn
+    /// only claims it once it is confirmed to deserve a reply (see
+    /// `handle_utterance`), so an ignored or empty utterance never hides
+    /// the real turn from barge-in nor stomps on its state.
     async fn run_orchestrator(self: Arc<Self>, mut event_rx: tokio_mpsc::UnboundedReceiver<SegmenterEvent>, cancellation: CancellationToken) {
         self.event_bus.publish(AppEvent::CallStateChanged { state: CallState::Idle });
-        let mut active_turn: Option<(CancellationToken, tokio::task::JoinHandle<()>)> = None;
+        let active_turn: ActiveTurn = Arc::new(std::sync::Mutex::new(None));
+        let mut next_turn_id = 0u64;
 
         loop {
             let event = tokio::select! {
@@ -454,7 +457,8 @@ impl Inner {
                     // a side conversation not addressed to it; that mode
                     // instead waits for `should_respond_to` inside
                     // `handle_utterance` (pedido del usuario).
-                    if let Some((token, _)) = &active_turn {
+                    let active_token = active_turn.lock().expect("active turn poisoned").as_ref().map(|(_, token)| token.clone());
+                    if let Some(token) = active_token {
                         let respond_to_all = self.settings().call_policy().await.map(|p| p.respond_to_all).unwrap_or(true);
                         if respond_to_all {
                             token.cancel();
@@ -471,13 +475,15 @@ impl Inner {
                     // that function. In `respond_to_all` mode the previous
                     // turn is typically already cancelled by
                     // `SpeechConfirmed` above; this is a no-op then.
-                    let previous_turn = active_turn.as_ref().map(|(token, _)| token.clone());
+                    next_turn_id += 1;
+                    let turn_id = next_turn_id;
                     let turn_cancellation = cancellation.child_token();
 
                     let inner = self.clone();
                     let handle_token = turn_cancellation.clone();
-                    let handle = tokio::spawn(async move {
-                        inner.handle_utterance(pcm, &handle_token, previous_turn).await;
+                    let active = active_turn.clone();
+                    tokio::spawn(async move {
+                        inner.handle_utterance(pcm, turn_id, &handle_token, &active).await;
                         // Only the turn that actually ran to completion
                         // gets to declare the call Idle again — a turn
                         // that was cancelled (interrupted) must stay
@@ -485,29 +491,33 @@ impl Inner {
                         // the one now driving state (Listening →
                         // Transcribing → ...); publishing Idle here would
                         // stomp on that.
-                        if !handle_token.is_cancelled() {
+                        // A turn that never claimed the slot (ignored or empty
+                        // utterance) must stay quiet while another turn still owns it.
+                        let may_publish_idle = {
+                            let mut slot = active.lock().expect("active turn poisoned");
+                            match slot.as_ref() {
+                                Some((id, _)) if *id == turn_id => {
+                                    *slot = None;
+                                    true
+                                }
+                                Some(_) => false,
+                                None => true,
+                            }
+                        };
+                        if may_publish_idle && !handle_token.is_cancelled() {
                             inner.event_bus.publish(AppEvent::CallStateChanged { state: CallState::Idle });
                         }
                     });
 
-                    // Deliberately not awaiting the previous turn's handle
-                    // — it winds down on its own (either already
-                    // cancelled, or left to finish naturally if this new
-                    // utterance turns out not to warrant a reply at all,
-                    // which is exactly the wake-phrase "wait to confirm"
-                    // behavior).
-                    active_turn = Some((turn_cancellation, handle));
                 }
             }
         }
     }
 
-    /// `previous_turn` is the still-active previous turn's cancellation
-    /// token, if any — only ever non-`None` in wake-phrase mode (in
-    /// `respond_to_all` mode `run_orchestrator` already cancels it on
-    /// `SpeechConfirmed`, before this function is even called for the new
-    /// utterance).
-    async fn handle_utterance(&self, pcm: Vec<i16>, cancellation: &CancellationToken, previous_turn: Option<CancellationToken>) {
+    /// `active` holds the reply turn that currently owns the call (in
+    /// `respond_to_all` mode `run_orchestrator` already cancelled it on
+    /// `SpeechConfirmed`). This turn takes it over only once confirmed.
+    async fn handle_utterance(&self, pcm: Vec<i16>, turn_id: u64, cancellation: &CancellationToken, active: &ActiveTurn) {
         self.event_bus.publish(AppEvent::CallStateChanged { state: CallState::Transcribing });
 
         let text = match self.transcribe(pcm).await {
@@ -531,7 +541,7 @@ impl Inner {
             // stay open while gaming/streaming without the character
             // replying to every single thing said, and — in wake-phrase
             // mode — without cutting off whatever it was already saying,
-            // since `previous_turn` is left untouched here.
+            // since the active turn is left untouched here.
             return;
         }
 
@@ -540,7 +550,8 @@ impl Inner {
         // wake-phrase mode; `respond_to_all` mode already cancelled it
         // eagerly on `SpeechConfirmed`), cut it off now, right before this
         // one takes over.
-        if let Some(previous) = previous_turn {
+        let previous = active.lock().expect("active turn poisoned").replace((turn_id, cancellation.clone()));
+        if let Some((_, previous)) = previous {
             previous.cancel();
             if let Err(err) = self.tts.stop().await {
                 tracing::warn!(target: "system", "call: no se pudo detener la voz al interrumpir: {err}");
@@ -583,6 +594,9 @@ impl Inner {
         self.speak_and_wait(&profile, &reply, cancellation).await;
     }
 }
+
+/// The reply turn currently owning the call: `(turn id, cancellation)`.
+type ActiveTurn = Arc<std::sync::Mutex<Option<(u64, CancellationToken)>>>;
 
 /// `aivt-service-settings` and `aivt-provider-stt` each define their own
 /// model-size enum (settings doesn't depend on that provider crate) —

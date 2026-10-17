@@ -792,8 +792,8 @@ fn maybe_speak(
 /// layout `ChatService::save_attachment` uses for images — a free function
 /// (not a `ChatService` method) because it only ever runs inside
 /// `maybe_speak`'s detached task, which has `pool`/`data_dir` but not
-/// `&ChatService`. Always MP3: both byte-producing backends
-/// (`Http`/`ElevenLabs`) return that format, see `TTSProvider::speak_and_capture`.
+/// `&ChatService`. The format is sniffed from the bytes (`audio_format`):
+/// most backends return MP3, but the Groq preset asks for WAV.
 /// Returns the created `Attachment` (not just `()`) so the caller can
 /// publish its id in `AppEvent::ChatAudioSaved` — the assistant message
 /// object the frontend already has (built from `AiResponse*` streaming
@@ -807,7 +807,8 @@ async fn save_audio_attachment(pool: &DbPool, data_dir: &Path, message_id: &str,
     let dir = data_dir.join("attachments").join(prefix);
     tokio::fs::create_dir_all(&dir).await?;
 
-    let file_name = format!("{hash}.mp3");
+    let (ext, mime_type) = audio_format(bytes);
+    let file_name = format!("{hash}.{ext}");
     let file_path = dir.join(&file_name);
     if tokio::fs::metadata(&file_path).await.is_err() {
         tokio::fs::write(&file_path, bytes).await?;
@@ -818,11 +819,20 @@ async fn save_audio_attachment(pool: &DbPool, data_dir: &Path, message_id: &str,
             message_id: message_id.to_string(),
             kind: "audio".to_string(),
             path: format!("attachments/{prefix}/{file_name}"),
-            mime_type: "audio/mpeg".to_string(),
+            mime_type: mime_type.to_string(),
             size_bytes: bytes.len() as i64,
             hash,
         })
         .await?)
+}
+
+/// `(extension, mime)` of a TTS clip; anything that isn't a RIFF/WAVE header is MP3.
+fn audio_format(bytes: &[u8]) -> (&'static str, &'static str) {
+    if bytes.len() > 12 && &bytes[..4] == b"RIFF" && &bytes[8..12] == b"WAVE" {
+        ("wav", "audio/wav")
+    } else {
+        ("mp3", "audio/mpeg")
+    }
 }
 
 /// Fires memory extraction as a fully detached task once enough new
@@ -951,6 +961,13 @@ fn memory_extraction_failed_message(err: &str, lang: &str) -> String {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn audio_format_detects_wav_and_defaults_to_mp3() {
+        assert_eq!(audio_format(b"RIFF    WAVEfmt "), ("wav", "audio/wav"));
+        assert_eq!(audio_format(b"ID3         "), ("mp3", "audio/mpeg"));
+        assert_eq!(audio_format(b"fake-mp3-bytes"), ("mp3", "audio/mpeg"));
+    }
+
     use std::time::Duration;
 
     use aivt_database::{NewProfile, ProfilesRepository};
