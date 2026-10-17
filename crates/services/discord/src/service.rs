@@ -6,7 +6,7 @@ use tokio_util::sync::CancellationToken;
 use aivt_database::{DbPool, Message, MessageRole, MessageStatus, ProfilesRepository};
 use aivt_eventbus::{AppEvent, EventBus, ServiceStatus};
 use aivt_memory::{MemoryManager, PeopleManager};
-use aivt_orchestrator::AIOrchestrator;
+use aivt_orchestrator::{AIOrchestrator, Channel};
 use aivt_provider_llm::LLMProvider;
 use aivt_provider_tools::{BraveSearchTool, CurrentTimeTool, Tool};
 use aivt_secrets::SecretStore;
@@ -106,7 +106,7 @@ impl Inner {
         // `aivt_service_twitch::service`'s identical fix for the full
         // story (a live-testing session hit this with a Qwen3 model).
         let language = self.settings().language().await.unwrap_or_else(|_| "es".to_string());
-        let mut orchestrator = AIOrchestrator::new(provider, llm_connection.model, Some(llm_connection.temperature), Some(llm_connection.max_tokens));
+        let mut orchestrator = AIOrchestrator::new(provider, llm_connection.model, Some(llm_connection.temperature), Some(llm_connection.max_tokens)).with_channel(Channel::Discord);
         // `get_current_time` is always available — pure local calculation,
         // no network/API key, so it doesn't need the same opt-in as
         // `web_search` (Fase 10b). `web_search` itself stays behind

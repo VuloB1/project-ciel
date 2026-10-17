@@ -10,7 +10,7 @@ use aivt_core::contains_word;
 use aivt_database::{DbPool, MessageRole, PeopleRepository, Profile, ProfilesRepository};
 use aivt_eventbus::{AppEvent, CallState, EventBus};
 use aivt_memory::MemoryManager;
-use aivt_orchestrator::AIOrchestrator;
+use aivt_orchestrator::{AIOrchestrator, Channel};
 use aivt_provider_llm::LLMProvider;
 use aivt_provider_tools::{BraveSearchTool, CurrentTimeTool, Tool};
 use aivt_provider_stt::{SttModelManager, TranscribeRequest, WhisperCppProvider, WhisperModelSize, STTProvider};
@@ -301,7 +301,7 @@ impl Inner {
         };
         let provider: Arc<dyn LLMProvider> = self.settings().build_llm_provider(&self.event_bus).await.map_err(|err| CallError::Settings(err.to_string()))?;
         let language = self.settings().language().await.unwrap_or_else(|_| "es".to_string());
-        let mut orchestrator = AIOrchestrator::new(provider, llm_connection.model, Some(llm_connection.temperature), None);
+        let mut orchestrator = AIOrchestrator::new(provider, llm_connection.model, Some(llm_connection.temperature), None).with_channel(Channel::Call);
         // `get_current_time` is always available — pure local calculation,
         // no network/API key, so it doesn't need the same opt-in as
         // `web_search` (Fase 10b). `web_search` stays behind

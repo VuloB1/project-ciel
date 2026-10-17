@@ -10,11 +10,13 @@
 //! context (Fase 4+) fold into `stream_respond` later without changing
 //! this contract.
 
+mod companion;
 mod mood;
 mod orchestrator;
 mod personality;
 mod prompt;
 
+pub use companion::Channel;
 pub use mood::MoodPromptBuilder;
 pub use orchestrator::AIOrchestrator;
 pub use personality::PersonalityPromptBuilder;

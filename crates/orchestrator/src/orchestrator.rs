@@ -11,6 +11,7 @@ use aivt_database::{Memory, Message as DbMessage, MessageRole as DbMessageRole, 
 use aivt_provider_llm::{ChatChunk, ChatMessage, ChatRequest, ContextBlock, LLMProvider, MessageRole, ProviderError, ToolDefinition};
 use aivt_provider_tools::Tool;
 
+use crate::companion::{self, Channel};
 use crate::{MoodPromptBuilder, PromptComposer};
 
 /// Working-memory cap until Fase 4's `MemoryManager` does real token-aware
@@ -38,11 +39,19 @@ pub struct AIOrchestrator {
     temperature: Option<f32>,
     max_tokens: Option<u32>,
     tools: Vec<Arc<dyn Tool>>,
+    channel: Channel,
 }
 
 impl AIOrchestrator {
     pub fn new(provider: Arc<dyn LLMProvider>, model: String, temperature: Option<f32>, max_tokens: Option<u32>) -> Self {
-        Self { provider, model, temperature, max_tokens, tools: Vec::new() }
+        Self { provider, model, temperature, max_tokens, tools: Vec::new(), channel: Channel::Chat }
+    }
+
+    /// Which channel the reply goes to (default `Chat`); only changes the
+    /// conversation policy text, see `companion::instruction`.
+    pub fn with_channel(mut self, channel: Channel) -> Self {
+        self.channel = channel;
+        self
     }
 
     /// Enables tool-calling (Fase 10b) — e.g. web search. Kept as a
@@ -106,6 +115,14 @@ impl AIOrchestrator {
         language: &str,
     ) -> BoxStream<'static, Result<ChatChunk, ProviderError>> {
         let mut system_prompt = PromptComposer::compose(profile, language);
+        // Conversation policy for this turn: right after who the character is, and
+        // repeated after the history below because long histories dilute the top.
+        let last_user_text = history.iter().rev().find(|m| m.role == DbMessageRole::User).map_or("", |m| m.content.as_str());
+        let policy = companion::instruction(self.channel, last_user_text, language);
+        system_prompt.push_str("
+
+");
+        system_prompt.push_str(&policy);
         // Estado de ánimo y recuerdos NO se pegan al prompt: viajan aparte, como
         // `ContextBlock`, y el `PrivacyGuardProvider` de cada proveedor anexa solo
         // lo que el modo de privacidad de ESE proveedor permite (el cambio
@@ -166,7 +183,9 @@ impl AIOrchestrator {
         // right before generation (a common mitigation for this exact
         // recency effect) is more reliable than trusting the one at the top
         // alone to still carry weight in a long conversation.
-        let mut trailing_reminder = current_datetime_line(language);
+        let mut trailing_reminder = policy;
+        trailing_reminder.push_str("\n");
+        trailing_reminder.push_str(&current_datetime_line(language));
         if !self.tools.is_empty() {
             trailing_reminder.push('\n');
             trailing_reminder.push_str(&tool_usage_hint(language));
@@ -761,6 +780,21 @@ mod tests {
         assert_eq!(requests.len(), 1);
         assert_eq!(requests[0].messages[0].role, MessageRole::System);
         assert!(requests[0].messages[0].content.starts_with("Eres Ciel."));
+    }
+
+    #[tokio::test]
+    async fn the_conversation_policy_is_in_the_system_prompt_and_repeated_after_the_history() {
+        let mock = Arc::new(MockLLMProvider::with_response(["ok"]));
+        let orchestrator = AIOrchestrator::new(mock.clone(), "mock-model".to_string(), None, None).with_channel(Channel::Call);
+        let history = vec![sample_message(DbMessageRole::User, "jajaja sii")];
+
+        let _ = orchestrator.stream_respond(&sample_profile(), &history, None, &[], None, None, "es").collect::<Vec<_>>().await;
+
+        let messages = &mock.received_requests()[0].messages;
+        assert!(messages[0].content.contains("conversar y acompañar"));
+        assert!(messages[0].content.contains("conversación hablada"));
+        assert!(messages[0].content.contains("frase corta"));
+        assert!(messages.last().unwrap().content.contains("conversar y acompañar"));
     }
 
     #[tokio::test]
