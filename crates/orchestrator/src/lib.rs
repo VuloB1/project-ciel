@@ -17,9 +17,11 @@ mod mood;
 mod orchestrator;
 mod personality;
 mod prompt;
+mod session;
 
 pub use companion::Channel;
 pub use mood::MoodPromptBuilder;
 pub use orchestrator::AIOrchestrator;
 pub use personality::PersonalityPromptBuilder;
 pub use prompt::PromptComposer;
+pub use session::SessionContext;

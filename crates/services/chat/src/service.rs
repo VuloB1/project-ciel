@@ -18,7 +18,8 @@ use aivt_database::{
 };
 use aivt_eventbus::{AppEvent, EventBus};
 use aivt_memory::MemoryManager;
-use aivt_orchestrator::AIOrchestrator;
+use aivt_orchestrator::{AIOrchestrator, SessionContext};
+use crate::summary;
 use aivt_provider_llm::LLMProvider;
 use aivt_provider_tts::{SpeakRequest, TtsBackend, TTSProvider};
 
@@ -576,7 +577,8 @@ async fn run_generation(
     let mood = memory.get_mood(&ctx.profile.id).await.ok();
 
     let started_at = Instant::now();
-    let mut stream = ctx.orchestrator.stream_respond(
+    let session = SessionContext { summary: &conversation.session_summary, open_threads: &conversation.open_threads };
+    let mut stream = ctx.orchestrator.stream_respond_with_session(
         &ctx.profile,
         &history,
         latest_user_image.as_deref(),
@@ -584,6 +586,7 @@ async fn run_generation(
         mood.as_ref(),
         None,
         &ctx.language,
+        Some(&session),
     );
     let mut full_text = String::new();
     let mut final_status = MessageStatus::Complete;
@@ -682,6 +685,7 @@ async fn run_generation(
 
     if final_status == MessageStatus::Complete {
         maybe_consolidate(pool, event_bus, memory, &conversation, &ctx);
+        maybe_summarize(pool, &conversation.id, &ctx);
         maybe_speak(pool, data_dir, event_bus, &ctx.profile.id, ctx.tts.as_ref(), &conversation.id, &assistant_message.id, &full_text);
     }
 }
@@ -906,6 +910,33 @@ fn maybe_consolidate(
                     summary = %memory_extraction_failed_message(&err.to_string(), &language),
                 );
             }
+        }
+    });
+}
+
+/// Refreshes the conversation's running summary and open threads as a detached task,
+/// same reasoning as `maybe_consolidate`: a slow or failing model call must never delay
+/// the response the user already saw. A failure or an unusable reply keeps the old notes.
+fn maybe_summarize(pool: &DbPool, conversation_id: &str, ctx: &GenerationContext) {
+    let pool = pool.clone();
+    let provider = ctx.llm_provider.clone();
+    let model = ctx.model.clone();
+    let conversation_id = conversation_id.to_string();
+
+    tokio::spawn(async move {
+        let repo = ConversationsRepository::new(&pool);
+        let Ok(Some(conversation)) = repo.get(&conversation_id).await else { return };
+        let Ok(messages) = MessagesRepository::new(&pool).list_for_conversation(&conversation_id).await else { return };
+        let Some(upto) = summary::due(messages.len() as i64, conversation.summarized_through) else { return };
+
+        let previous = summary::SessionNotes { summary: conversation.session_summary.clone(), open_threads: conversation.open_threads.clone() };
+        let segment = &messages[conversation.summarized_through.max(0) as usize..upto as usize];
+        match summary::update(provider, &model, &previous, segment).await {
+            Ok(Some(notes)) => {
+                let _ = repo.set_session_summary(&conversation_id, &notes.summary, &notes.open_threads, upto).await;
+            }
+            Ok(None) => tracing::warn!(target: "system", "session summary: the model's reply was not usable, keeping the previous notes"),
+            Err(err) => tracing::warn!(target: "system", "session summary failed, keeping the previous notes: {err}"),
         }
     });
 }

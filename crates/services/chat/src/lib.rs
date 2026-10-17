@@ -6,6 +6,7 @@
 
 mod error;
 mod service;
+mod summary;
 mod title;
 
 pub use error::ChatError;

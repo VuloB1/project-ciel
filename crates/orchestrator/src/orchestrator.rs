@@ -12,6 +12,7 @@ use aivt_provider_llm::{ChatChunk, ChatMessage, ChatRequest, ContextBlock, LLMPr
 use aivt_provider_tools::Tool;
 
 use crate::companion::{self, Channel};
+use crate::session::SessionContext;
 use crate::{MoodPromptBuilder, PromptComposer};
 
 /// Working-memory cap until Fase 4's `MemoryManager` does real token-aware
@@ -143,6 +144,23 @@ impl AIOrchestrator {
         extra_instructions: Option<&str>,
         language: &str,
     ) -> BoxStream<'static, Result<ChatChunk, ProviderError>> {
+        self.stream_respond_with_session(profile, history, latest_user_image, relevant_memories, mood, extra_instructions, language, None)
+    }
+
+    /// Same as `stream_respond`, plus the running summary of what already left the
+    /// history window and the threads still open (chat only; see `SessionContext`).
+    #[allow(clippy::too_many_arguments)]
+    pub fn stream_respond_with_session(
+        &self,
+        profile: &Profile,
+        history: &[DbMessage],
+        latest_user_image: Option<&str>,
+        relevant_memories: &[Memory],
+        mood: Option<&ProfileMood>,
+        extra_instructions: Option<&str>,
+        language: &str,
+        session: Option<&SessionContext<'_>>,
+    ) -> BoxStream<'static, Result<ChatChunk, ProviderError>> {
         let mut system_prompt = PromptComposer::compose(profile, language);
         // Conversation policy for this turn: right after who the character is, and
         // repeated after the history below because long histories dilute the top.
@@ -154,6 +172,12 @@ impl AIOrchestrator {
 
 ");
         system_prompt.push_str(&policy);
+        if let Some(text) = session.and_then(|s| s.render(language)) {
+            system_prompt.push_str("
+
+");
+            system_prompt.push_str(&text);
+        }
         // Estado de ánimo y recuerdos NO se pegan al prompt: viajan aparte, como
         // `ContextBlock`, y el `PrivacyGuardProvider` de cada proveedor anexa solo
         // lo que el modo de privacidad de ESE proveedor permite (el cambio
@@ -873,6 +897,31 @@ pub(crate) mod tests {
         // System prompt + only a couple of long messages + the trailing reminder.
         assert!(messages.len() <= 5, "kept {} messages", messages.len());
         assert!(messages[messages.len() - 2].content.starts_with("9 "));
+    }
+
+    #[tokio::test]
+    async fn the_session_summary_and_open_threads_reach_the_system_prompt() {
+        let mock = Arc::new(MockLLMProvider::with_response(["ok"]));
+        let orchestrator = AIOrchestrator::new(mock.clone(), "mock-model".to_string(), None, None);
+        let history = vec![sample_message(DbMessageRole::User, "hola")];
+        let threads = ["Mañana tiene examen".to_string()];
+        let session = SessionContext { summary: "Hablaron de un viaje.", open_threads: &threads };
+
+        let _ = orchestrator
+            .stream_respond_with_session(&sample_profile(), &history, None, &[], None, None, "es", Some(&session))
+            .collect::<Vec<_>>()
+            .await;
+
+        let system = &mock.received_requests()[0].messages[0].content;
+        assert!(system.contains("Hablaron de un viaje.") && system.contains("- Mañana tiene examen"));
+    }
+
+    #[tokio::test]
+    async fn without_a_session_nothing_about_one_is_added() {
+        let mock = Arc::new(MockLLMProvider::with_response(["ok"]));
+        let orchestrator = AIOrchestrator::new(mock.clone(), "mock-model".to_string(), None, None);
+        let _ = orchestrator.stream_respond(&sample_profile(), &[], None, &[], None, None, "es").collect::<Vec<_>>().await;
+        assert!(!mock.received_requests()[0].messages[0].content.contains("Resumen de lo que se dijo"));
     }
 
     #[tokio::test]

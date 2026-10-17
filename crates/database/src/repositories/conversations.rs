@@ -25,6 +25,15 @@ pub struct Conversation {
     /// higher in the list) — meaningless while `is_pinned` is false. See
     /// `set_pinned`/`reorder_pinned`.
     pub pin_order: i64,
+    /// Running summary of the messages that already left the history window, and the
+    /// threads still open (see `set_session_summary`). Internal: never sent to the UI.
+    #[serde(default, skip_serializing)]
+    pub session_summary: String,
+    #[serde(default, skip_serializing)]
+    pub open_threads: Vec<String>,
+    /// How many messages are already folded into `session_summary`.
+    #[serde(default, skip_serializing)]
+    pub summarized_through: i64,
 }
 
 pub struct ConversationsRepository<'a> {
@@ -171,6 +180,20 @@ impl<'a> ConversationsRepository<'a> {
         require_row(result.rows_affected(), id)
     }
 
+    /// Stores the updated summary, the threads still open, and how many messages the
+    /// summary now covers.
+    pub async fn set_session_summary(&self, id: &str, summary: &str, open_threads: &[String], summarized_through: i64) -> Result<(), DatabaseError> {
+        let threads = serde_json::to_string(open_threads).unwrap_or_else(|_| "[]".to_string());
+        let result = sqlx::query("UPDATE conversations SET session_summary = ?1, open_threads = ?2, summarized_through = ?3 WHERE id = ?4")
+            .bind(summary)
+            .bind(threads)
+            .bind(summarized_through)
+            .bind(id)
+            .execute(self.pool)
+            .await?;
+        require_row(result.rows_affected(), id)
+    }
+
     /// Pins/unpins a conversation. Pinning puts it above every other
     /// already-pinned conversation of the same profile (one below the
     /// current minimum `pin_order`) — a freshly pinned chat lands at the
@@ -244,6 +267,9 @@ fn row_to_conversation(row: sqlx::sqlite::SqliteRow) -> Conversation {
         memory_consolidated_through: row.get("memory_consolidated_through"),
         is_pinned: row.get("is_pinned"),
         pin_order: row.get("pin_order"),
+        session_summary: row.get("session_summary"),
+        open_threads: serde_json::from_str(&row.get::<String, _>("open_threads")).unwrap_or_default(),
+        summarized_through: row.get("summarized_through"),
     }
 }
 
@@ -348,6 +374,22 @@ mod tests {
 
         repo.set_memory_consolidated_through(&created.id, 6).await.unwrap();
         assert_eq!(repo.get(&created.id).await.unwrap().unwrap().memory_consolidated_through, 6);
+    }
+
+    #[tokio::test]
+    async fn session_summary_defaults_to_empty_and_round_trips() {
+        let pool = test_pool().await;
+        let profile_id = seed_profile(&pool).await;
+        let repo = ConversationsRepository::new(&pool);
+        let created = repo.create(&profile_id, "Temp", "chat").await.unwrap();
+        assert_eq!((created.session_summary.as_str(), created.open_threads.len(), created.summarized_through), ("", 0, 0));
+
+        repo.set_session_summary(&created.id, "Hablaron de un viaje.", &["Mañana tiene examen".to_string()], 8).await.unwrap();
+        let loaded = repo.get(&created.id).await.unwrap().unwrap();
+        assert_eq!(loaded.session_summary, "Hablaron de un viaje.");
+        assert_eq!(loaded.open_threads, vec!["Mañana tiene examen".to_string()]);
+        assert_eq!(loaded.summarized_through, 8);
+        assert!(repo.set_session_summary("missing", "", &[], 0).await.is_err());
     }
 
     #[tokio::test]
