@@ -11,6 +11,8 @@
 //! this contract.
 
 mod companion;
+#[cfg(test)]
+mod lab;
 mod mood;
 mod orchestrator;
 mod personality;

@@ -668,7 +668,7 @@ fn db_message_to_chat_message(message: &DbMessage) -> ChatMessage {
 }
 
 #[cfg(test)]
-mod tests {
+pub(crate) mod tests {
     use std::sync::atomic::{AtomicUsize, Ordering};
     use std::sync::Arc;
 
@@ -716,7 +716,7 @@ mod tests {
         }
     }
 
-    fn sample_profile() -> Profile {
+    pub(crate) fn sample_profile() -> Profile {
         Profile {
             id: "p1".to_string(),
             name: "Ciel".to_string(),
@@ -741,7 +741,7 @@ mod tests {
         }
     }
 
-    fn sample_message(role: DbMessageRole, content: &str) -> Message {
+    pub(crate) fn sample_message(role: DbMessageRole, content: &str) -> Message {
         Message {
             id: "m1".to_string(),
             conversation_id: "c1".to_string(),
