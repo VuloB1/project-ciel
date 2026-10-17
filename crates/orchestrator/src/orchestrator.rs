@@ -167,7 +167,8 @@ impl AIOrchestrator {
         let mut recent_user: Vec<&str> =
             history.iter().rev().filter(|m| m.role == DbMessageRole::User).take(RECENT_USER_MESSAGES).map(|m| m.content.as_str()).collect();
         recent_user.reverse();
-        let policy = companion::instruction(self.channel, &recent_user, language);
+        let last_reply_asked = history.iter().rev().find(|m| m.role == DbMessageRole::Assistant).is_some_and(|m| companion::ends_with_question(&m.content));
+        let policy = companion::instruction(self.channel, &recent_user, last_reply_asked, language);
         system_prompt.push_str("
 
 ");
@@ -238,9 +239,7 @@ impl AIOrchestrator {
         // right before generation (a common mitigation for this exact
         // recency effect) is more reliable than trusting the one at the top
         // alone to still carry weight in a long conversation.
-        let mut trailing_reminder = policy;
-        trailing_reminder.push_str("\n");
-        trailing_reminder.push_str(&current_datetime_line(language));
+        let mut trailing_reminder = current_datetime_line(language);
         if !self.tools.is_empty() {
             trailing_reminder.push('\n');
             trailing_reminder.push_str(&tool_usage_hint(language));
@@ -249,6 +248,10 @@ impl AIOrchestrator {
             trailing_reminder.push('\n');
             trailing_reminder.push_str(extra);
         }
+        // The conversation policy goes last: whatever sits right before generation weighs
+        // most, and when the date line was last the model kept bringing the day up.
+        trailing_reminder.push('\n');
+        trailing_reminder.push_str(&policy);
         messages.push(ChatMessage::text(MessageRole::System, trailing_reminder));
 
         if self.tools.is_empty() {
@@ -470,13 +473,13 @@ fn tool_usage_hint(lang: &str) -> String {
              如果有工具能获取它，就先调用那个工具。"
         }
         _ => {
-            "Tenés herramientas disponibles para responder con datos reales en vez de \
+            "Tienes herramientas disponibles para responder con datos reales en vez de \
              adivinar. Ya se te dio la fecha y hora actual reales (mensaje anterior) — \
-             no necesitás ninguna herramienta para eso, usá ese dato directamente. Para \
-             todo lo demás que no podés saber de memoria con certeza — la hora o fecha \
-             en OTRO país o ciudad, el clima, noticias, o cualquier hecho actual — usá \
+             no necesitas ninguna herramienta para eso, usa ese dato directamente. Para \
+             todo lo demás que no puedes saber de memoria con certeza — la hora o fecha \
+             en OTRO país o ciudad, el clima, noticias, o cualquier hecho actual — usa \
              las herramientas siempre. Nunca inventes ese tipo de dato: si hay una \
-             herramienta que puede conseguirlo, llamala primero."
+             herramienta que puede conseguirlo, llámala primero."
         }
     }
     .to_string()
@@ -521,7 +524,7 @@ where
             "Real, current fact (not from your training data, don't question it): today is \
              {}, {} and the time is {} (user's local time, UTC{}). Use this directly if \
              asked for the date, the day of the week, or the current time — never answer \
-             with a different date than this.",
+             with a different date than this. Don't bring it up on your own if nobody asks.",
             weekday_name(now.weekday(), lang),
             now.format("%d/%m/%Y"),
             now.format("%H:%M"),
@@ -531,7 +534,7 @@ where
             "Fato real e atual (não vem do seu treinamento, não questione): hoje é {}, {} e \
              são {} (hora local do usuário, UTC{}). Use isso diretamente se perguntarem a \
              data, o dia da semana ou a hora atual — nunca responda com uma data diferente \
-             desta.",
+             desta. Não a mencione por conta própria se ninguém perguntar.",
             weekday_name(now.weekday(), lang),
             now.format("%d/%m/%Y"),
             now.format("%H:%M"),
@@ -540,7 +543,7 @@ where
         "ja" => format!(
             "これは実際の最新の事実であり（学習データではないので疑わないこと）、今日は{}、{}、現在時刻は{}\
              （ユーザーのローカル時刻、UTC{}）。日付・曜日・現在時刻を聞かれたら、これをそのまま使うこと — \
-             絶対にこれと違う日付を答えないこと。",
+             絶対にこれと違う日付を答えないこと。聞かれていないのに自分から触れないこと。",
             weekday_name(now.weekday(), lang),
             now.format("%d/%m/%Y"),
             now.format("%H:%M"),
@@ -549,7 +552,7 @@ where
         "ko" => format!(
             "이것은 실제 최신 사실이며(학습 데이터가 아니므로 의심하지 말 것), 오늘은 {}, {}이고 현재 \
              시간은 {}(사용자의 현지 시간, UTC{})이다. 날짜, 요일, 현재 시각을 물어보면 이 정보를 그대로 \
-             사용할 것 — 절대 이것과 다른 날짜로 답하지 말 것.",
+             사용할 것 — 절대 이것과 다른 날짜로 답하지 말 것. 묻지 않았다면 먼저 언급하지 말 것.",
             weekday_name(now.weekday(), lang),
             now.format("%d/%m/%Y"),
             now.format("%H:%M"),
@@ -558,7 +561,7 @@ where
         "zh" => format!(
             "这是真实的最新事实（不是来自你的训练数据，不要质疑它）：今天是{}，{}，现在时间是{}（用户本地\
              时间，UTC{}）。如果被问到日期、星期几或现在的时间，请直接使用这个信息——绝不要给出与此不同的\
-             日期。",
+             日期。没人问的话，不要主动提起。",
             weekday_name(now.weekday(), lang),
             now.format("%d/%m/%Y"),
             now.format("%H:%M"),
@@ -566,9 +569,10 @@ where
         ),
         _ => format!(
             "Dato real y actual (no es de tu entrenamiento, no lo cuestiones): hoy es \
-             {}, {} y son las {} (hora local del usuario, UTC{}). Usá esto directamente \
+             {}, {} y son las {} (hora local del usuario, UTC{}). Usa esto directamente \
              si te preguntan la fecha, el día de la semana o la hora de ahora mismo — \
-             nunca respondas con una fecha distinta a esta.",
+             nunca respondas con una fecha distinta a esta. No la menciones por tu \
+             cuenta si nadie la pregunta.",
             weekday_name(now.weekday(), lang),
             now.format("%d/%m/%Y"),
             now.format("%H:%M"),
@@ -618,8 +622,8 @@ fn timezone_hint(name: &str, lang: &str) -> String {
         _ => format!(
             " Zona horaria del sistema del usuario: {name} — es tu única pista real de \
              dónde vive. Si te pregunta por el clima o cualquier otra cosa que dependa de \
-             su ubicación y no te dice una ciudad, orientate con esta zona (o pedile la \
-             ciudad exacta si necesitás más precisión) — nunca inventes ni asumas una \
+             su ubicación y no te dice una ciudad, oriéntate con esta zona (o pídele la \
+             ciudad exacta si necesitas más precisión) — nunca inventes ni asumas una \
              ciudad que nadie mencionó, ni la busques como 'mi ubicación' literalmente."
         ),
     }
@@ -924,6 +928,16 @@ pub(crate) mod tests {
         assert!(!mock.received_requests()[0].messages[0].content.contains("Resumen de lo que se dijo"));
     }
 
+    #[test]
+    fn spanish_framework_text_uses_tu_not_voseo_and_dates_are_not_volunteered() {
+        // Voseo in the prompt ("Usá", "Tenés") made the model answer in voseo.
+        let text = format!("{} {}", tool_usage_hint("es"), current_datetime_line("es"));
+        for voseo in ["Usá", "usá", "Tenés", "tenés", "podés", "necesitás", "llamala", "orientate", "pedile"] {
+            assert!(!text.contains(voseo), "voseo found: {voseo}");
+        }
+        assert!(text.contains("No la menciones por tu cuenta"));
+    }
+
     #[tokio::test]
     async fn propagates_provider_errors() {
         let mock = Arc::new(MockLLMProvider::with_error(ProviderError::ConnectionRefused));
@@ -1117,7 +1131,7 @@ pub(crate) mod tests {
         // Exactly one call, and it never even mentions tools.
         assert_eq!(mock.received_requests().len(), 1);
         assert!(mock.received_requests()[0].tools.is_empty());
-        assert!(!mock.received_requests()[0].messages[0].content.contains("Tenés herramientas disponibles"));
+        assert!(!mock.received_requests()[0].messages[0].content.contains("Tienes herramientas disponibles"));
     }
 
     #[tokio::test]
@@ -1128,7 +1142,7 @@ pub(crate) mod tests {
 
         let _ = orchestrator.stream_respond(&sample_profile(), &[], None, &[], None, None, "es").collect::<Vec<_>>().await;
 
-        assert!(mock.received_requests()[0].messages[0].content.contains("Tenés herramientas disponibles"));
+        assert!(mock.received_requests()[0].messages[0].content.contains("Tienes herramientas disponibles"));
     }
 
     #[tokio::test]
@@ -1150,7 +1164,7 @@ pub(crate) mod tests {
         let messages = &mock.received_requests()[0].messages;
         let last = messages.last().unwrap();
         assert_eq!(last.role, MessageRole::System);
-        assert!(last.content.contains("Tenés herramientas disponibles"));
+        assert!(last.content.contains("Tienes herramientas disponibles"));
     }
 
     #[tokio::test]
@@ -1306,7 +1320,7 @@ pub(crate) mod tests {
 
         let hint = tool_usage_hint("en");
         assert!(hint.contains("You have tools available"));
-        assert!(!hint.contains("Tenés herramientas"));
+        assert!(!hint.contains("Tienes herramientas"));
     }
 
     #[test]
@@ -1314,6 +1328,6 @@ pub(crate) mod tests {
         let now = chrono::Utc.with_ymd_and_hms(2024, 1, 1, 14, 30, 0).unwrap();
         let text = format_current_datetime_line(now, None, "fr");
         assert!(text.contains("lunes"));
-        assert!(tool_usage_hint("fr").contains("Tenés herramientas"));
+        assert!(tool_usage_hint("fr").contains("Tienes herramientas"));
     }
 }

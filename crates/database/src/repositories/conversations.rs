@@ -376,6 +376,39 @@ mod tests {
         assert_eq!(repo.get(&created.id).await.unwrap().unwrap().memory_consolidated_through, 6);
     }
 
+    /// Migrates a COPY of a real database (e.g. one extracted from a `.aivtbackup`) and
+    /// checks nothing was lost: `AIVT_REAL_DB=path/to/aivt.db cargo test -p aivt-database -- --ignored`.
+    #[tokio::test]
+    #[ignore = "needs AIVT_REAL_DB pointing at a real aivt.db"]
+    async fn a_copy_of_a_real_database_migrates_and_keeps_its_data() {
+        let source = std::env::var("AIVT_REAL_DB").expect("set AIVT_REAL_DB to a real aivt.db");
+        let copy = std::env::temp_dir().join("aivt-real-db-migration-test.db");
+        for suffix in ["", "-wal", "-shm"] {
+            let _ = std::fs::remove_file(format!("{}{suffix}", copy.display()));
+        }
+        std::fs::copy(&source, &copy).unwrap();
+
+        let pool = crate::connect(&copy).await.unwrap();
+        let tables = ["profiles", "conversations", "messages", "memories"];
+        let mut before = Vec::new();
+        for table in tables {
+            before.push(crate::row_count(&pool, table).await.unwrap());
+        }
+        let version_before = crate::applied_schema_version(&pool).await.unwrap();
+
+        crate::migrate(&pool).await.unwrap();
+
+        for (table, count) in tables.iter().zip(before) {
+            assert_eq!(crate::row_count(&pool, table).await.unwrap(), count, "{table} lost rows");
+        }
+        let repo = ConversationsRepository::new(&pool);
+        let profile_id: String = sqlx::query_scalar("SELECT profile_id FROM conversations LIMIT 1").fetch_one(&pool).await.unwrap();
+        let conversations = repo.list_for_profile(&profile_id).await.unwrap();
+        assert!(conversations.iter().all(|c| c.session_summary.is_empty() && c.open_threads.is_empty() && c.summarized_through == 0));
+        println!("migrated {version_before} -> {}, {} conversations intact", crate::applied_schema_version(&pool).await.unwrap(), conversations.len());
+        pool.close().await;
+    }
+
     #[tokio::test]
     async fn session_summary_defaults_to_empty_and_round_trips() {
         let pool = test_pool().await;

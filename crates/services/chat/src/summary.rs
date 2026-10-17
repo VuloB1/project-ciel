@@ -187,6 +187,53 @@ mod tests {
         assert!(sent.contains("Resumen viejo.") && sent.contains("- Examen mañana") && sent.contains("Usuario: me fue bien") && sent.contains("Personaje: ¡qué alegría!"));
     }
 
+    /// Summarizes a REAL conversation in two steps (like the app does) and prints the notes:
+    /// `AIVT_REAL_DB=aivt.db LAB_MODEL=... cargo test -p aivt-service-chat summarizes_a_real -- --ignored --nocapture`.
+    #[tokio::test]
+    #[ignore = "needs AIVT_REAL_DB and a model server (LAB_MODEL, optional LAB_BASE_URL)"]
+    async fn summarizes_a_real_conversation() {
+        use aivt_database::MessagesRepository;
+        use aivt_provider_llm::OpenAiCompatibleProvider;
+
+        let source = std::env::var("AIVT_REAL_DB").expect("set AIVT_REAL_DB");
+        let model = std::env::var("LAB_MODEL").expect("set LAB_MODEL");
+        let base_url = std::env::var("LAB_BASE_URL").unwrap_or_else(|_| "http://localhost:1234/v1".to_string());
+        let copy = std::env::temp_dir().join("aivt-real-db-summary-test.db");
+        for suffix in ["", "-wal", "-shm"] {
+            let _ = std::fs::remove_file(format!("{}{suffix}", copy.display()));
+        }
+        std::fs::copy(&source, &copy).unwrap();
+        let pool = aivt_database::connect(&copy).await.unwrap();
+        aivt_database::migrate(&pool).await.unwrap();
+
+        let conversation_id: String = sqlx::query_scalar("SELECT conversation_id FROM messages GROUP BY conversation_id ORDER BY COUNT(*) DESC LIMIT 1")
+            .fetch_one(&pool)
+            .await
+            .unwrap();
+        let messages = MessagesRepository::new(&pool).list_for_conversation(&conversation_id).await.unwrap();
+        let provider: Arc<dyn LLMProvider> = Arc::new(OpenAiCompatibleProvider::new(base_url, None));
+
+        let mut notes = SessionNotes { summary: String::new(), open_threads: vec![] };
+        let mut through = 0;
+        while let Some(upto) = due(messages.len() as i64, through) {
+            let segment = &messages[through as usize..upto as usize];
+            let started = std::time::Instant::now();
+            let updated = update(provider.clone(), &model, &notes, segment).await.unwrap();
+            println!("--- messages {through}..{upto} of {} ({:.1}s) ---", messages.len(), started.elapsed().as_secs_f32());
+            match updated {
+                Some(n) => {
+                    println!("SUMMARY: {}
+THREADS: {:?}", n.summary, n.open_threads);
+                    notes = n;
+                }
+                None => println!("(unusable reply, notes kept)"),
+            }
+            through = upto;
+        }
+        assert!(!notes.summary.is_empty(), "the model never produced a usable summary");
+        pool.close().await;
+    }
+
     #[tokio::test]
     async fn an_empty_segment_makes_no_model_call() {
         let mock = Arc::new(MockLLMProvider::with_response(["{}"]));

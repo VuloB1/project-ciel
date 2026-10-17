@@ -232,7 +232,7 @@ mod tests {
         let temperature: f32 = std::env::var("LAB_TEMPERATURE").ok().and_then(|t| t.parse().ok()).unwrap_or(0.7);
         let provider = Arc::new(OpenAiCompatibleProvider::new(base_url, None));
 
-        let (mut clean, mut seen, mut repeated) = (0, HashSet::new(), 0);
+        let (mut clean, mut seen, mut repeated, mut questions, mut casual) = (0, HashSet::new(), 0, 0, 0);
         for scenario in SCENARIOS {
             let mut history: Vec<Message> = scenario
                 .before
@@ -249,7 +249,12 @@ mod tests {
             }
             let reply = strip_thinking(&reply);
 
-            let problems = scenario.problems(&Metrics::of(&reply));
+            let metrics = Metrics::of(&reply);
+            if scenario.expect.max_words.is_some() {
+                casual += 1;
+                questions += usize::from(metrics.ends_with_question);
+            }
+            let problems = scenario.problems(&metrics);
             if !seen.insert(reply.to_lowercase()) {
                 repeated += 1;
             }
@@ -259,7 +264,10 @@ mod tests {
             let verdict = if problems.is_empty() { "ok".to_string() } else { problems.join("; ") };
             println!("[{:<18}] {} -> {}\n    {}\n", scenario.name, scenario.user, verdict, reply.replace('\n', "\n    "));
         }
-        println!("LAB: {clean}/{} scenarios clean, {repeated} repeated replies (model {model})", SCENARIOS.len());
+        println!(
+            "LAB: {clean}/{} scenarios clean, {repeated} repeated replies, {questions}/{casual} casual replies end with a question (model {model})",
+            SCENARIOS.len()
+        );
     }
 
     /// Reasoning models put their chain of thought in `<think>` tags: not part of the reply.
