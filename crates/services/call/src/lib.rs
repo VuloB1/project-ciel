@@ -11,6 +11,7 @@ mod error;
 mod history;
 mod segmenter;
 mod service;
+mod speech_chunker;
 
 pub use capture::list_input_devices;
 pub use error::CallError;

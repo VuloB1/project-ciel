@@ -256,6 +256,13 @@ impl TTSProvider for AivtTtsProvider {
         // through this same method.
         let spoken_text = markdown::strip_markdown(&request.text);
         let epoch = self.epoch.fetch_add(1, Ordering::SeqCst) + 1;
+        // Native and byte-buffer voices live in different players, and each one only
+        // interrupts its own: cut the other before starting so they never overlap.
+        if matches!(request.backend, TtsBackend::Native) {
+            let _ = self.audio.stop();
+        } else if let Some(engine) = &self.native {
+            let _ = engine.stop();
+        }
         match &request.backend {
             TtsBackend::Native => {
                 match &self.native {

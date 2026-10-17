@@ -24,6 +24,7 @@ use crate::capture::MicCapture;
 use crate::error::CallError;
 use crate::history::CallHistory;
 use crate::segmenter::{Segmenter, SegmenterEvent};
+use crate::speech_chunker::SpeechChunker;
 
 /// How many known-people names `transcription_prompt` folds in alongside
 /// the active profile's own name — Whisper's `initial_prompt` shares a
@@ -284,13 +285,16 @@ impl Inner {
     /// the Twitch-length cap (a call reply isn't posted anywhere with a
     /// character limit) and with cancellation support so `stop()`/barge-in
     /// can cut a generation short instead of waiting for it to finish.
-    async fn generate_reply(&self, trigger_text: &str, cancellation: &CancellationToken) -> Result<(Profile, String), CallError> {
-        let Some(profile_id) = self.active_profile_id.read().await.clone() else {
-            tracing::info!(target: "system", "call: no se puede responder, no hay un personaje activo (selecciónalo en Identidad)");
-            return Err(CallError::NoActiveProfile);
-        };
-        let profile = ProfilesRepository::new(&self.pool).get(&profile_id).await?.ok_or(CallError::NoActiveProfile)?;
-
+    ///
+    /// Each sentence is sent on `sentences` as soon as the model finishes writing it, so
+    /// the caller can start speaking before the whole reply exists.
+    async fn generate_reply(
+        &self,
+        profile: &Profile,
+        trigger_text: &str,
+        cancellation: &CancellationToken,
+        sentences: &tokio_mpsc::UnboundedSender<String>,
+    ) -> Result<String, CallError> {
         let llm_connection = match self.settings().llm_connection().await {
             Ok(Some(connection)) => connection,
             Ok(None) => {
@@ -337,8 +341,9 @@ impl Inner {
         let mood = self.memory.get_mood(&profile.id).await.ok();
 
         use futures::StreamExt;
-        let mut stream = orchestrator.stream_respond(&profile, &synthetic_history, None, &relevant_memories, mood.as_ref(), None, &language);
+        let mut stream = orchestrator.stream_respond(profile, &synthetic_history, None, &relevant_memories, mood.as_ref(), None, &language);
         let mut full_text = String::new();
+        let mut chunker = SpeechChunker::default();
         loop {
             let next = tokio::select! {
                 () = cancellation.cancelled() => return Err(CallError::Generation("cancelada".to_string())),
@@ -347,6 +352,9 @@ impl Inner {
             match next {
                 Some(Ok(chunk)) => {
                     full_text.push_str(&chunk.delta);
+                    for sentence in chunker.push(&chunk.delta) {
+                        let _ = sentences.send(sentence);
+                    }
                     if chunk.finished {
                         break;
                     }
@@ -355,8 +363,38 @@ impl Inner {
                 None => break,
             }
         }
+        if let Some(rest) = chunker.finish() {
+            let _ = sentences.send(rest);
+        }
 
-        Ok((profile, full_text.trim().to_string()))
+        Ok(full_text.trim().to_string())
+    }
+
+    async fn active_profile(&self) -> Result<Profile, CallError> {
+        let Some(profile_id) = self.active_profile_id.read().await.clone() else {
+            tracing::info!(target: "system", "call: no se puede responder, no hay un personaje activo (selecciónalo en Identidad)");
+            return Err(CallError::NoActiveProfile);
+        };
+        ProfilesRepository::new(&self.pool).get(&profile_id).await?.ok_or(CallError::NoActiveProfile)
+    }
+
+    /// Speaks the sentences as they arrive, one after another, and returns the ones it
+    /// started saying (what the user actually heard, for the call history).
+    async fn speak_sentences(&self, profile: &Profile, mut sentences: tokio_mpsc::UnboundedReceiver<String>, cancellation: &CancellationToken) -> Vec<String> {
+        let mut delivered = Vec::new();
+        loop {
+            let next = tokio::select! {
+                () = cancellation.cancelled() => None,
+                sentence = sentences.recv() => sentence,
+            };
+            let Some(sentence) = next else { break };
+            if delivered.is_empty() {
+                self.event_bus.publish(AppEvent::CallStateChanged { state: CallState::Speaking });
+            }
+            self.speak_and_wait(profile, &sentence, cancellation).await;
+            delivered.push(sentence);
+        }
+        delivered
     }
 
     /// Speaks `text` and waits for it to actually finish (or be
@@ -559,39 +597,63 @@ impl Inner {
         }
 
         self.event_bus.publish(AppEvent::CallStateChanged { state: CallState::Thinking });
-        let (profile, reply) = match self.generate_reply(&text, cancellation).await {
-            Ok(result) => result,
+        let profile = match self.active_profile().await {
+            Ok(profile) => profile,
             Err(err) => {
-                // A cancelled generation (this turn itself got
-                // barge-in'd, or the call was hung up mid-turn) isn't a
-                // real failure — surfacing it as `CallError` would show a
-                // spurious error for what's actually an intentional
-                // interruption.
-                if cancellation.is_cancelled() {
-                    // Lo que dijo el usuario cuenta aunque este turno se haya
-                    // interrumpido: el siguiente debe saber que se lo dijo.
-                    self.history.lock().expect("call history poisoned").push(MessageRole::User, &text);
-                    return;
-                }
                 self.history.lock().expect("call history poisoned").push(MessageRole::User, &text);
-                tracing::warn!(target: "system", "call: la generación falló: {err}");
+                tracing::warn!(target: "system", "call: no hay personaje para responder: {err}");
                 self.event_bus.publish(AppEvent::CallError { message: err.to_string() });
                 self.event_bus.publish(AppEvent::CallStateChanged { state: CallState::Error });
+                return;
+            }
+        };
+
+        // Generating and speaking run together: the first sentence is spoken while the
+        // model is still writing the rest.
+        let (sentence_tx, sentence_rx) = tokio_mpsc::unbounded_channel();
+        let generation = async {
+            let result = self.generate_reply(&profile, &text, cancellation, &sentence_tx).await;
+            drop(sentence_tx); // lets the speaker finish once the queue is empty
+            result
+        };
+        let (generated, delivered) = tokio::join!(generation, self.speak_sentences(&profile, sentence_rx, cancellation));
+
+        // What the model "remembers saying" next turn is what was actually spoken, so an
+        // interrupted reply doesn't count as fully delivered.
+        let delivered_text = delivered.join(" ");
+        let reply = match generated {
+            Ok(reply) => reply,
+            Err(err) => {
+                // A cancelled generation (this turn itself got barge-in'd, or the call was
+                // hung up mid-turn) isn't a real failure.
+                {
+                    // Lo que dijo el usuario cuenta aunque este turno se haya interrumpido:
+                    // el siguiente debe saber que se lo dijo.
+                    let mut history = self.history.lock().expect("call history poisoned");
+                    history.push(MessageRole::User, &text);
+                    if !delivered_text.is_empty() {
+                        history.push(MessageRole::Assistant, &delivered_text);
+                    }
+                }
+                if !cancellation.is_cancelled() {
+                    tracing::warn!(target: "system", "call: la generación falló: {err}");
+                    self.event_bus.publish(AppEvent::CallError { message: err.to_string() });
+                    self.event_bus.publish(AppEvent::CallStateChanged { state: CallState::Error });
+                }
                 return;
             }
         };
         {
             let mut history = self.history.lock().expect("call history poisoned");
             history.push(MessageRole::User, &text);
-            history.push(MessageRole::Assistant, &reply);
+            let heard = if cancellation.is_cancelled() && !delivered_text.is_empty() { &delivered_text } else { &reply };
+            if !heard.is_empty() {
+                history.push(MessageRole::Assistant, heard);
+            }
         }
-        if reply.is_empty() {
-            return;
+        if !reply.is_empty() {
+            self.event_bus.publish(AppEvent::CallCharacterReply { text: reply });
         }
-
-        self.event_bus.publish(AppEvent::CallCharacterReply { text: reply.clone() });
-        self.event_bus.publish(AppEvent::CallStateChanged { state: CallState::Speaking });
-        self.speak_and_wait(&profile, &reply, cancellation).await;
     }
 }
 
