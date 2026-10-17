@@ -19,6 +19,9 @@ use crate::{MoodPromptBuilder, PromptComposer};
 /// reasonable stand-in that keeps context bounded today.
 const MAX_HISTORY_MESSAGES: usize = 20;
 
+/// How many of the user's latest messages feed the conversation-pace hint.
+const RECENT_USER_MESSAGES: usize = 5;
+
 /// Hard cap on how many times a single `stream_respond` call will call the
 /// provider when tools are configured (Fase 10b) — guards against a model
 /// that keeps requesting tool calls indefinitely. The last round is always
@@ -117,8 +120,10 @@ impl AIOrchestrator {
         let mut system_prompt = PromptComposer::compose(profile, language);
         // Conversation policy for this turn: right after who the character is, and
         // repeated after the history below because long histories dilute the top.
-        let last_user_text = history.iter().rev().find(|m| m.role == DbMessageRole::User).map_or("", |m| m.content.as_str());
-        let policy = companion::instruction(self.channel, last_user_text, language);
+        let mut recent_user: Vec<&str> =
+            history.iter().rev().filter(|m| m.role == DbMessageRole::User).take(RECENT_USER_MESSAGES).map(|m| m.content.as_str()).collect();
+        recent_user.reverse();
+        let policy = companion::instruction(self.channel, &recent_user, language);
         system_prompt.push_str("
 
 ");

@@ -17,7 +17,11 @@ pub enum Channel {
 }
 
 /// Instruction block for this turn, in the app language (unknown falls back to Spanish).
-pub fn instruction(channel: Channel, last_user_text: &str, lang: &str) -> String {
+/// `recent_user_texts` are the user's latest messages, oldest first; the last one is the
+/// message being answered. Their average length sets the rhythm to keep (rhythm only,
+/// never imitating spelling or emojis).
+pub fn instruction(channel: Channel, recent_user_texts: &[&str], lang: &str) -> String {
+    let last_user_text = recent_user_texts.last().copied().unwrap_or("");
     let t = texts(lang);
     let mut out = t.base.to_string();
     if is_help_request(last_user_text) {
@@ -26,6 +30,9 @@ pub fn instruction(channel: Channel, last_user_text: &str, lang: &str) -> String
     } else if weighted_len(last_user_text) <= TINY_MESSAGE {
         out.push(' ');
         out.push_str(t.tiny);
+    } else if average_len(recent_user_texts) <= BRIEF_AVERAGE {
+        out.push(' ');
+        out.push_str(t.brief);
     }
     if channel == Channel::Call {
         out.push(' ');
@@ -37,6 +44,15 @@ pub fn instruction(channel: Channel, last_user_text: &str, lang: &str) -> String
 /// Short messages ("jajaja sii", "tengo sueño") get a one-line reply.
 const TINY_MESSAGE: usize = 30;
 const LONG_MESSAGE: usize = 200;
+/// A user whose recent messages average this or less is chatting briefly.
+const BRIEF_AVERAGE: usize = 60;
+
+fn average_len(texts: &[&str]) -> usize {
+    if texts.is_empty() {
+        return usize::MAX;
+    }
+    texts.iter().map(|t| weighted_len(t)).sum::<usize>() / texts.len()
+}
 
 /// Character count where CJK characters weigh 3: one of them carries about a word.
 fn weighted_len(text: &str) -> usize {
@@ -56,6 +72,7 @@ fn is_help_request(text: &str) -> bool {
 struct Texts {
     base: &'static str,
     tiny: &'static str,
+    brief: &'static str,
     help: &'static str,
     voice: &'static str,
 }
@@ -65,36 +82,42 @@ fn texts(lang: &str) -> Texts {
         "en" => Texts {
             base: "Your main role here is to converse and keep company, not to act as an assistant. Answer as part of an ongoing chat: react first to what they said, match the length to their message (in casual talk a sentence or a few is enough), no lists or headings unless asked, don't end by offering help, and don't ask a question every turn. You can joke, give an opinion, disagree or just comment.",
             tiny: "Their message is very short: reply with one short sentence.",
+            brief: "The user is chatting in short, casual messages: keep a similar pace and avoid replies much longer than theirs unless the question needs it.",
             help: "This message asks for help or an explanation: be clear and give the detail needed, and you may structure the answer.",
             voice: "This is a spoken conversation: short sentences that are easy to say aloud, usually one or two, with no Markdown, lists or symbols.",
         },
         "pt" => Texts {
             base: "Sua função principal aqui é conversar e fazer companhia, não agir como assistente. Responda como parte de uma conversa contínua: reaja primeiro ao que disseram, ajuste o tamanho à mensagem (em papo casual uma ou poucas frases bastam), sem listas nem títulos a menos que peçam, não termine oferecendo ajuda e não faça uma pergunta a cada turno. Você pode brincar, opinar, discordar ou só comentar.",
             tiny: "A mensagem é muito curta: responda com uma frase curta.",
+            brief: "O usuário está conversando com mensagens curtas e informais: mantenha um ritmo parecido e evite respostas bem mais longas que as dele, a menos que a pergunta exija.",
             help: "Esta mensagem pede ajuda ou uma explicação: seja claro e dê o detalhe necessário, e pode estruturar a resposta.",
             voice: "Esta é uma conversa falada: frases curtas e fáceis de pronunciar, normalmente uma ou duas, sem Markdown, listas nem símbolos.",
         },
         "ja" => Texts {
             base: "ここでのあなたの主な役割は、アシスタントとして振る舞うことではなく、会話して寄り添うことです。続いている会話の一部として答えてください。まず相手の言ったことに反応し、長さは相手のメッセージに合わせ、雑談なら一文か数文で十分です。頼まれない限り箇条書きや見出しは使わず、手伝いを申し出て締めくくらず、毎回質問もしないでください。冗談を言ったり、意見を述べたり、反対したり、ただ感想を言ってもかまいません。",
             tiny: "相手のメッセージはとても短いので、短い一文で返してください。",
+            brief: "相手は短くくだけたメッセージで会話しています。同じようなテンポを保ち、質問が必要としない限り、相手より大幅に長い返事は避けてください。",
             help: "このメッセージは助けや説明を求めています。分かりやすく、必要なだけ詳しく答え、構造化してもかまいません。",
             voice: "これは音声での会話です。声に出しやすい短い文で、たいてい一、二文にし、Markdownや箇条書きや記号は使わないでください。",
         },
         "ko" => Texts {
             base: "여기서 당신의 주된 역할은 어시스턴트가 아니라 대화하고 곁을 지켜 주는 것입니다. 이어지는 대화의 일부로 답하세요. 먼저 상대가 한 말에 반응하고, 길이는 상대의 메시지에 맞추며, 가벼운 대화에서는 한두 문장이면 충분합니다. 요청이 없으면 목록이나 제목을 쓰지 말고, 도와주겠다는 말로 끝맺지 말고, 매번 질문하지 마세요. 농담하거나 의견을 말하거나 반대하거나 그냥 한마디 덧붙여도 됩니다.",
             tiny: "상대의 메시지가 아주 짧으니 짧은 한 문장으로 답하세요.",
+            brief: "상대는 짧고 편한 메시지로 대화하고 있습니다. 비슷한 속도를 유지하고, 질문이 필요로 하지 않는 한 상대보다 훨씬 긴 답은 피하세요.",
             help: "이 메시지는 도움이나 설명을 요청합니다. 명확하게, 필요한 만큼 자세히 답하고 구조화해도 됩니다.",
             voice: "이것은 음성 대화입니다. 소리 내어 말하기 쉬운 짧은 문장으로, 보통 한두 문장만 말하고 Markdown, 목록, 기호는 쓰지 마세요.",
         },
         "zh" => Texts {
             base: "你在这里的主要角色是聊天和陪伴，而不是充当助手。像持续进行的对话一样回答：先对对方说的话做出反应，长度与对方的消息相称，闲聊时一句或几句就够了；除非被要求，不要使用列表或标题，不要以主动提供帮助作结，也不要每轮都提问。你可以开玩笑、发表看法、表示不同意，或者只是随口评论。",
             tiny: "对方的消息很短，请用一句简短的话回答。",
+            brief: "对方在用简短随意的消息聊天：保持相近的节奏，除非问题需要，否则避免回复比对方长很多。",
             help: "这条消息是在求助或要求解释：请清楚地回答并给出所需的细节，可以分点组织。",
             voice: "这是语音对话：用容易说出口的短句，通常一两句，不要使用 Markdown、列表或符号。",
         },
         _ => Texts {
             base: "Tu función principal aquí es conversar y acompañar, no actuar como asistente. Responde como parte de una charla continua: reacciona primero a lo que te dicen, adapta la longitud al mensaje (en charla casual bastan una o pocas frases), no uses listas ni encabezados salvo que los pidan, no cierres ofreciendo ayuda y no hagas una pregunta en cada turno. Puedes bromear, opinar, discrepar o simplemente comentar.",
             tiny: "Su mensaje es muy breve: responde con una frase corta.",
+            brief: "El usuario conversa con mensajes breves e informales: mantén un ritmo parecido y evita respuestas mucho más largas que las suyas salvo que la pregunta lo necesite.",
             help: "Este mensaje pide ayuda o una explicación: sé claro y da el detalle necesario, y puedes estructurar la respuesta.",
             voice: "Esto es una conversación hablada: frases cortas y fáciles de pronunciar, normalmente una o dos, sin Markdown, listas ni símbolos.",
         },
@@ -105,39 +128,55 @@ fn texts(lang: &str) -> Texts {
 mod tests {
     use super::*;
 
+    fn ask(channel: Channel, text: &str, lang: &str) -> String {
+        instruction(channel, &[text], lang)
+    }
+
+    #[test]
+    fn a_terse_conversation_asks_to_keep_the_pace_even_for_a_medium_message() {
+        let recent = ["ok", "jaja", "sí", "hoy me levanté tarde y no hice mucho"];
+        assert!(instruction(Channel::Chat, &recent, "es").contains("ritmo parecido"));
+    }
+
+    #[test]
+    fn a_talkative_conversation_gets_no_pace_hint() {
+        let long = "x".repeat(150);
+        assert!(!instruction(Channel::Chat, &[long.as_str(), long.as_str()], "es").contains("ritmo parecido"));
+    }
+
     #[test]
     fn a_tiny_casual_message_asks_for_one_short_sentence() {
-        let text = instruction(Channel::Chat, "jajaja sii", "es");
+        let text = ask(Channel::Chat, "jajaja sii", "es");
         assert!(text.contains("frase corta"));
         assert!(!text.contains("estructurar"));
     }
 
     #[test]
     fn a_help_request_allows_detail_even_when_short() {
-        let text = instruction(Channel::Chat, "explica los embeddings", "es");
+        let text = ask(Channel::Chat, "explica los embeddings", "es");
         assert!(text.contains("estructurar"));
         assert!(!text.contains("frase corta"));
     }
 
     #[test]
     fn a_long_message_is_treated_as_a_help_request() {
-        assert!(instruction(Channel::Chat, &"palabra ".repeat(40), "es").contains("estructurar"));
+        assert!(ask(Channel::Chat, &"palabra ".repeat(40), "es").contains("estructurar"));
     }
 
     #[test]
     fn only_a_call_gets_the_spoken_rule() {
-        assert!(instruction(Channel::Call, "cuéntame de tu día, ¿qué hiciste?", "es").contains("conversación hablada"));
-        assert!(!instruction(Channel::Twitch, "cuéntame de tu día, ¿qué hiciste?", "es").contains("conversación hablada"));
+        assert!(ask(Channel::Call, "cuéntame de tu día, ¿qué hiciste?", "es").contains("conversación hablada"));
+        assert!(!ask(Channel::Twitch, "cuéntame de tu día, ¿qué hiciste?", "es").contains("conversación hablada"));
     }
 
     #[test]
     fn cjk_counts_more_per_character() {
-        assert!(instruction(Channel::Chat, "うん", "ja").contains("短い一文"));
-        assert!(!instruction(Channel::Chat, "今日は友達と一緒に新しいカフェに行ってきました", "ja").contains("短い一文"));
+        assert!(ask(Channel::Chat, "うん", "ja").contains("短い一文"));
+        assert!(!ask(Channel::Chat, "今日は友達と一緒に新しいカフェに行ってきました", "ja").contains("短い一文"));
     }
 
     #[test]
     fn unknown_language_falls_back_to_spanish() {
-        assert!(instruction(Channel::Chat, "hola", "xx").contains("conversar y acompañar"));
+        assert!(ask(Channel::Chat, "hola", "xx").contains("conversar y acompañar"));
     }
 }
