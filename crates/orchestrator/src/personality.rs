@@ -17,6 +17,13 @@ fn tier(value: i64) -> Tier {
     }
 }
 
+/// Within this distance of the slider's midpoint (50) a trait is "unremarkable".
+const NEUTRAL_BAND: i64 = 10;
+
+fn is_neutral(value: i64) -> bool {
+    (value - 50).abs() <= NEUTRAL_BAND
+}
+
 impl Tier {
     fn pick<'a>(self, low: &'a str, mid: &'a str, high: &'a str) -> &'a str {
         match self {
@@ -54,12 +61,22 @@ impl PersonalityPromptBuilder {
             sections.push(free.to_string());
         }
 
-        sections.push(Self::closeness(p, lang));
-        sections.push(Self::humor(p, lang));
-        sections.push(Self::speaking_style(p, lang));
-        sections.push(Self::energy(p, lang));
-        sections.push(Self::initiative(p, lang));
-        sections.push(Self::confidence(p, lang));
+        // A section whose three sliders all sit near the middle says nothing that
+        // defines the character, so it is left out instead of spending prompt on
+        // "moderately expressive, fairly confident...".
+        let groups: [([i64; 3], fn(&ProfilePersonality, &str) -> String); 6] = [
+            ([p.warmth, p.empathy, p.affection], Self::closeness),
+            ([p.humor, p.sarcasm, p.teasing_tendency], Self::humor),
+            ([p.formality, p.verbosity, p.expressiveness], Self::speaking_style),
+            ([p.energy, p.spontaneity, p.curiosity], Self::energy),
+            ([p.initiative, p.initiate_conversation_tendency, p.question_tendency], Self::initiative),
+            ([p.confidence, p.shyness, p.emotional_intensity], Self::confidence),
+        ];
+        for (values, section) in groups {
+            if values.iter().any(|v| !is_neutral(*v)) {
+                sections.push(section(p, lang));
+            }
+        }
 
         if p.flirtiness > 10 {
             sections.push(Self::flirtiness(p, lang));
@@ -482,6 +499,24 @@ mod tests {
         let mut high = ProfilePersonality::default();
         high.flirtiness = 80;
         assert!(PersonalityPromptBuilder::build(&high, "es").contains("coqueta y juguetona"));
+    }
+
+    fn flat() -> ProfilePersonality {
+        ProfilePersonality {
+            warmth: 50, empathy: 45, humor: 50, sarcasm: 55, formality: 50, curiosity: 50, energy: 50, spontaneity: 50,
+            initiative: 50, affection: 55, shyness: 50, confidence: 50, expressiveness: 50, verbosity: 50, flirtiness: 0,
+            emotional_intensity: 50, teasing_tendency: 50, question_tendency: 50, initiate_conversation_tendency: 50,
+            ..ProfilePersonality::default()
+        }
+    }
+
+    #[test]
+    fn neutral_sliders_add_nothing_and_only_remarkable_groups_appear() {
+        assert_eq!(PersonalityPromptBuilder::build(&flat(), "es"), "");
+
+        let prompt = PersonalityPromptBuilder::build(&ProfilePersonality { humor: 90, ..flat() }, "es");
+        assert!(prompt.contains("humor"), "{prompt}");
+        assert!(!prompt.contains("atenta"), "{prompt}");
     }
 
     #[test]
