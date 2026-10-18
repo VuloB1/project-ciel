@@ -97,6 +97,20 @@ pub trait TTSProvider: Send + Sync {
         self.speak_and_capture(request).await.map(|_| ())
     }
 
+    /// Synthesizes `request` WITHOUT playing it, so the next sentence of a reply can be
+    /// prepared while the current one is still sounding (Llamada). `None` when there is
+    /// nothing to prepare: the native voice speaks directly, and a muted app produces nothing.
+    /// Play the result with `play_audio`.
+    async fn synthesize(&self, _request: SpeakRequest) -> Result<Option<Vec<u8>>, TtsError> {
+        Ok(None)
+    }
+
+    /// Plays audio returned by `synthesize`, with the same mute / hidden-window rules and the
+    /// same "cut whatever else is speaking" behavior as `speak`.
+    fn play_audio(&self, _bytes: Vec<u8>, _profile_id: String, _message_id: Option<String>) -> Result<(), TtsError> {
+        Ok(())
+    }
+
     /// Stops whatever's currently speaking, regardless of which backend is
     /// active right now — safe to call unconditionally, even when nothing
     /// is speaking.
@@ -213,6 +227,47 @@ impl AivtTtsProvider {
     }
 }
 
+impl AivtTtsProvider {
+    /// Global mute, or the window hidden in the tray without "voz en segundo plano": nothing plays.
+    fn playback_blocked(&self) -> bool {
+        if self.muted.load(Ordering::Relaxed) {
+            tracing::info!(target: "system", "voz global silenciada, se omite la reproducción");
+            return true;
+        }
+        if self.window_hidden.load(Ordering::Relaxed) && !self.voice_while_hidden.load(Ordering::Relaxed) {
+            tracing::info!(target: "system", "ventana minimizada en la bandeja y voz en segundo plano desactivada, se omite la reproducción");
+            return true;
+        }
+        false
+    }
+
+    /// Native and byte-buffer voices live in different players, and each one only
+    /// interrupts its own: cut the other before starting so they never overlap.
+    fn cut_other_player(&self, backend: &TtsBackend) {
+        if matches!(backend, TtsBackend::Native) {
+            let _ = self.audio.stop();
+        } else if let Some(engine) = &self.native {
+            let _ = engine.stop();
+        }
+    }
+
+    /// Synthesizes with a byte-producing backend; `None` for the native voice, which speaks directly.
+    async fn synthesize_bytes(&self, backend: &TtsBackend, text: &str, voice_id: &str, rate: f32) -> Result<Option<Vec<u8>>, TtsError> {
+        let bytes = match backend {
+            TtsBackend::Native => return Ok(None),
+            TtsBackend::Http { base_url, api_key } => self.http.synthesize(text, voice_id, rate, base_url, api_key.as_deref()).await?,
+            TtsBackend::ElevenLabs { api_key } => self.elevenlabs.synthesize(text, voice_id, rate, api_key).await?,
+            TtsBackend::Google { api_key } => self.google.synthesize(text, voice_id, rate, api_key).await?,
+            TtsBackend::FishAudio { api_key, model } => self.fish.synthesize(text, voice_id, rate, api_key, model.as_deref()).await?,
+            TtsBackend::Groq { api_key, model } => self.http.synthesize_preset(&GROQ, text, voice_id, rate, api_key, model.as_deref()).await?,
+            TtsBackend::Together { api_key, model } => self.http.synthesize_preset(&TOGETHER, text, voice_id, rate, api_key, model.as_deref()).await?,
+            TtsBackend::Deepgram { api_key } => self.deepgram.synthesize(text, voice_id, api_key).await?,
+            TtsBackend::Azure { api_key, region } => self.azure.synthesize(text, voice_id, rate, api_key, region).await?,
+        };
+        Ok(Some(bytes))
+    }
+}
+
 #[async_trait]
 impl TTSProvider for AivtTtsProvider {
     async fn search_voices(&self, backend: &TtsBackend, query: &str) -> Result<Vec<VoiceInfo>, TtsError> {
@@ -240,12 +295,7 @@ impl TTSProvider for AivtTtsProvider {
     }
 
     async fn speak_and_capture(&self, request: SpeakRequest) -> Result<Option<Vec<u8>>, TtsError> {
-        if self.muted.load(Ordering::Relaxed) {
-            tracing::info!(target: "system", "voz global silenciada, se omite la reproducción");
-            return Ok(None);
-        }
-        if self.window_hidden.load(Ordering::Relaxed) && !self.voice_while_hidden.load(Ordering::Relaxed) {
-            tracing::info!(target: "system", "ventana minimizada en la bandeja y voz en segundo plano desactivada, se omite la reproducción");
+        if self.playback_blocked() {
             return Ok(None);
         }
         // The character's replies are Markdown (Fase 11: the Chat bubble
@@ -256,107 +306,53 @@ impl TTSProvider for AivtTtsProvider {
         // through this same method.
         let spoken_text = markdown::strip_markdown(&request.text);
         let epoch = self.epoch.fetch_add(1, Ordering::SeqCst) + 1;
-        // Native and byte-buffer voices live in different players, and each one only
-        // interrupts its own: cut the other before starting so they never overlap.
+        self.cut_other_player(&request.backend);
         if matches!(request.backend, TtsBackend::Native) {
-            let _ = self.audio.stop();
-        } else if let Some(engine) = &self.native {
+            match &self.native {
+                Some(engine) => engine.speak(
+                    &spoken_text,
+                    &request.voice_id,
+                    request.rate,
+                    request.pitch,
+                    request.volume,
+                    request.profile_id,
+                    request.message_id,
+                    &self.event_bus,
+                )?,
+                None => return Err(TtsError::Unavailable("no hay un motor de voz nativo disponible en este sistema".to_string())),
+            }
+            return Ok(None);
+        }
+        let Some(bytes) = self.synthesize_bytes(&request.backend, &spoken_text, &request.voice_id, request.rate).await? else {
+            return Ok(None);
+        };
+        if self.epoch.load(Ordering::SeqCst) != epoch {
+            // Mientras se sintetizaba, el usuario pulsó stop (o empezó otra voz):
+            // el audio llega tarde y no debe sonar.
+            return Ok(Some(bytes));
+        }
+        self.audio.play(bytes.clone(), request.profile_id, request.message_id).map_err(TtsError::Playback)?;
+        Ok(Some(bytes))
+    }
+
+    async fn synthesize(&self, request: SpeakRequest) -> Result<Option<Vec<u8>>, TtsError> {
+        if self.playback_blocked() {
+            return Ok(None);
+        }
+        let spoken_text = markdown::strip_markdown(&request.text);
+        self.synthesize_bytes(&request.backend, &spoken_text, &request.voice_id, request.rate).await
+    }
+
+    fn play_audio(&self, bytes: Vec<u8>, profile_id: String, message_id: Option<String>) -> Result<(), TtsError> {
+        if self.playback_blocked() {
+            return Ok(());
+        }
+        self.epoch.fetch_add(1, Ordering::SeqCst);
+        // Prepared audio is never the native voice, which `synthesize` cannot prepare.
+        if let Some(engine) = &self.native {
             let _ = engine.stop();
         }
-        match &request.backend {
-            TtsBackend::Native => {
-                match &self.native {
-                    Some(engine) => engine.speak(
-                        &spoken_text,
-                        &request.voice_id,
-                        request.rate,
-                        request.pitch,
-                        request.volume,
-                        request.profile_id,
-                        request.message_id,
-                        &self.event_bus,
-                    )?,
-                    None => return Err(TtsError::Unavailable("no hay un motor de voz nativo disponible en este sistema".to_string())),
-                }
-                Ok(None)
-            }
-            TtsBackend::Http { base_url, api_key } => {
-                let bytes = self.http.synthesize(&spoken_text, &request.voice_id, request.rate, base_url, api_key.as_deref()).await?;
-                if self.epoch.load(Ordering::SeqCst) != epoch {
-                    // Mientras se sintetizaba, el usuario pulsó stop (o empezó otra voz):
-                    // el audio llega tarde y no debe sonar.
-                    return Ok(Some(bytes));
-                }
-                self.audio.play(bytes.clone(), request.profile_id, request.message_id).map_err(TtsError::Playback)?;
-                Ok(Some(bytes))
-            }
-            TtsBackend::ElevenLabs { api_key } => {
-                let bytes = self.elevenlabs.synthesize(&spoken_text, &request.voice_id, request.rate, api_key).await?;
-                if self.epoch.load(Ordering::SeqCst) != epoch {
-                    // Mientras se sintetizaba, el usuario pulsó stop (o empezó otra voz):
-                    // el audio llega tarde y no debe sonar.
-                    return Ok(Some(bytes));
-                }
-                self.audio.play(bytes.clone(), request.profile_id, request.message_id).map_err(TtsError::Playback)?;
-                Ok(Some(bytes))
-            }
-            TtsBackend::Google { api_key } => {
-                let bytes = self.google.synthesize(&spoken_text, &request.voice_id, request.rate, api_key).await?;
-                if self.epoch.load(Ordering::SeqCst) != epoch {
-                    // Mientras se sintetizaba, el usuario pulsó stop (o empezó otra voz):
-                    // el audio llega tarde y no debe sonar.
-                    return Ok(Some(bytes));
-                }
-                self.audio.play(bytes.clone(), request.profile_id, request.message_id).map_err(TtsError::Playback)?;
-                Ok(Some(bytes))
-            }
-            TtsBackend::FishAudio { api_key, model } => {
-                let bytes = self.fish.synthesize(&spoken_text, &request.voice_id, request.rate, api_key, model.as_deref()).await?;
-                if self.epoch.load(Ordering::SeqCst) != epoch {
-                    // Mientras se sintetizaba, el usuario pulsó stop (o empezó otra voz):
-                    // el audio llega tarde y no debe sonar.
-                    return Ok(Some(bytes));
-                }
-                self.audio.play(bytes.clone(), request.profile_id, request.message_id).map_err(TtsError::Playback)?;
-                Ok(Some(bytes))
-            }
-            TtsBackend::Groq { api_key, model } => {
-                let bytes = self.http.synthesize_preset(&GROQ, &spoken_text, &request.voice_id, request.rate, api_key, model.as_deref()).await?;
-                if self.epoch.load(Ordering::SeqCst) != epoch {
-                    return Ok(Some(bytes));
-                }
-                self.audio.play(bytes.clone(), request.profile_id, request.message_id).map_err(TtsError::Playback)?;
-                Ok(Some(bytes))
-            }
-            TtsBackend::Together { api_key, model } => {
-                let bytes = self.http.synthesize_preset(&TOGETHER, &spoken_text, &request.voice_id, request.rate, api_key, model.as_deref()).await?;
-                if self.epoch.load(Ordering::SeqCst) != epoch {
-                    return Ok(Some(bytes));
-                }
-                self.audio.play(bytes.clone(), request.profile_id, request.message_id).map_err(TtsError::Playback)?;
-                Ok(Some(bytes))
-            }
-            TtsBackend::Deepgram { api_key } => {
-                let bytes = self.deepgram.synthesize(&spoken_text, &request.voice_id, api_key).await?;
-                if self.epoch.load(Ordering::SeqCst) != epoch {
-                    // Mientras se sintetizaba, el usuario pulsó stop (o empezó otra voz):
-                    // el audio llega tarde y no debe sonar.
-                    return Ok(Some(bytes));
-                }
-                self.audio.play(bytes.clone(), request.profile_id, request.message_id).map_err(TtsError::Playback)?;
-                Ok(Some(bytes))
-            }
-            TtsBackend::Azure { api_key, region } => {
-                let bytes = self.azure.synthesize(&spoken_text, &request.voice_id, request.rate, api_key, region).await?;
-                if self.epoch.load(Ordering::SeqCst) != epoch {
-                    // Mientras se sintetizaba, el usuario pulsó stop (o empezó otra voz):
-                    // el audio llega tarde y no debe sonar.
-                    return Ok(Some(bytes));
-                }
-                self.audio.play(bytes.clone(), request.profile_id, request.message_id).map_err(TtsError::Playback)?;
-                Ok(Some(bytes))
-            }
-        }
+        self.audio.play(bytes, profile_id, message_id).map_err(TtsError::Playback)
     }
 
     async fn stop(&self) -> Result<(), TtsError> {

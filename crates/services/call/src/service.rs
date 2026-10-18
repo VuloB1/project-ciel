@@ -25,6 +25,7 @@ use crate::error::CallError;
 use crate::history::CallHistory;
 use crate::segmenter::{Segmenter, SegmenterEvent};
 use crate::speech_chunker::SpeechChunker;
+use crate::speech_pipeline::{self, PreparedSentence};
 
 /// How many known-people names `transcription_prompt` folds in alongside
 /// the active profile's own name — Whisper's `initial_prompt` shares a
@@ -380,30 +381,24 @@ impl Inner {
 
     /// Speaks the sentences as they arrive, one after another, and returns the ones it
     /// started saying (what the user actually heard, for the call history).
-    async fn speak_sentences(&self, profile: &Profile, mut sentences: tokio_mpsc::UnboundedReceiver<String>, cancellation: &CancellationToken) -> Vec<String> {
-        let mut delivered = Vec::new();
-        loop {
-            let next = tokio::select! {
-                () = cancellation.cancelled() => None,
-                sentence = sentences.recv() => sentence,
-            };
-            let Some(sentence) = next else { break };
-            if delivered.is_empty() {
-                self.event_bus.publish(AppEvent::CallStateChanged { state: CallState::Speaking });
-            }
-            self.speak_and_wait(profile, &sentence, cancellation).await;
-            delivered.push(sentence);
-        }
-        delivered
+    ///
+    /// Two stages run together: one prepares the voice of the next sentence while the other
+    /// plays the current one, so with a slow online voice the gap between sentences shrinks
+    /// to whatever the preparation takes beyond the time the previous sentence lasts.
+    async fn speak_sentences(&self, profile: &Profile, sentences: tokio_mpsc::UnboundedReceiver<String>, cancellation: &CancellationToken) -> Vec<String> {
+        speech_pipeline::run(
+            sentences,
+            cancellation,
+            |text| self.prepare_sentence(profile, text),
+            |prepared| self.play_prepared(prepared, cancellation),
+            || self.event_bus.publish(AppEvent::CallStateChanged { state: CallState::Speaking }),
+        )
+        .await
     }
 
-    /// Speaks `text` and waits for it to actually finish (or be
-    /// interrupted) before returning — unlike Twitch's fire-and-forget
-    /// `spawn_speak`, the call orchestrator loop needs to know when
-    /// speaking ends so it can go back to listening for the next turn.
-    /// Subscribes to `EventBus` *before* calling `speak` so a fast
-    /// backend can't finish and publish before this starts listening.
-    async fn speak_and_wait(&self, profile: &Profile, text: &str, cancellation: &CancellationToken) {
+    /// The request to speak `text` with this profile's voice, or `None` when there is
+    /// nothing to say (voice off, empty text, or the voice settings can't be read).
+    async fn speak_request(&self, profile: &Profile, text: &str) -> Option<SpeakRequest> {
         if !profile.voice.enabled || text.trim().is_empty() {
             tracing::info!(
                 target: "system",
@@ -411,22 +406,17 @@ impl Inner {
                 profile.voice.enabled,
                 text.trim().is_empty(),
             );
-            return;
+            return None;
         }
-
         let backend = match self.settings().build_tts_backend().await {
             Ok(backend) => backend,
             Err(err) => {
                 tracing::warn!(target: "system", "call: no se pudo leer la configuración de voz: {err}");
-                return;
+                return None;
             }
         };
-
-        let message_id = uuid::Uuid::new_v4().to_string();
-        let mut events = self.event_bus.subscribe();
-
         let voice = profile.voice.clone();
-        let request = SpeakRequest {
+        Some(SpeakRequest {
             text: text.to_string(),
             voice_id: voice.voice_id,
             rate: voice.rate as f32,
@@ -434,9 +424,47 @@ impl Inner {
             volume: voice.volume as f32,
             backend,
             profile_id: profile.id.clone(),
-            message_id: Some(message_id.clone()),
+            message_id: Some(uuid::Uuid::new_v4().to_string()),
+        })
+    }
+
+    /// Prepares the voice of one sentence without playing it. Native voices speak directly
+    /// and cannot be prepared ahead, so they come back without audio and are spoken at play time.
+    async fn prepare_sentence(&self, profile: &Profile, text: String) -> PreparedSentence {
+        let request = self.speak_request(profile, &text).await;
+        let mut audio = None;
+        let mut request = request;
+        if let Some(req) = &request {
+            if !self.tts.is_muted() {
+                match self.tts.synthesize(req.clone()).await {
+                    Ok(prepared) => audio = prepared,
+                    Err(err) => {
+                        tracing::warn!(target: "system", "call: TTS falló: {err}");
+                        request = None;
+                    }
+                }
+            }
+        }
+        PreparedSentence { text, request, audio }
+    }
+
+    /// Plays a prepared sentence and waits for it to actually finish (or be interrupted)
+    /// before returning — unlike Twitch's fire-and-forget `spawn_speak`, the call needs to
+    /// know when speaking ends so it can go back to listening for the next turn. Subscribes
+    /// to `EventBus` *before* starting playback so a fast backend can't finish and publish
+    /// before this starts listening.
+    async fn play_prepared(&self, prepared: PreparedSentence, cancellation: &CancellationToken) {
+        let Some(request) = prepared.request else { return };
+        if self.tts.is_muted() {
+            return; // nothing will sound, so there is no end-of-playback event to wait for
+        }
+        let message_id = request.message_id.clone().unwrap_or_default();
+        let mut events = self.event_bus.subscribe();
+        let started = match prepared.audio {
+            Some(bytes) => self.tts.play_audio(bytes, request.profile_id.clone(), request.message_id.clone()),
+            None => self.tts.speak(request).await,
         };
-        if let Err(err) = self.tts.speak(request).await {
+        if let Err(err) = started {
             tracing::warn!(target: "system", "call: TTS falló: {err}");
             return;
         }
