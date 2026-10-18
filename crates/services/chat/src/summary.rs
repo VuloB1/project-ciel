@@ -29,7 +29,9 @@ const SYSTEM_PROMPT: &str = "Eres quien lleva las notas de una conversación ent
 Recibes las notas anteriores (si las hay) y un tramo nuevo de la conversación. Devuelve las notas actualizadas.\n\n\
 - \"summary\": resumen de TODO lo hablado hasta ahora (notas anteriores + tramo nuevo) en máximo unas 120 palabras: \
 de qué se habló, qué se decidió, qué datos se dijeron. Solo lo que se dijo de verdad en la conversación; no inventes \
-ni supongas nada. Escríbelo en el mismo idioma que usa la conversación.\n\
+ni supongas nada. Escríbelo en el mismo idioma que usa la conversación. Llama siempre \"el usuario\" a la \
+persona que escribe y \"el personaje\" al personaje de IA, y deja claro quién dijo o hizo cada cosa: no atribuyas \
+al personaje lo que contó el usuario ni al revés.\n\
 - \"open_threads\": hasta 5 temas que quedaron pendientes y que el personaje podría retomar más adelante (algo que el \
 usuario va a hacer, una promesa, una pregunta sin responder, algo que quedó esperando). Cada uno, una frase corta. \
 Quita los que ya se resolvieron. Si no hay ninguno, una lista vacía.\n\n\

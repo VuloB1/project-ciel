@@ -158,4 +158,36 @@ describe("useChatStore.send", () => {
     expect(stored).toMatchObject({ attachmentId: "att-1", attachmentMimeType: "image/png" });
     expect(useChatStore.getState().generatingConversations[CONVERSATION_ID]).toBe(true);
   });
+
+  it("keeps the user's message above the answer when the answer starts before the send call returns", async () => {
+    vi.mocked(chatIpc.sendMessage).mockImplementation(async () => {
+      // The backend already published the start of the answer.
+      useChatStore.getState().handleAppEvent({
+        type: "ai_response_started",
+        requestId: REQUEST_ID,
+        profileId: "profile-1",
+        conversationId: CONVERSATION_ID,
+        messageId: "assistant-1",
+      });
+      return {
+        id: "user-1",
+        conversationId: CONVERSATION_ID,
+        role: "user",
+        content: "hola",
+        status: "complete",
+        providerId: null,
+        model: null,
+        inputTokens: null,
+        outputTokens: null,
+        createdAt: "2026-01-01T00:00:00Z",
+        attachmentId: null,
+        attachmentMimeType: null,
+      };
+    });
+
+    await useChatStore.getState().send("profile-1", CONVERSATION_ID, "hola");
+
+    const ids = useChatStore.getState().messagesByConversation[CONVERSATION_ID]?.map((m) => m.id);
+    expect(ids).toEqual(["user-1", "assistant-1"]);
+  });
 });

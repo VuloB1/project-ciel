@@ -618,7 +618,7 @@
       "discordAutoLearnHint": "在你连接的 Discord 服务器中发言的每个人都会按名字被记录——可以随时关闭。",
       "chatAudio": {
         "title": "保存消息的音频",
-        "hint": "保存聊天中生成的音频，方便以后重新收听而无需再次生成。仅在使用 ElevenLabs 或 HTTP 服务器语音时有效——系统原生语音是直接播放的，不会生成可保存的文件。",
+        "hint": "保存聊天中生成的音频，方便以后重新收听而无需再次生成。仅在使用在线语音（ElevenLabs、Fish Audio、Google、Azure、OpenAI、Groq 等）时有效——系统原生语音是直接播放的，不会生成可保存的文件。保存的是回复结束时自动朗读的音频；没有保存音频的消息，每次点击收听都会重新生成（声音会略有不同）。",
         "retentionLabel": "自动删除时间",
         "retentionOneDay": "1 天",
         "retentionOneWeek": "1 周",

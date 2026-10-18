@@ -621,7 +621,7 @@
       "discordAutoLearnHint": "Everyone who writes in your connected Discord server gets registered by name — can be turned off anytime.",
       "chatAudio": {
         "title": "Save message audio",
-        "hint": "Saves the audio generated in Chat so it can be replayed later without generating it again. Only works with the ElevenLabs or HTTP server voices — native system voices speak directly and never produce a file that can be saved.",
+        "hint": "Saves the audio generated in Chat so it can be replayed later without generating it again. Only works with online voices (ElevenLabs, Fish Audio, Google, Azure, OpenAI, Groq…) — native system voices speak directly and never produce a file that can be saved. The audio of replies that are read aloud automatically when they finish is saved; if a message has no saved audio, its listen button generates it again each time (and it sounds slightly different).",
         "retentionLabel": "Automatically delete after",
         "retentionOneDay": "1 day",
         "retentionOneWeek": "1 week",

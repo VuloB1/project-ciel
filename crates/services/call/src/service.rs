@@ -613,6 +613,13 @@ impl Inner {
         let (sentence_tx, sentence_rx) = tokio_mpsc::unbounded_channel();
         let generation = async {
             let result = self.generate_reply(&profile, &text, cancellation, &sentence_tx).await;
+            // The text goes to the call feed as soon as the model has written it, not
+            // after it has finished being spoken (a slow voice can take much longer).
+            if let Ok(reply) = &result {
+                if !reply.is_empty() {
+                    self.event_bus.publish(AppEvent::CallCharacterReply { text: reply.clone() });
+                }
+            }
             drop(sentence_tx); // lets the speaker finish once the queue is empty
             result
         };
@@ -650,9 +657,6 @@ impl Inner {
             if !heard.is_empty() {
                 history.push(MessageRole::Assistant, heard);
             }
-        }
-        if !reply.is_empty() {
-            self.event_bus.publish(AppEvent::CallCharacterReply { text: reply });
         }
     }
 }

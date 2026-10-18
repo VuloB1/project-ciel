@@ -223,14 +223,20 @@ export const useChatStore = create<ChatState>((set, get) => ({
   },
 
   send: async (profileId, conversationId, content, image) => {
+    const known = new Set((get().messagesByConversation[conversationId] ?? []).map((m) => m.id));
     const userMessage = await sendMessageIpc(profileId, conversationId, content, image);
-    set((state) => ({
-      messagesByConversation: {
-        ...state.messagesByConversation,
-        [conversationId]: [...(state.messagesByConversation[conversationId] ?? []), userMessage],
-      },
-      generatingConversations: { ...state.generatingConversations, [conversationId]: true },
-    }));
+    set((state) => {
+      const current = state.messagesByConversation[conversationId] ?? [];
+      // A fast provider can start answering (the "ai_response_started" event) before this
+      // call returns: the answer's placeholder is then already in the list, and the user's
+      // message must still go above it.
+      const raced = current.findIndex((m) => !known.has(m.id));
+      const next = raced === -1 ? [...current, userMessage] : [...current.slice(0, raced), userMessage, ...current.slice(raced)];
+      return {
+        messagesByConversation: { ...state.messagesByConversation, [conversationId]: next },
+        generatingConversations: { ...state.generatingConversations, [conversationId]: true },
+      };
+    });
   },
 
   cancel: async (conversationId) => {
