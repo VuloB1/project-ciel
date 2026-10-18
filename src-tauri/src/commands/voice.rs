@@ -100,6 +100,12 @@ pub async fn voice_speak(
         }
     };
     let backend = resolve_backend(&state).await?;
+    // A chat message listened to for the first time is saved too (when "guardar audio" is on),
+    // so listening again replays the same clip instead of generating a slightly different one.
+    let save_for = match &message_id {
+        Some(id) if state.settings.chat_audio_settings().await.map(|s| s.save_enabled).unwrap_or(false) => Some(id.clone()),
+        _ => None,
+    };
 
     let request = SpeakRequest {
         text,
@@ -111,7 +117,15 @@ pub async fn voice_speak(
         profile_id,
         message_id,
     };
-    state.tts.speak(request).await.map_err(map_err)
+    let Some(message_id) = save_for else {
+        return state.tts.speak(request).await.map_err(map_err);
+    };
+    if let Some(bytes) = state.tts.speak_and_capture(request).await.map_err(map_err)? {
+        if let Err(err) = state.chat.save_spoken_audio(&message_id, &bytes).await {
+            tracing::warn!(target: "system", "no se pudo guardar el audio del mensaje {message_id}: {err}");
+        }
+    }
+    Ok(())
 }
 
 #[tauri::command]

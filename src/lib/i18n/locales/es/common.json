@@ -624,7 +624,7 @@
       "discordAutoLearnHint": "Cada persona que escribe en tu servidor de Discord conectado se registra por su nombre — se puede desactivar en cualquier momento.",
       "chatAudio": {
         "title": "Guardar audio de los mensajes",
-        "hint": "Guarda el audio del Chat para reescucharlo después sin regenerarlo. Solo funciona con voces en línea (ElevenLabs, Fish Audio, Google, Azure, OpenAI, Groq…) — las voces nativas del sistema no generan un archivo guardable. Se guarda el audio de las respuestas que se leen solas al terminar; si un mensaje no tiene audio guardado, el botón de escuchar lo genera de nuevo cada vez (y suena ligeramente distinto).",
+        "hint": "Guarda el audio del Chat para reescucharlo después sin regenerarlo. Solo funciona con voces en línea (ElevenLabs, Fish Audio, Google, Azure, OpenAI, Groq…) — las voces nativas del sistema no generan un archivo guardable. Se guarda el audio de las respuestas que se leen solas al terminar y el de la primera vez que pulsas escuchar en un mensaje; después siempre se reproduce ese mismo audio.",
         "retentionLabel": "Borrar automáticamente después de",
         "retentionOneDay": "1 día",
         "retentionOneWeek": "1 semana",

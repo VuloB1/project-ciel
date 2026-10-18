@@ -328,6 +328,28 @@ impl ChatService {
         Ok((bytes, attachment.mime_type))
     }
 
+    /// Keeps `bytes` as the saved audio of `message_id` unless it already has one, and tells
+    /// the UI. The listen button uses it so a first manual listen is saved too (auto-play only
+    /// covers replies read aloud on their own); every later listen replays the saved clip.
+    /// Returns whether a clip was saved.
+    pub async fn save_spoken_audio(&self, message_id: &str, bytes: &[u8]) -> Result<bool, ChatError> {
+        let Some(message) = MessagesRepository::new(&self.pool).get(message_id).await? else {
+            return Ok(false);
+        };
+        let existing = AttachmentsRepository::new(&self.pool).list_for_conversation(&message.conversation_id).await?;
+        if existing.iter().any(|a| a.message_id == message_id && a.kind == "audio") {
+            return Ok(false);
+        }
+        let attachment = save_audio_attachment(&self.pool, &self.data_dir, message_id, bytes).await?;
+        self.event_bus.publish(AppEvent::ChatAudioSaved {
+            conversation_id: message.conversation_id,
+            message_id: message.id,
+            attachment_id: attachment.id,
+            mime_type: attachment.mime_type,
+        });
+        Ok(true)
+    }
+
     /// Deletes saved audio attachments older than `retention_days` — called
     /// once at startup (see `src-tauri/src/lib.rs`), pedido del usuario: "ir
     /// borrando los audios tras meses" (and later, finer-grained options
@@ -1607,6 +1629,36 @@ mod tests {
         })
         .await
         .expect("ChatAudioSaved never arrived")
+    }
+
+    #[tokio::test]
+    async fn the_listen_button_saves_a_message_audio_once() {
+        let pool = test_pool().await;
+        let profile = seed_profile(&pool).await;
+        let event_bus = EventBus::new();
+        let mut rx = event_bus.subscribe();
+        let data_dir = tempfile::tempdir().unwrap();
+        let service = ChatService::new(pool.clone(), event_bus, data_dir.path().to_path_buf(), Arc::new(MockMemoryManager::new()));
+        let conversation = service.create_conversation(&profile.id).await.unwrap();
+        let message = MessagesRepository::new(&pool)
+            .create(NewMessage {
+                conversation_id: conversation.id.clone(),
+                role: MessageRole::Assistant,
+                content: "Hola".to_string(),
+                status: MessageStatus::Complete,
+                provider_id: None,
+                model: None,
+            })
+            .await
+            .unwrap();
+
+        assert!(service.save_spoken_audio(&message.id, b"first-clip").await.unwrap());
+        assert!(!service.save_spoken_audio(&message.id, b"second-clip").await.unwrap(), "a message keeps its first clip");
+        assert!(!service.save_spoken_audio("missing", b"x").await.unwrap());
+
+        let AppEvent::ChatAudioSaved { attachment_id, .. } = wait_for_chat_audio_saved(&mut rx, &message.id).await else { unreachable!() };
+        let (bytes, mime) = service.get_attachment(&attachment_id).await.unwrap();
+        assert_eq!((bytes.as_slice(), mime.as_str()), (b"first-clip".as_slice(), "audio/mpeg"));
     }
 
     #[tokio::test]
