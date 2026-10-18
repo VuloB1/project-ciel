@@ -168,7 +168,7 @@ impl AIOrchestrator {
             history.iter().rev().filter(|m| m.role == DbMessageRole::User).take(RECENT_USER_MESSAGES).map(|m| m.content.as_str()).collect();
         recent_user.reverse();
         let last_reply_asked = history.iter().rev().find(|m| m.role == DbMessageRole::Assistant).is_some_and(|m| companion::ends_with_question(&m.content));
-        let policy = companion::instruction(self.channel, &recent_user, last_reply_asked, language);
+        let policy = companion::instruction(self.channel, &profile.name, &recent_user, last_reply_asked, language);
         system_prompt.push_str("
 
 ");

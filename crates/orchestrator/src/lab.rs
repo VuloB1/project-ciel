@@ -270,6 +270,63 @@ mod tests {
         );
     }
 
+    /// Does the model actually ask for the web search tool when told to search? Uses the REAL
+    /// tool description (so the model sees what it sees in the app) with a canned result:
+    /// `LAB_MODEL=... cargo test -p aivt-orchestrator searches_when_asked -- --ignored --nocapture`.
+    #[tokio::test]
+    #[ignore = "needs a model server, run with LAB_MODEL=... -- --ignored --nocapture"]
+    async fn searches_when_asked() {
+        use std::sync::atomic::{AtomicUsize, Ordering};
+
+        use aivt_provider_tools::{BraveSearchTool, Tool, ToolError};
+
+        struct CountingSearch {
+            real: BraveSearchTool,
+            calls: Arc<AtomicUsize>,
+        }
+        #[async_trait::async_trait]
+        impl Tool for CountingSearch {
+            fn name(&self) -> &str {
+                self.real.name()
+            }
+            fn description(&self) -> &str {
+                self.real.description()
+            }
+            fn parameters_schema(&self) -> serde_json::Value {
+                self.real.parameters_schema()
+            }
+            async fn execute(&self, arguments_json: &str) -> Result<String, ToolError> {
+                println!("    [tool called with {arguments_json}]");
+                self.calls.fetch_add(1, Ordering::SeqCst);
+                Ok("1. Blender 5.0 released - new features include a faster renderer.
+2. Blender Foundation announces a new open movie.".to_string())
+            }
+        }
+
+        let model = std::env::var("LAB_MODEL").expect("set LAB_MODEL to the model name");
+        let base_url = std::env::var("LAB_BASE_URL").unwrap_or_else(|_| "http://localhost:1234/v1".to_string());
+        let provider = Arc::new(OpenAiCompatibleProvider::new(base_url, None));
+
+        for (channel, text) in [
+            (Channel::Chat, "busca en internet las últimas noticias sobre Blender"),
+            (Channel::Call, "oye, busca en internet qué hay de nuevo en Blender"),
+            (Channel::Call, "¿puedes buscar en la web cuándo sale el siguiente Blender?"),
+        ] {
+            let calls = Arc::new(AtomicUsize::new(0));
+            let tool = CountingSearch { real: BraveSearchTool::new("dummy-key".to_string(), "es"), calls: calls.clone() };
+            let orchestrator = AIOrchestrator::new(provider.clone(), model.clone(), Some(0.7), None).with_channel(channel).with_tools(vec![Arc::new(tool)]);
+            let history = vec![sample_message(DbMessageRole::User, text)];
+            let mut reply = String::new();
+            let mut stream = orchestrator.stream_respond(&sample_profile(), &history, None, &[], None, None, "es");
+            while let Some(chunk) = stream.next().await {
+                reply.push_str(&chunk.expect("the model server returned an error").delta);
+            }
+            println!("[{channel:?}] {text}
+    searched: {} | reply: {}
+", calls.load(Ordering::SeqCst) > 0, strip_thinking(&reply));
+        }
+    }
+
     /// Reasoning models put their chain of thought in `<think>` tags: not part of the reply.
     fn strip_thinking(reply: &str) -> String {
         match (reply.find("<think>"), reply.find("</think>")) {
