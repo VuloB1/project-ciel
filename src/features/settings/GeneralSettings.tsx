@@ -4,13 +4,14 @@ import { useEffect, useRef, useState, type ChangeEvent } from "react";
 import { useTranslation } from "react-i18next";
 
 import { Card } from "@/design-system/Card";
+import { Input } from "@/design-system/Input";
 import { Select } from "@/design-system/Select";
 import { Switch } from "@/design-system/Switch";
 import { UserAvatarBadge } from "@/design-system/UserAvatarBadge";
 import { errorMessage } from "@/lib/errorMessage";
 import { AVATAR_MAX_DIMENSION, readFileAsBase64, resizeImageToFit } from "@/lib/files";
 import { LANGUAGE_LABELS, SUPPORTED_LANGUAGES } from "@/lib/i18n";
-import { setUserAvatar } from "@/lib/ipc/settings";
+import { getUserName, setUserAvatar, setUserName } from "@/lib/ipc/settings";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { useToastStore } from "@/stores/toastStore";
 
@@ -34,6 +35,30 @@ export function GeneralSettings() {
       .then(setAutostart)
       .catch(() => setAutostart(null));
   }, []);
+
+  // The name characters call the user by; saved when the field loses focus or Enter is pressed.
+  const [userName, setUserNameDraft] = useState("");
+  const savedUserName = useRef("");
+  useEffect(() => {
+    getUserName()
+      .then((name) => {
+        savedUserName.current = name ?? "";
+        setUserNameDraft(name ?? "");
+      })
+      .catch(() => undefined);
+  }, []);
+
+  async function saveUserName() {
+    if (userName.trim() === savedUserName.current) return;
+    try {
+      const stored = (await setUserName(userName)) ?? "";
+      savedUserName.current = stored;
+      setUserNameDraft(stored);
+      pushToast({ variant: "success", title: t("settings.general.userNameSaved") });
+    } catch {
+      pushToast({ variant: "error", title: t("settings.general.saveError") });
+    }
+  }
 
   async function handleAvatarChange(event: ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0];
@@ -102,6 +127,25 @@ export function GeneralSettings() {
             <p className="text-sm font-medium text-text-primary">{t("settings.general.avatar")}</p>
             <p className="text-xs text-text-secondary">{t("settings.general.avatarDescription")}</p>
           </div>
+        </div>
+
+        <div className="flex items-center justify-between gap-4 border-t border-border pt-4">
+          <div>
+            <p className="text-sm font-medium text-text-primary">{t("settings.general.userName")}</p>
+            <p className="text-xs text-text-secondary">{t("settings.general.userNameDescription")}</p>
+          </div>
+          <Input
+            aria-label={t("settings.general.userName")}
+            className="w-48"
+            maxLength={40}
+            placeholder={t("settings.general.userNamePlaceholder")}
+            value={userName}
+            onChange={(event) => setUserNameDraft(event.target.value)}
+            onBlur={() => void saveUserName()}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") event.currentTarget.blur();
+            }}
+          />
         </div>
 
         <div className="flex items-center justify-between gap-4 border-t border-border pt-4">

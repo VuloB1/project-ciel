@@ -343,6 +343,10 @@
       "changeAvatar": "更改你的照片",
       "avatarUpdated": "照片已更新",
       "avatarError": "无法更新照片",
+      "userName": "你的名字",
+      "userNameDescription": "你希望角色怎么称呼你。聊天和通话中它都会知道。",
+      "userNamePlaceholder": "输入你的名字",
+      "userNameSaved": "名字已保存",
       "language": "语言",
       "languageDescription": "Project Ciel 界面所使用的语言。",
       "languageSaved": "语言已更新",
@@ -838,6 +842,10 @@
     "ttsVoice": {
       "title": "语音合成(可选)",
       "description": "设置 Ciel 用语音回复时的声音。"
+    },
+    "userName": {
+      "title": "你叫什么名字？",
+      "description": "角色会在聊天和通话中用这个名字称呼你。此项可选，之后可以在设置中修改。"
     },
     "character": {
       "title": "创建你的第一个角色",

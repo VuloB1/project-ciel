@@ -452,6 +452,8 @@ pub fn run() {
         .invoke_handler(tauri::generate_handler![
             commands::settings::settings_get_language,
             commands::settings::settings_set_language,
+            commands::settings::settings_get_user_name,
+            commands::settings::settings_set_user_name,
             commands::settings::settings_get_background,
             commands::settings::settings_set_background,
             commands::settings::settings_get_appearance,

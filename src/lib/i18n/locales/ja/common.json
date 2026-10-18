@@ -343,6 +343,10 @@
       "changeAvatar": "写真を変更",
       "avatarUpdated": "写真を更新しました",
       "avatarError": "写真を更新できませんでした",
+      "userName": "あなたの名前",
+      "userNameDescription": "キャラクターにどう呼んでほしいかです。チャットと通話で伝わります。",
+      "userNamePlaceholder": "名前を入力",
+      "userNameSaved": "名前を保存しました",
       "language": "言語",
       "languageDescription": "Project Cielのインターフェース言語です。",
       "languageSaved": "言語を更新しました",
@@ -838,6 +842,10 @@
     "ttsVoice": {
       "title": "音声合成(任意)",
       "description": "音声で返答する際のCielの声を設定します。"
+    },
+    "userName": {
+      "title": "お名前は？",
+      "description": "チャットや通話で、キャラクターがあなたをこの名前で呼びます。任意で、あとから設定で変更できます。"
     },
     "character": {
       "title": "最初のキャラクターを作成",

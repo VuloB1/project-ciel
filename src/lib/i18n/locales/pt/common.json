@@ -344,6 +344,10 @@
       "changeAvatar": "Alterar sua foto",
       "avatarUpdated": "Foto atualizada",
       "avatarError": "Não foi possível atualizar a foto",
+      "userName": "Seu nome",
+      "userNameDescription": "Como você quer que seu personagem o chame. Ele sabe no chat e nas chamadas.",
+      "userNamePlaceholder": "Digite seu nome",
+      "userNameSaved": "Nome salvo",
       "language": "Idioma",
       "languageDescription": "Idioma da interface do Project Ciel.",
       "languageSaved": "Idioma atualizado",
@@ -841,6 +845,10 @@
     "ttsVoice": {
       "title": "Síntese de voz (opcional)",
       "description": "Configure como Ciel soa ao responder por voz."
+    },
+    "userName": {
+      "title": "Como você se chama?",
+      "description": "É assim que seu personagem vai chamar você no chat e nas chamadas. É opcional e você pode mudar depois em Configurações."
     },
     "character": {
       "title": "Crie seu primeiro personagem",

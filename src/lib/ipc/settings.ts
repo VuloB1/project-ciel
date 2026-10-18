@@ -12,6 +12,18 @@ export async function setLanguage(language: string): Promise<void> {
   await invoke("settings_set_language", { language });
 }
 
+const userNameSchema = z.string().nullable();
+
+/** The name the user wants characters to call them; `null` when not set. */
+export async function getUserName(): Promise<string | null> {
+  return userNameSchema.parse(await invoke("settings_get_user_name"));
+}
+
+/** Saves the name (blank clears it) and returns it as stored: trimmed and capped. */
+export async function setUserName(name: string): Promise<string | null> {
+  return userNameSchema.parse(await invoke("settings_set_user_name", { name }));
+}
+
 // Mirrors `aivt_service_settings::BackgroundSettings` (Rust) — cómo se
 // comporta la app fuera de primer plano (Configuración > General).
 export interface BackgroundSettings {

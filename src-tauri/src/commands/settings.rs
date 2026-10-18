@@ -50,6 +50,25 @@ pub async fn settings_set_language(
 }
 
 #[tauri::command]
+pub async fn settings_get_user_name(state: tauri::State<'_, AppState>) -> Result<Option<String>, AppError> {
+    state
+        .settings
+        .user_name()
+        .await
+        .map_err(|err| AppError::from_display("settings", "USER_NAME_READ_FAILED", err))
+}
+
+/// Returns the name as stored (trimmed and capped), `None` when cleared.
+#[tauri::command]
+pub async fn settings_set_user_name(state: tauri::State<'_, AppState>, name: String) -> Result<Option<String>, AppError> {
+    state
+        .settings
+        .set_user_name(&name)
+        .await
+        .map_err(|err| AppError::from_display("settings", "USER_NAME_WRITE_FAILED", err))
+}
+
+#[tauri::command]
 pub async fn settings_get_background(state: tauri::State<'_, AppState>) -> Result<BackgroundSettings, AppError> {
     state
         .settings

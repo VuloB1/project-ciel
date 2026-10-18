@@ -70,17 +70,25 @@ pub struct AIOrchestrator {
     max_tokens: Option<u32>,
     tools: Vec<Arc<dyn Tool>>,
     channel: Channel,
+    user_name: Option<String>,
 }
 
 impl AIOrchestrator {
     pub fn new(provider: Arc<dyn LLMProvider>, model: String, temperature: Option<f32>, max_tokens: Option<u32>) -> Self {
-        Self { provider, model, temperature, max_tokens, tools: Vec::new(), channel: Channel::Chat }
+        Self { provider, model, temperature, max_tokens, tools: Vec::new(), channel: Channel::Chat, user_name: None }
     }
 
     /// Which channel the reply goes to (default `Chat`); only changes the
     /// conversation policy text, see `companion::instruction`.
     pub fn with_channel(mut self, channel: Channel) -> Self {
         self.channel = channel;
+        self
+    }
+
+    /// The name the user asked to be called, so the character knows who it is talking to.
+    /// Left out for channels with many people (Twitch, Discord).
+    pub fn with_user_name(mut self, user_name: Option<String>) -> Self {
+        self.user_name = user_name;
         self
     }
 
@@ -168,7 +176,7 @@ impl AIOrchestrator {
             history.iter().rev().filter(|m| m.role == DbMessageRole::User).take(RECENT_USER_MESSAGES).map(|m| m.content.as_str()).collect();
         recent_user.reverse();
         let last_reply_asked = history.iter().rev().find(|m| m.role == DbMessageRole::Assistant).is_some_and(|m| companion::ends_with_question(&m.content));
-        let policy = companion::instruction(self.channel, &profile.name, &recent_user, last_reply_asked, language);
+        let policy = companion::instruction(self.channel, &profile.name, self.user_name.as_deref(), &recent_user, last_reply_asked, language);
         system_prompt.push_str("
 
 ");
@@ -901,6 +909,14 @@ pub(crate) mod tests {
         // System prompt + only a couple of long messages + the trailing reminder.
         assert!(messages.len() <= 5, "kept {} messages", messages.len());
         assert!(messages[messages.len() - 2].content.starts_with("9 "));
+    }
+
+    #[tokio::test]
+    async fn the_user_name_reaches_the_system_prompt_when_set() {
+        let mock = Arc::new(MockLLMProvider::with_response(["ok"]));
+        let orchestrator = AIOrchestrator::new(mock.clone(), "mock-model".to_string(), None, None).with_user_name(Some("Vulito".to_string()));
+        let _ = orchestrator.stream_respond(&sample_profile(), &[sample_message(DbMessageRole::User, "hola")], None, &[], None, None, "es").collect::<Vec<_>>().await;
+        assert!(mock.received_requests()[0].messages[0].content.contains("se llama Vulito"));
     }
 
     #[tokio::test]

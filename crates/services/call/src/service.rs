@@ -306,7 +306,7 @@ impl Inner {
         };
         let provider: Arc<dyn LLMProvider> = self.settings().build_llm_provider(&self.event_bus).await.map_err(|err| CallError::Settings(err.to_string()))?;
         let language = self.settings().language().await.unwrap_or_else(|_| "es".to_string());
-        let mut orchestrator = AIOrchestrator::new(provider, llm_connection.model, Some(llm_connection.temperature), None).with_channel(Channel::Call);
+        let mut orchestrator = AIOrchestrator::new(provider, llm_connection.model, Some(llm_connection.temperature), None).with_channel(Channel::Call).with_user_name(self.settings().user_name().await.ok().flatten());
         // `get_current_time` is always available — pure local calculation,
         // no network/API key, so it doesn't need the same opt-in as
         // `web_search` (Fase 10b). `web_search` stays behind

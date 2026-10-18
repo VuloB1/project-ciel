@@ -11,6 +11,10 @@ pub const DEFAULT_LANGUAGE: &str = "es";
 const KEY_LANGUAGE: &str = "language";
 
 const KEY_USER_AVATAR_PATH: &str = "user_avatar_path";
+const KEY_USER_NAME: &str = "user_name";
+
+/// Longest name kept: it goes into the character's prompt, so it stays a name, not a paragraph.
+const MAX_USER_NAME_CHARS: usize = 40;
 
 pub(crate) const SECRET_KEY_API_KEY: &str = "api_key";
 
@@ -84,6 +88,20 @@ impl SettingsService {
     pub async fn set_user_avatar_path(&self, path: Option<&str>) -> Result<(), SettingsError> {
         self.set_json(KEY_USER_AVATAR_PATH, &path).await
     }
+
+    /// The name the user wants the characters to call them (Configuración > General).
+    /// `None` when not set; the characters then simply don't know it.
+    pub async fn user_name(&self) -> Result<Option<String>, SettingsError> {
+        Ok(self.get_json::<Option<String>>(KEY_USER_NAME).await?.flatten())
+    }
+
+    /// Stores the name trimmed, on one line and capped; blank clears it.
+    pub async fn set_user_name(&self, name: &str) -> Result<Option<String>, SettingsError> {
+        let clean: String = name.split_whitespace().collect::<Vec<_>>().join(" ").chars().take(MAX_USER_NAME_CHARS).collect();
+        let stored = (!clean.is_empty()).then_some(clean);
+        self.set_json(KEY_USER_NAME, &stored).await?;
+        Ok(stored)
+    }
 }
 
 #[cfg(test)]
@@ -130,6 +148,21 @@ mod tests {
         let service = test_service().await;
         service.set_user_avatar_path(Some("avatars/user/avatar.png")).await.unwrap();
         assert_eq!(service.user_avatar_path().await.unwrap().as_deref(), Some("avatars/user/avatar.png"));
+    }
+
+    #[tokio::test]
+    async fn user_name_defaults_to_none_and_is_stored_clean() {
+        let service = test_service().await;
+        assert!(service.user_name().await.unwrap().is_none());
+
+        assert_eq!(service.set_user_name("  Vulito \n  Dev ").await.unwrap().as_deref(), Some("Vulito Dev"));
+        assert_eq!(service.user_name().await.unwrap().as_deref(), Some("Vulito Dev"));
+
+        let long = "a".repeat(100);
+        assert_eq!(service.set_user_name(&long).await.unwrap().unwrap().chars().count(), 40);
+
+        assert!(service.set_user_name("   ").await.unwrap().is_none());
+        assert!(service.user_name().await.unwrap().is_none());
     }
 
     #[tokio::test]

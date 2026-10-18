@@ -13,8 +13,9 @@ import { TtsSettings } from "@/features/settings/TtsSettings";
 
 import { CreateCharacterStep } from "./CreateCharacterStep";
 import { LanguageStep } from "./LanguageStep";
+import { UserNameStep } from "./UserNameStep";
 
-const STEPS = ["intro", "language", "appearance", "aiProvider", "sttVoice", "ttsVoice", "character", "finish"] as const;
+const STEPS = ["intro", "language", "appearance", "aiProvider", "sttVoice", "ttsVoice", "userName", "character", "finish"] as const;
 type StepKey = (typeof STEPS)[number];
 
 interface StepHelpers {
@@ -46,6 +47,8 @@ function renderStep(step: StepKey, helpers: StepHelpers): ReactNode {
       return <SttSettings />;
     case "ttsVoice":
       return <TtsSettings />;
+    case "userName":
+      return <UserNameStep registerSubmit={helpers.registerSubmit} />;
     case "character":
       return <CreateCharacterStep registerSubmit={helpers.registerSubmit} />;
     default:

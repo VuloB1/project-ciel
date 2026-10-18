@@ -198,7 +198,8 @@ pub async fn chat_send_message(
         resolved.model.clone(),
         Some(resolved.temperature),
         Some(resolved.max_tokens),
-    );
+    )
+    .with_user_name(state.settings.user_name().await.ok().flatten());
     // `get_current_time` is always available — pure local calculation,
     // no network/API key, so it doesn't need the same opt-in as
     // `web_search` (Fase 10b). `web_search` itself stays behind

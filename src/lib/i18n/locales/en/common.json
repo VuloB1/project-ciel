@@ -344,6 +344,10 @@
       "changeAvatar": "Change your picture",
       "avatarUpdated": "Picture updated",
       "avatarError": "Couldn't update the picture",
+      "userName": "Your name",
+      "userNameDescription": "What you want your character to call you. It knows it in chat and in calls.",
+      "userNamePlaceholder": "Type your name",
+      "userNameSaved": "Name saved",
       "language": "Language",
       "languageDescription": "Project Ciel's interface language.",
       "languageSaved": "Language updated",
@@ -841,6 +845,10 @@
     "ttsVoice": {
       "title": "Voice synthesis (optional)",
       "description": "Configure how Ciel sounds when replying by voice."
+    },
+    "userName": {
+      "title": "What is your name?",
+      "description": "This is what your character will call you in chat and in calls. It is optional, and you can change it later in Settings."
     },
     "character": {
       "title": "Create your first character",

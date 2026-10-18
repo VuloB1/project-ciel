@@ -343,6 +343,10 @@
       "changeAvatar": "내 사진 변경",
       "avatarUpdated": "사진을 업데이트했습니다",
       "avatarError": "사진을 업데이트할 수 없습니다",
+      "userName": "내 이름",
+      "userNameDescription": "캐릭터가 나를 어떻게 부르길 원하는지입니다. 채팅과 통화에서 알고 있습니다.",
+      "userNamePlaceholder": "이름을 입력하세요",
+      "userNameSaved": "이름이 저장되었습니다",
       "language": "언어",
       "languageDescription": "Project Ciel 인터페이스 언어입니다.",
       "languageSaved": "언어를 업데이트했습니다",
@@ -838,6 +842,10 @@
     "ttsVoice": {
       "title": "음성 합성 (선택 사항)",
       "description": "Ciel이 음성으로 응답할 때 어떻게 들릴지 설정합니다."
+    },
+    "userName": {
+      "title": "이름이 무엇인가요?",
+      "description": "채팅과 통화에서 캐릭터가 이 이름으로 당신을 부릅니다. 선택 사항이며 나중에 설정에서 바꿀 수 있습니다."
     },
     "character": {
       "title": "첫 캐릭터 만들기",
