@@ -160,8 +160,15 @@ export function WelcomeScreen() {
               </div>
             ) : step === "finish" ? (
               <div className="flex flex-col items-center text-center">
-                <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-success/10 text-success">
-                  <Check className="h-6 w-6" />
+                {/* The bow (app icon) with a green tick badge on its corner. */}
+                <div className="relative mb-6">
+                  <img src="/app-icon.png" alt="" className="h-28 w-28 rounded-3xl shadow-lg" />
+                  <div
+                    aria-hidden="true"
+                    className="absolute -bottom-2 -right-2 flex h-10 w-10 items-center justify-center rounded-full bg-success text-white ring-4 ring-surface"
+                  >
+                    <Check className="h-5 w-5" strokeWidth={3} />
+                  </div>
                 </div>
                 <h1 className="text-2xl font-semibold text-text-primary">{t("onboarding.finish.title")}</h1>
                 <p className="mt-2 text-sm text-text-secondary">{t("onboarding.finish.description")}</p>
