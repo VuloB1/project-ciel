@@ -882,6 +882,7 @@
       "enabledHint": "Reproduz automaticamente cada resposta do chat com esta voz.",
       "voice": "Voz",
       "voiceDefault": "Voz padrão do sistema",
+      "voicesLoading": "Carregando vozes…",
       "voiceHintHttp": "O servidor HTTP não permite listar vozes — escreva o id esperado.",
       "voiceHttpPlaceholder": "ex.: alloy",
       "rate": "Velocidade",

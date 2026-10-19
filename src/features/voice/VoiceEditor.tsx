@@ -41,21 +41,38 @@ export function VoiceEditor({ profile }: { profile: Profile }) {
   const [voices, setVoices] = useState<VoiceInfo[]>([]);
   const [previewText, setPreviewText] = useState("");
 
+  const [voicesLoading, setVoicesLoading] = useState(true);
+
   useEffect(() => {
+    let cancelled = false;
     setIsLoading(true);
-    Promise.all([getVoiceSettings(profile.id), listTtsProviders(), listVoices()])
-      .then(([voice, providers, listedVoices]) => {
+    setVoicesLoading(true);
+    Promise.all([getVoiceSettings(profile.id), listTtsProviders()])
+      .then(([voice, providers]) => {
         setDraft(voice);
         const current = providers.providers.find((p) => p.id === providers.currentProviderId);
         setBackend(current?.kind ?? "native");
-        setVoices(listedVoices);
         setIsLoading(false);
       })
       .catch((err) => {
         pushToast({ variant: "error", title: t("voice.loadError"), description: errorMessage(err) });
         setIsLoading(false);
       });
+    // The voice list can come from a slow online service: the screen shows without it.
+    listVoices()
+      .then((listedVoices) => {
+        if (!cancelled) setVoices(listedVoices);
+      })
+      .catch((err) => {
+        if (!cancelled) pushToast({ variant: "error", title: t("voice.loadError"), description: errorMessage(err) });
+      })
+      .finally(() => {
+        if (!cancelled) setVoicesLoading(false);
+      });
     setPreviewText(t("voice.previewDefaultText", { name: profile.name }));
+    return () => {
+      cancelled = true;
+    };
     // Re-sync only when switching to a different profile.
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [profile.id]);
@@ -118,7 +135,7 @@ export function VoiceEditor({ profile }: { profile: Profile }) {
             </div>
 
             <div className="flex flex-col gap-4 border-t border-border pt-4">
-              <Field label={t("voice.fields.voice")} hint={hasVoiceList ? undefined : t("voice.fields.voiceHintFreeText")}>
+              <Field label={t("voice.fields.voice")} hint={voicesLoading && hasVoiceList ? t("voice.fields.voicesLoading") : hasVoiceList ? undefined : t("voice.fields.voiceHintFreeText")}>
               {hasVoiceList ? (
                 <Select
                   ariaLabel={t("voice.fields.voice")}

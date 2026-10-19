@@ -92,8 +92,10 @@ impl FishAudioEngine {
         if api_key.is_empty() {
             return Err(TtsError::Unavailable("falta la API key de Fish Audio — configúrala en Configuración > Motor de voz".to_string()));
         }
-        let own = self.fetch_models(api_key, &[("self", "true".to_string()), ("page_size", "100".to_string())]).await;
-        let popular = self.fetch_models(api_key, &[("sort_by", "score".to_string()), ("page_size", POPULAR_VOICES.to_string())]).await;
+        // Both queries at once: Fish is slow, so waiting for one after the other doubled the delay.
+        let own_query = [("self", "true".to_string()), ("page_size", "100".to_string())];
+        let popular_query = [("sort_by", "score".to_string()), ("page_size", POPULAR_VOICES.to_string())];
+        let (own, popular) = tokio::join!(self.fetch_models(api_key, &own_query), self.fetch_models(api_key, &popular_query));
         if let (Err(err), Err(_)) = (&own, &popular) {
             return Err(TtsError::Server(err.to_string()));
         }
@@ -122,7 +124,7 @@ impl FishAudioEngine {
     }
 
     async fn fetch_models(&self, api_key: &str, query: &[(&str, String)]) -> Result<Vec<ModelItem>, TtsError> {
-        let response = self.client.get(MODELS_URL).bearer_auth(api_key).query(query).send().await?;
+        let response = self.client.get(MODELS_URL).bearer_auth(api_key).query(query).timeout(std::time::Duration::from_secs(15)).send().await?;
         if !response.status().is_success() {
             let status = response.status();
             let body_text = response.text().await.unwrap_or_default();

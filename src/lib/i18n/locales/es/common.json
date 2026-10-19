@@ -890,6 +890,7 @@
       "enabledHint": "Reproduce automáticamente cada respuesta del chat con esta voz.",
       "voice": "Voz",
       "voiceDefault": "Voz predeterminada del sistema",
+      "voicesLoading": "Cargando voces…",
       "voiceHintFreeText": "Este proveedor no permite listar voces — escribe el id que espera.",
       "voiceFreeTextPlaceholder": "p. ej. alloy",
       "rate": "Velocidad",

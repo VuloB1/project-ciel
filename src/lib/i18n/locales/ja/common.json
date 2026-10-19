@@ -879,6 +879,7 @@
       "enabledHint": "チャットの各返信をこの音声で自動的に再生します。",
       "voice": "音声",
       "voiceDefault": "システムのデフォルト音声",
+      "voicesLoading": "音声を読み込み中…",
       "voiceHintHttp": "HTTPサーバーでは音声の一覧を取得できません — 必要なIDを入力してください。",
       "voiceHttpPlaceholder": "例：alloy",
       "rate": "速度",

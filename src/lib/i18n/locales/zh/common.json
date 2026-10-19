@@ -879,6 +879,7 @@
       "enabledHint": "自动使用该语音播放聊天中的每条回复。",
       "voice": "语音",
       "voiceDefault": "系统默认语音",
+      "voicesLoading": "正在加载声音…",
       "voiceHintHttp": "HTTP 服务器不支持列出语音——请输入所需的 ID。",
       "voiceHttpPlaceholder": "例如：alloy",
       "rate": "语速",

@@ -882,6 +882,7 @@
       "enabledHint": "Automatically plays every chat response with this voice.",
       "voice": "Voice",
       "voiceDefault": "System default voice",
+      "voicesLoading": "Loading voices…",
       "voiceHintHttp": "The HTTP server can't list voices — type the id it expects.",
       "voiceHttpPlaceholder": "e.g. alloy",
       "rate": "Rate",
