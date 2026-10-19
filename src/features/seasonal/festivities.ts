@@ -125,11 +125,13 @@ export function regionOf(locale: string | undefined): string {
   return locale?.split(/[-_]/)[1]?.toUpperCase() ?? "";
 }
 
-/** The festivity whose window contains `now`, if any. If two overlap, the one whose day is nearer wins. */
-export function activeFestivity(now: Date, region: string): FestivityId | null {
+/** The festivity whose window contains `now`, if any. If two overlap, the one whose day is nearer wins.
+ * Festivities in `disabled` (the ones the user turned off) are left out before comparing. */
+export function activeFestivity(now: Date, region: string, disabled: readonly string[] = []): FestivityId | null {
   const today = dayNumber(now.getFullYear(), now.getMonth(), now.getDate());
   let best: { id: FestivityId; distance: number } | null = null;
   for (const festivity of FESTIVITIES) {
+    if (disabled.includes(festivity.id)) continue;
     if (festivity.onlyIn && !festivity.onlyIn.includes(region)) continue;
     // A window can straddle New Year, so the day may belong to the next or previous year's festivity.
     for (const year of [now.getFullYear() - 1, now.getFullYear(), now.getFullYear() + 1]) {
@@ -146,8 +148,9 @@ export function isFestivityId(value: string): value is FestivityId {
   return (FESTIVITY_IDS as readonly string[]).includes(value);
 }
 
-/** The festivity to show for a stored mode: none when off or unknown, today's when automatic, or the forced one. */
-export function resolveFestivity(mode: string | undefined, now: Date, region: string): FestivityId | null {
-  if (mode === "auto") return activeFestivity(now, region);
+/** The festivity to show for a stored mode: none when off or unknown, today's (minus the turned-off ones) when
+ * automatic, or the forced one. */
+export function resolveFestivity(mode: string | undefined, now: Date, region: string, disabled: readonly string[] = []): FestivityId | null {
+  if (mode === "auto") return activeFestivity(now, region, disabled);
   return mode && isFestivityId(mode) ? mode : null;
 }

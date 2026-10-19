@@ -327,6 +327,21 @@
         "auto": "Automático (pela data)",
         "motion": "Partículas em movimento",
         "motionHint": "Elas se desligam sozinhas se o seu sistema pedir menos movimento.",
+        "listTitle": "Festividades que você quer ver",
+        "listHint": "As que você desligar não aparecem no modo Automático.",
+        "dates": {
+            "halloween": "Outubro",
+            "muertos": "1–3 nov",
+            "navidad": "1–26 dez",
+            "anoNuevo": "27 dez–2 jan",
+            "reyes": "3–6 jan",
+            "sanValentin": "7–15 fev",
+            "sanPatricio": "12–17 mar",
+            "pascua": "Semana Santa",
+            "madre": "Maio ou outubro, conforme o país",
+            "padre": "Março ou junho, conforme o país",
+            "accionDeGracias": "Novembro (EUA)"
+          },
         "festivities": {
           "halloween": "Halloween",
           "muertos": "Dia dos Mortos",

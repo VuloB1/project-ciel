@@ -326,6 +326,21 @@
         "auto": "自动（按日期）",
         "motion": "移动的粒子",
         "motionHint": "如果系统开启了减少动态效果，会自动关闭。",
+        "listTitle": "想看到的节日",
+        "listHint": "关闭的节日在“自动”模式下不会出现。",
+        "dates": {
+            "halloween": "10月",
+            "muertos": "11月1–3日",
+            "navidad": "12月1–26日",
+            "anoNuevo": "12月27日–1月2日",
+            "reyes": "1月3–6日",
+            "sanValentin": "2月7–15日",
+            "sanPatricio": "3月12–17日",
+            "pascua": "圣周",
+            "madre": "5月或10月（因国家而异）",
+            "padre": "3月或6月（因国家而异）",
+            "accionDeGracias": "11月（美国）"
+          },
         "festivities": {
           "halloween": "万圣节",
           "muertos": "亡灵节",

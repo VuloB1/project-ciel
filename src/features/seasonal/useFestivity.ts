@@ -27,6 +27,8 @@ export interface ActiveFestivity {
 export function useFestivity(): ActiveFestivity | null {
   const mode = useSettingsStore((s) => s.appearance?.seasonal);
   const motion = useSettingsStore((s) => s.appearance?.seasonalMotion ?? true);
+  // Joined so the memo below only re-runs when the list's content changes, not on every new array.
+  const disabledKey = useSettingsStore((s) => (s.appearance?.seasonalDisabled ?? []).join(","));
   // Re-check the date every hour so the app changes by itself when midnight passes.
   const [today, setToday] = useState(() => new Date().toDateString());
   useEffect(() => {
@@ -35,10 +37,11 @@ export function useFestivity(): ActiveFestivity | null {
   }, []);
 
   const id = useMemo(
-    () => resolveFestivity(mode, new Date(), regionOf(typeof navigator === "undefined" ? undefined : navigator.language)),
+    () =>
+      resolveFestivity(mode, new Date(), regionOf(typeof navigator === "undefined" ? undefined : navigator.language), disabledKey ? disabledKey.split(",") : []),
     // `today` is what makes the memo re-run when the date changes.
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    [mode, today],
+    [mode, today, disabledKey],
   );
 
   const [loaded, setLoaded] = useState<{ id: FestivityId; art: FestivityArt } | null>(null);

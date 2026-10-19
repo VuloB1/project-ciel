@@ -326,6 +326,21 @@
         "auto": "자동(날짜에 따라)",
         "motion": "움직이는 입자",
         "motionHint": "시스템에서 동작 줄이기를 켜 두면 자동으로 꺼집니다.",
+        "listTitle": "표시하고 싶은 기념일",
+        "listHint": "꺼 둔 기념일은 '자동' 모드에서 나타나지 않습니다.",
+        "dates": {
+            "halloween": "10월",
+            "muertos": "11월 1~3일",
+            "navidad": "12월 1~26일",
+            "anoNuevo": "12월 27일~1월 2일",
+            "reyes": "1월 3~6일",
+            "sanValentin": "2월 7~15일",
+            "sanPatricio": "3월 12~17일",
+            "pascua": "성주간",
+            "madre": "5월 또는 10월(나라별)",
+            "padre": "3월 또는 6월(나라별)",
+            "accionDeGracias": "11월(미국)"
+          },
         "festivities": {
           "halloween": "할로윈",
           "muertos": "죽은 자들의 날",

@@ -46,6 +46,12 @@ export function AppearanceSettingsSection() {
 
   if (!appearance) return null;
 
+  const disabledFestivities = appearance.seasonalDisabled ?? [];
+  function toggleFestivity(id: string, on: boolean) {
+    const rest = disabledFestivities.filter((disabled) => disabled !== id);
+    return patch({ seasonalDisabled: on ? rest : [...rest, id] });
+  }
+
   return (
     <div className="flex max-w-xl flex-col gap-4">
       <Card className="flex flex-col gap-4 p-4">
@@ -162,6 +168,26 @@ export function AppearanceSettingsSection() {
               ...FESTIVITY_IDS.map((id) => ({ value: id, label: t(`settings.appearance.seasonal.festivities.${id}`) })),
             ]}
           />
+          <div className="flex flex-col gap-1.5">
+            <div>
+              <p className="text-sm text-text-primary">{t("settings.appearance.seasonal.listTitle")}</p>
+              <p className="text-xs text-text-secondary">{t("settings.appearance.seasonal.listHint")}</p>
+            </div>
+            <div className="flex flex-col divide-y divide-border rounded-md border border-border">
+              {FESTIVITY_IDS.map((id) => {
+                const name = t(`settings.appearance.seasonal.festivities.${id}`);
+                return (
+                  <div key={id} className="flex items-center justify-between gap-4 px-3 py-2">
+                    <div className="min-w-0">
+                      <p className="truncate text-sm text-text-primary">{name}</p>
+                      <p className="truncate text-xs text-text-secondary">{t(`settings.appearance.seasonal.dates.${id}`)}</p>
+                    </div>
+                    <Switch label={name} checked={!disabledFestivities.includes(id)} onCheckedChange={(on) => void toggleFestivity(id, on)} />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
           <div className="flex items-center justify-between gap-4">
             <div>
               <p className="text-sm text-text-primary">{t("settings.appearance.seasonal.motion")}</p>

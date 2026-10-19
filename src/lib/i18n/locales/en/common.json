@@ -327,6 +327,21 @@
         "auto": "Automatic (by date)",
         "motion": "Moving particles",
         "motionHint": "They turn off by themselves if your system asks to reduce motion.",
+        "listTitle": "Festivities you want to see",
+        "listHint": "Any you turn off won't appear in Automatic mode.",
+        "dates": {
+            "halloween": "October",
+            "muertos": "Nov 1–3",
+            "navidad": "Dec 1–26",
+            "anoNuevo": "Dec 27–Jan 2",
+            "reyes": "Jan 3–6",
+            "sanValentin": "Feb 7–15",
+            "sanPatricio": "Mar 12–17",
+            "pascua": "Holy Week",
+            "madre": "May or October, by country",
+            "padre": "March or June, by country",
+            "accionDeGracias": "November (US)"
+          },
         "festivities": {
           "halloween": "Halloween",
           "muertos": "Day of the Dead",

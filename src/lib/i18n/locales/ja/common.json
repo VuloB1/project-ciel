@@ -326,6 +326,21 @@
         "auto": "自動（日付に合わせる）",
         "motion": "動くパーティクル",
         "motionHint": "システムでアニメーションを減らす設定にしている場合は自動的にオフになります。",
+        "listTitle": "表示したい行事",
+        "listHint": "オフにした行事は「自動」では表示されません。",
+        "dates": {
+            "halloween": "10月",
+            "muertos": "11月1〜3日",
+            "navidad": "12月1〜26日",
+            "anoNuevo": "12月27日〜1月2日",
+            "reyes": "1月3〜6日",
+            "sanValentin": "2月7〜15日",
+            "sanPatricio": "3月12〜17日",
+            "pascua": "聖週間",
+            "madre": "5月または10月（国による）",
+            "padre": "3月または6月（国による）",
+            "accionDeGracias": "11月（米国）"
+          },
         "festivities": {
           "halloween": "ハロウィン",
           "muertos": "死者の日",

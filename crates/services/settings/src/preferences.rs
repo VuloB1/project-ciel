@@ -83,6 +83,10 @@ pub struct AppearanceSettings {
     /// Si las partículas de los adornos se mueven.
     #[serde(default = "default_seasonal_motion")]
     pub seasonal_motion: bool,
+    /// Ids de las festividades que el usuario apagó: el modo automático las salta. Vacío = todas activas
+    /// (así una festividad nueva en una versión futura aparece sin tocar nada).
+    #[serde(default)]
+    pub seasonal_disabled: Vec<String>,
 }
 
 fn default_seasonal() -> String {
@@ -103,6 +107,7 @@ impl Default for AppearanceSettings {
             font_scale: 100,
             seasonal: default_seasonal(),
             seasonal_motion: default_seasonal_motion(),
+            seasonal_disabled: Vec::new(),
         }
     }
 }
@@ -435,6 +440,7 @@ mod tests {
                 font_scale: 120,
                 seasonal: "halloween".to_string(),
                 seasonal_motion: false,
+                seasonal_disabled: vec!["muertos".to_string()],
             })
             .await
             .unwrap();
@@ -450,6 +456,7 @@ mod tests {
         let loaded: AppearanceSettings = serde_json::from_str(old).unwrap();
         assert_eq!(loaded.seasonal, "off");
         assert!(loaded.seasonal_motion);
+        assert!(loaded.seasonal_disabled.is_empty());
     }
 
     #[tokio::test]

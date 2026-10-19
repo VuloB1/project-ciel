@@ -71,6 +71,8 @@ const appearanceSettingsSchema = z.object({
   // Optional so older stored settings and test fixtures keep working (undefined = off / moving).
   seasonal: z.string().optional(),
   seasonalMotion: z.boolean().optional(),
+  // Festivities the user turned off; "auto" skips them. Missing/empty = all on.
+  seasonalDisabled: z.array(z.string()).optional(),
 });
 export type AppearanceSettings = z.infer<typeof appearanceSettingsSchema>;
 

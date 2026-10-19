@@ -62,6 +62,17 @@ describe("activeFestivity", () => {
   });
 });
 
+describe("turned-off festivities", () => {
+  it("are skipped, and leave the day free for the next one", () => {
+    const at = (iso: string, disabled: string[]) => activeFestivity(new Date(`${iso}T12:00:00`), "", disabled);
+    expect(at("2026-10-19", ["halloween"])).toBeNull();
+    expect(at("2026-11-02", ["muertos"])).toBeNull();
+    expect(at("2026-12-25", ["navidad"])).toBeNull();
+    expect(at("2026-12-26", ["navidad"])).toBe("anoNuevo");
+    expect(at("2026-10-19", ["navidad"])).toBe("halloween");
+  });
+});
+
 describe("resolveFestivity", () => {
   const now = new Date("2026-10-19T12:00:00");
 
@@ -76,8 +87,13 @@ describe("resolveFestivity", () => {
     expect(resolveFestivity("auto", new Date("2026-09-01T12:00:00"), "")).toBeNull();
   });
 
-  it("forces the chosen festivity on any day", () => {
+  it("forces the chosen festivity on any day, even one that is turned off", () => {
     expect(resolveFestivity("navidad", now, "")).toBe("navidad");
+    expect(resolveFestivity("navidad", now, "", ["navidad"])).toBe("navidad");
+  });
+
+  it("skips turned-off festivities when automatic", () => {
+    expect(resolveFestivity("auto", now, "", ["halloween"])).toBeNull();
   });
 });
 
