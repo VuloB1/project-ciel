@@ -76,6 +76,21 @@ pub struct AppearanceSettings {
     /// Porcentaje de escala del tamaño de fuente — 80 a 140, mismo rango
     /// que el slider de la referencia (OpChat).
     pub font_scale: u8,
+    /// Decoraciones festivas: `"off"`, `"auto"` (según la fecha) o el id de una festividad para
+    /// forzarla. El backend no valida el id: uno desconocido no muestra nada en el frontend.
+    #[serde(default = "default_seasonal")]
+    pub seasonal: String,
+    /// Si las partículas de los adornos se mueven.
+    #[serde(default = "default_seasonal_motion")]
+    pub seasonal_motion: bool,
+}
+
+fn default_seasonal() -> String {
+    "off".to_string()
+}
+
+fn default_seasonal_motion() -> bool {
+    true
 }
 
 impl Default for AppearanceSettings {
@@ -86,6 +101,8 @@ impl Default for AppearanceSettings {
             density: MessageDensity::Normal,
             font_id: "inter".to_string(),
             font_scale: 100,
+            seasonal: default_seasonal(),
+            seasonal_motion: default_seasonal_motion(),
         }
     }
 }
@@ -416,6 +433,8 @@ mod tests {
                 density: MessageDensity::Compact,
                 font_id: "space-grotesk".to_string(),
                 font_scale: 120,
+                seasonal: "halloween".to_string(),
+                seasonal_motion: false,
             })
             .await
             .unwrap();
@@ -423,6 +442,14 @@ mod tests {
 
         let loaded = service.appearance_settings().await.unwrap();
         assert_eq!(loaded, saved);
+    }
+
+    #[test]
+    fn appearance_settings_saved_before_decorations_existed_still_load() {
+        let old = r#"{"colorMode":"dark","roundness":null,"density":"normal","fontId":"inter","fontScale":100}"#;
+        let loaded: AppearanceSettings = serde_json::from_str(old).unwrap();
+        assert_eq!(loaded.seasonal, "off");
+        assert!(loaded.seasonal_motion);
     }
 
     #[tokio::test]

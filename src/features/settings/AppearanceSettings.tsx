@@ -2,11 +2,14 @@ import { useTranslation } from "react-i18next";
 
 import { Button } from "@/design-system/Button";
 import { Card } from "@/design-system/Card";
+import { Select } from "@/design-system/Select";
 import { Slider } from "@/design-system/Slider";
+import { Switch } from "@/design-system/Switch";
 import { errorMessage } from "@/lib/errorMessage";
 import type { AppearanceSettings, ColorMode, MessageDensity } from "@/lib/ipc/settings";
 import { cn } from "@/lib/theme/cn";
 import { FONT_OPTIONS } from "@/lib/theme/fonts";
+import { FESTIVITY_IDS } from "@/features/seasonal/festivities";
 import { useSettingsStore } from "@/stores/settingsStore";
 import { useToastStore } from "@/stores/toastStore";
 
@@ -141,6 +144,34 @@ export function AppearanceSettingsSection() {
                 </button>
               );
             })}
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-3 border-t border-border pt-4">
+          <div>
+            <p className="text-sm font-medium text-text-primary">{t("settings.appearance.seasonal.title")}</p>
+            <p className="text-xs text-text-secondary">{t("settings.appearance.seasonal.description")}</p>
+          </div>
+          <Select
+            ariaLabel={t("settings.appearance.seasonal.title")}
+            value={appearance.seasonal ?? "off"}
+            onValueChange={(value) => void patch({ seasonal: value })}
+            options={[
+              { value: "off", label: t("settings.appearance.seasonal.off") },
+              { value: "auto", label: t("settings.appearance.seasonal.auto") },
+              ...FESTIVITY_IDS.map((id) => ({ value: id, label: t(`settings.appearance.seasonal.festivities.${id}`) })),
+            ]}
+          />
+          <div className="flex items-center justify-between gap-4">
+            <div>
+              <p className="text-sm text-text-primary">{t("settings.appearance.seasonal.motion")}</p>
+              <p className="text-xs text-text-secondary">{t("settings.appearance.seasonal.motionHint")}</p>
+            </div>
+            <Switch
+              label={t("settings.appearance.seasonal.motion")}
+              checked={appearance.seasonalMotion ?? true}
+              onCheckedChange={(value) => void patch({ seasonalMotion: value })}
+            />
           </div>
         </div>
       </Card>

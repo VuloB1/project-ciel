@@ -67,6 +67,10 @@ const appearanceSettingsSchema = z.object({
   density: messageDensitySchema,
   fontId: z.string(),
   fontScale: z.number(),
+  // Festive decorations: "off", "auto" (by date) or a festivity id; the particles' own switch.
+  // Optional so older stored settings and test fixtures keep working (undefined = off / moving).
+  seasonal: z.string().optional(),
+  seasonalMotion: z.boolean().optional(),
 });
 export type AppearanceSettings = z.infer<typeof appearanceSettingsSchema>;
 

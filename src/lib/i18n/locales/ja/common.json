@@ -318,7 +318,28 @@
         "spacious": "ゆったり"
       },
       "fontSizeTitle": "フォントサイズ",
-      "fontTitle": "フォント"
+      "fontTitle": "フォント",
+      "seasonal": {
+        "title": "季節の飾り",
+        "description": "特別な日の前後に、控えめな飾りを追加します。テーマや色は変わりません。",
+        "off": "オフ",
+        "auto": "自動（日付に合わせる）",
+        "motion": "動くパーティクル",
+        "motionHint": "システムでアニメーションを減らす設定にしている場合は自動的にオフになります。",
+        "festivities": {
+          "halloween": "ハロウィン",
+          "muertos": "死者の日",
+          "navidad": "クリスマス",
+          "anoNuevo": "新年",
+          "reyes": "公現祭の前夜",
+          "sanValentin": "バレンタインデー",
+          "sanPatricio": "聖パトリックの祝日",
+          "pascua": "イースター",
+          "madre": "母の日",
+          "padre": "父の日",
+          "accionDeGracias": "感謝祭"
+        }
+      }
     },
     "themePresets": {
       "cozy": "Cozy",

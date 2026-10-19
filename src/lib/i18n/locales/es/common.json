@@ -322,7 +322,28 @@
         "spacious": "Espacioso"
       },
       "fontSizeTitle": "Tamaño de fuente",
-      "fontTitle": "Fuente"
+      "fontTitle": "Fuente",
+      "seasonal": {
+        "title": "Adornos festivos",
+        "description": "Añade un detalle decorativo discreto en fechas especiales. No cambia tu tema ni tus colores.",
+        "off": "Apagados",
+        "auto": "Automático (según la fecha)",
+        "motion": "Partículas en movimiento",
+        "motionHint": "Se desactivan solas si tu sistema pide reducir el movimiento.",
+        "festivities": {
+          "halloween": "Halloween",
+          "muertos": "Día de los Muertos",
+          "navidad": "Navidad",
+          "anoNuevo": "Año Nuevo",
+          "reyes": "Noche de Reyes",
+          "sanValentin": "San Valentín",
+          "sanPatricio": "San Patricio",
+          "pascua": "Pascua",
+          "madre": "Día de la Madre",
+          "padre": "Día del Padre",
+          "accionDeGracias": "Acción de Gracias"
+        }
+      }
     },
     "themePresets": {
       "cozy": "Cozy",

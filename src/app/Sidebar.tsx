@@ -17,6 +17,7 @@ import { IconButton } from "@/design-system/IconButton";
 import { DiscordIcon, TwitchIcon, type IconComponent } from "@/design-system/PlatformIcons";
 import { errorMessage } from "@/lib/errorMessage";
 import { cn } from "@/lib/theme/cn";
+import { SeasonalSidebarPiece } from "@/features/seasonal/SeasonalDecor";
 import { useCallStore } from "@/stores/callStore";
 import { useDiscordStore } from "@/stores/discordStore";
 import { useNavigationStore, type SidebarTab } from "@/stores/navigationStore";
@@ -151,6 +152,8 @@ export function Sidebar() {
           </div>
         ))}
       </nav>
+
+      <SeasonalSidebarPiece collapsed={collapsed} />
 
       <div
         className={cn(

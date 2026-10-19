@@ -318,7 +318,28 @@
         "spacious": "여유롭게"
       },
       "fontSizeTitle": "글꼴 크기",
-      "fontTitle": "글꼴"
+      "fontTitle": "글꼴",
+      "seasonal": {
+        "title": "시즌 장식",
+        "description": "특별한 날 즈음에 은은한 장식을 더합니다. 테마나 색상은 바뀌지 않습니다.",
+        "off": "끔",
+        "auto": "자동(날짜에 따라)",
+        "motion": "움직이는 입자",
+        "motionHint": "시스템에서 동작 줄이기를 켜 두면 자동으로 꺼집니다.",
+        "festivities": {
+          "halloween": "할로윈",
+          "muertos": "죽은 자들의 날",
+          "navidad": "크리스마스",
+          "anoNuevo": "새해",
+          "reyes": "주현절 전야",
+          "sanValentin": "발렌타인데이",
+          "sanPatricio": "성 패트릭의 날",
+          "pascua": "부활절",
+          "madre": "어머니날",
+          "padre": "아버지날",
+          "accionDeGracias": "추수감사절"
+        }
+      }
     },
     "themePresets": {
       "cozy": "Cozy",

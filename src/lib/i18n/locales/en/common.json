@@ -319,7 +319,28 @@
         "spacious": "Spacious"
       },
       "fontSizeTitle": "Font size",
-      "fontTitle": "Font"
+      "fontTitle": "Font",
+      "seasonal": {
+        "title": "Festive decorations",
+        "description": "Adds a small, unobtrusive decoration around special dates. It doesn't change your theme or colors.",
+        "off": "Off",
+        "auto": "Automatic (by date)",
+        "motion": "Moving particles",
+        "motionHint": "They turn off by themselves if your system asks to reduce motion.",
+        "festivities": {
+          "halloween": "Halloween",
+          "muertos": "Day of the Dead",
+          "navidad": "Christmas",
+          "anoNuevo": "New Year",
+          "reyes": "Epiphany Eve",
+          "sanValentin": "Valentine's Day",
+          "sanPatricio": "St. Patrick's Day",
+          "pascua": "Easter",
+          "madre": "Mother's Day",
+          "padre": "Father's Day",
+          "accionDeGracias": "Thanksgiving"
+        }
+      }
     },
     "themePresets": {
       "cozy": "Cozy",

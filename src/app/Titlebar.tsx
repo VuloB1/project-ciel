@@ -2,6 +2,8 @@ import { getCurrentWindow } from "@tauri-apps/api/window";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
+import { SeasonalTitleIcon } from "@/features/seasonal/SeasonalDecor";
+
 const appWindow = getCurrentWindow();
 
 function MinimizeIcon() {
@@ -73,6 +75,7 @@ export function Titlebar() {
       <span data-tauri-drag-region className="flex min-w-0 items-center gap-2 truncate pl-3 text-xs font-medium text-text-secondary">
         <img src="/app-icon.png" alt="" draggable={false} className="h-4 w-4 shrink-0 rounded-[3px]" />
         {t("app.name")}
+        <SeasonalTitleIcon />
       </span>
       <div className="flex h-full shrink-0">
         <button

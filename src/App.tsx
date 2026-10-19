@@ -39,6 +39,7 @@ import { DiscordPage } from "@/features/discord/DiscordPage";
 import { IdentityPage } from "@/features/identity/IdentityPage";
 import { MemoryPage } from "@/features/memory/MemoryPage";
 import { WelcomeScreen } from "@/features/onboarding/WelcomeScreen";
+import { SeasonalMainDecor } from "@/features/seasonal/SeasonalDecor";
 import { SettingsDialog } from "@/features/settings/SettingsDialog";
 import { useRestoreFlow } from "@/features/settings/useRestoreFlow";
 import { TwitchPage } from "@/features/twitch/TwitchPage";
@@ -251,10 +252,11 @@ export function App() {
       ) : (
         <div className="flex flex-1 overflow-hidden">
           {!immersiveMode ? <Sidebar /> : null}
-          <main className="flex-1 overflow-hidden">
+          <main className="relative flex-1 overflow-hidden">
             <div key={activeTab} className="h-full animate-fade-in">
               <ActivePage />
             </div>
+            <SeasonalMainDecor />
           </main>
         </div>
       )}

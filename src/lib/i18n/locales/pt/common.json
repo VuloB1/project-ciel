@@ -319,7 +319,28 @@
         "spacious": "Espaçoso"
       },
       "fontSizeTitle": "Tamanho da fonte",
-      "fontTitle": "Fonte"
+      "fontTitle": "Fonte",
+      "seasonal": {
+        "title": "Enfeites festivos",
+        "description": "Adiciona um detalhe decorativo discreto em datas especiais. Não muda seu tema nem suas cores.",
+        "off": "Desligados",
+        "auto": "Automático (pela data)",
+        "motion": "Partículas em movimento",
+        "motionHint": "Elas se desligam sozinhas se o seu sistema pedir menos movimento.",
+        "festivities": {
+          "halloween": "Halloween",
+          "muertos": "Dia dos Mortos",
+          "navidad": "Natal",
+          "anoNuevo": "Ano Novo",
+          "reyes": "Noite de Reis",
+          "sanValentin": "Dia dos Namorados",
+          "sanPatricio": "Dia de São Patrício",
+          "pascua": "Páscoa",
+          "madre": "Dia das Mães",
+          "padre": "Dia dos Pais",
+          "accionDeGracias": "Ação de Graças"
+        }
+      }
     },
     "themePresets": {
       "cozy": "Cozy",

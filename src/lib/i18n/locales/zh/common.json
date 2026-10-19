@@ -318,7 +318,28 @@
         "spacious": "宽松"
       },
       "fontSizeTitle": "字体大小",
-      "fontTitle": "字体"
+      "fontTitle": "字体",
+      "seasonal": {
+        "title": "节日装饰",
+        "description": "在特殊日期前后添加低调的装饰，不会改变你的主题或颜色。",
+        "off": "关闭",
+        "auto": "自动（按日期）",
+        "motion": "移动的粒子",
+        "motionHint": "如果系统开启了减少动态效果，会自动关闭。",
+        "festivities": {
+          "halloween": "万圣节",
+          "muertos": "亡灵节",
+          "navidad": "圣诞节",
+          "anoNuevo": "新年",
+          "reyes": "三王节前夜",
+          "sanValentin": "情人节",
+          "sanPatricio": "圣帕特里克节",
+          "pascua": "复活节",
+          "madre": "母亲节",
+          "padre": "父亲节",
+          "accionDeGracias": "感恩节"
+        }
+      }
     },
     "themePresets": {
       "cozy": "Cozy",
