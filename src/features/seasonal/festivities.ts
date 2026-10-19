@@ -81,8 +81,8 @@ interface Festivity {
 
 /** Listed in priority order: when two windows are equally close to their day, the first wins. */
 const FESTIVITIES: Festivity[] = [
-  { id: "halloween", date: (y) => dayNumber(y, 9, 31), before: 11, after: 1 },
-  { id: "muertos", date: (y) => dayNumber(y, 10, 2), before: 5, after: 1 },
+  { id: "halloween", date: (y) => dayNumber(y, 9, 31), before: 30, after: 0 },
+  { id: "muertos", date: (y) => dayNumber(y, 10, 2), before: 1, after: 1 },
   { id: "navidad", date: (y) => dayNumber(y, 11, 25), before: 24, after: 1 },
   { id: "anoNuevo", date: (y) => dayNumber(y, 0, 1), before: 6, after: 1 },
   { id: "reyes", date: (y) => dayNumber(y, 0, 6), before: 3, after: 0 },

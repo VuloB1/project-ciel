@@ -6,15 +6,16 @@ const on = (iso: string, region = "") => activeFestivity(new Date(`${iso}T12:00:
 
 describe("activeFestivity", () => {
   it("is quiet outside every window", () => {
-    expect(on("2026-10-19")).toBeNull();
+    expect(on("2026-09-15")).toBeNull();
     expect(on("2026-06-01")).toBeNull();
   });
 
-  it("opens and closes Halloween's window on its edges", () => {
-    expect(on("2026-10-20")).toBe("halloween");
+  it("shows Halloween all October and hands over to the Day of the Dead on November 1st", () => {
+    expect(on("2026-09-30")).toBeNull();
+    expect(on("2026-10-01")).toBe("halloween");
+    expect(on("2026-10-19")).toBe("halloween");
     expect(on("2026-10-31")).toBe("halloween");
-    expect(on("2026-11-01")).toBe("halloween");
-    expect(on("2026-11-02")).toBe("muertos");
+    expect(on("2026-11-01")).toBe("muertos");
     expect(on("2026-11-03")).toBe("muertos");
     expect(on("2026-11-04")).toBeNull();
   });
@@ -40,7 +41,7 @@ describe("activeFestivity", () => {
     expect(on("2026-05-10")).toBe("madre"); // second Sunday of May
     expect(on("2026-05-03", "ES")).toBe("madre"); // first Sunday of May
     expect(on("2026-05-10", "MX")).toBe("madre");
-    expect(on("2026-10-18", "AR")).toBe("madre");
+    expect(on("2026-10-18", "AR")).toBe("madre"); // third Sunday of October (also Halloween's month: the nearer day wins)
     expect(on("2026-06-21")).toBe("padre"); // third Sunday of June
     expect(on("2026-03-19", "ES")).toBe("padre");
     expect(on("2026-03-19")).toBeNull();
@@ -71,8 +72,8 @@ describe("resolveFestivity", () => {
   });
 
   it("follows the calendar when automatic", () => {
-    expect(resolveFestivity("auto", now, "")).toBeNull();
-    expect(resolveFestivity("auto", new Date("2026-10-25T12:00:00"), "")).toBe("halloween");
+    expect(resolveFestivity("auto", now, "")).toBe("halloween");
+    expect(resolveFestivity("auto", new Date("2026-09-01T12:00:00"), "")).toBeNull();
   });
 
   it("forces the chosen festivity on any day", () => {

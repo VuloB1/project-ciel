@@ -45,7 +45,7 @@ export function SeasonalMainDecor() {
           <div key={i} className="w-[680px] shrink-0" dangerouslySetInnerHTML={{ __html: art.top }} />
         ))}
       </div>
-      {art.topLeft ? <div className="absolute left-0 top-0 h-[50px] w-[50px]" dangerouslySetInnerHTML={{ __html: art.topLeft }} /> : null}
+      {art.topLeft ? <div className="absolute left-0 top-0 h-[130px] w-[130px]" dangerouslySetInnerHTML={{ __html: art.topLeft }} /> : null}
       <div className="absolute bottom-24 right-4 hidden h-24 w-24 [@media(min-height:640px)]:block" dangerouslySetInnerHTML={{ __html: art.corner }} />
       {motion ? <Particles art={art} /> : null}
     </div>
