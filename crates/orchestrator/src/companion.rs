@@ -89,6 +89,12 @@ fn is_help_request(text: &str) -> bool {
     weighted_len(text) > LONG_MESSAGE || lower.contains("```") || HELP_WORDS.iter().any(|w| lower.contains(w))
 }
 
+/// Whether a closing question should be cut from the reply to `user_text`: the user is just
+/// chatting (not asking for help) and the previous reply already ended in a question.
+pub fn drops_closing_question(user_text: &str, last_reply: Option<&str>) -> bool {
+    !is_help_request(user_text) && last_reply.is_some_and(ends_with_question)
+}
+
 /// Whether `text` ends with a question (Latin or CJK question mark, ignoring trailing emoji and spaces).
 pub fn ends_with_question(text: &str) -> bool {
     text.trim_end().trim_end_matches(|c: char| !c.is_alphanumeric() && c != '?' && c != '？').ends_with(['?', '？'])
@@ -240,6 +246,14 @@ mod tests {
         }
         assert!(!instruction(Channel::Chat, "Ciel", None, &["hola"], false, "es").contains("se llama"));
         assert!(!instruction(Channel::Chat, "Ciel", Some("  "), &["hola"], false, "es").contains("se llama"));
+    }
+
+    #[test]
+    fn a_closing_question_is_dropped_only_when_chatting_after_a_question() {
+        assert!(drops_closing_question("jaja sí", Some("¿Y tú qué tal?")));
+        assert!(!drops_closing_question("jaja sí", Some("Qué bien.")));
+        assert!(!drops_closing_question("jaja sí", None));
+        assert!(!drops_closing_question("explícame cómo funciona esto", Some("¿Y tú?")));
     }
 
     #[test]

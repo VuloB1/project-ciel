@@ -10,7 +10,7 @@ use aivt_core::contains_word;
 use aivt_database::{DbPool, MessageRole, PeopleRepository, Profile, ProfilesRepository};
 use aivt_eventbus::{AppEvent, CallState, EventBus};
 use aivt_memory::MemoryManager;
-use aivt_orchestrator::{AIOrchestrator, Channel};
+use aivt_orchestrator::{drops_closing_question, AIOrchestrator, Channel};
 use aivt_provider_llm::LLMProvider;
 use aivt_provider_tools::{BraveSearchTool, CurrentTimeTool, Tool};
 use aivt_provider_stt::{SttModelManager, TranscribeRequest, WhisperCppProvider, WhisperModelSize, STTProvider};
@@ -344,7 +344,8 @@ impl Inner {
         use futures::StreamExt;
         let mut stream = orchestrator.stream_respond(profile, &synthetic_history, None, &relevant_memories, mood.as_ref(), None, &language);
         let mut full_text = String::new();
-        let mut chunker = SpeechChunker::default();
+        let last_reply = synthetic_history.iter().rev().find(|m| m.role == MessageRole::Assistant).map(|m| m.content.as_str());
+        let mut chunker = SpeechChunker::new(drops_closing_question(trigger_text, last_reply));
         loop {
             let next = tokio::select! {
                 () = cancellation.cancelled() => return Err(CallError::Generation("cancelada".to_string())),
@@ -364,8 +365,13 @@ impl Inner {
                 None => break,
             }
         }
-        if let Some(rest) = chunker.finish() {
+        for rest in chunker.finish() {
             let _ = sentences.send(rest);
+        }
+        if let Some(cut) = chunker.dropped() {
+            if let Some(kept) = full_text.trim_end().strip_suffix(cut) {
+                full_text = kept.to_string();
+            }
         }
 
         Ok(full_text.trim().to_string())

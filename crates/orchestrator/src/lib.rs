@@ -19,7 +19,7 @@ mod personality;
 mod prompt;
 mod session;
 
-pub use companion::Channel;
+pub use companion::{drops_closing_question, ends_with_question, Channel};
 pub use mood::MoodPromptBuilder;
 pub use orchestrator::AIOrchestrator;
 pub use personality::PersonalityPromptBuilder;
