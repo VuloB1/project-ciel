@@ -90,7 +90,7 @@ pub struct AppearanceSettings {
 }
 
 fn default_seasonal() -> String {
-    "off".to_string()
+    "auto".to_string()
 }
 
 fn default_seasonal_motion() -> bool {
@@ -454,7 +454,7 @@ mod tests {
     fn appearance_settings_saved_before_decorations_existed_still_load() {
         let old = r#"{"colorMode":"dark","roundness":null,"density":"normal","fontId":"inter","fontScale":100}"#;
         let loaded: AppearanceSettings = serde_json::from_str(old).unwrap();
-        assert_eq!(loaded.seasonal, "off");
+        assert_eq!(loaded.seasonal, "auto");
         assert!(loaded.seasonal_motion);
         assert!(loaded.seasonal_disabled.is_empty());
     }

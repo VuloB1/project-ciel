@@ -160,7 +160,7 @@ export function AppearanceSettingsSection() {
           </div>
           <Select
             ariaLabel={t("settings.appearance.seasonal.title")}
-            value={appearance.seasonal ?? "off"}
+            value={appearance.seasonal ?? "auto"}
             onValueChange={(value) => void patch({ seasonal: value })}
             options={[
               { value: "off", label: t("settings.appearance.seasonal.off") },
