@@ -589,7 +589,19 @@
       "apiKeyHint": "brave.com/search/apiで無料で取得できます",
       "apiKeyPlaceholder": "BraveのAPIキーを貼り付け",
       "saved": "設定を保存しました",
-      "saveError": "設定を保存できませんでした"
+      "saveError": "設定を保存できませんでした",
+      "readPages": {
+        "title": "ページ全文の読み取り",
+        "description": "検索に加えて、キャラクターが特定のページを開いて全文を読めます。チャットと通話のみ。",
+        "enable": "ページの読み取りを有効にする",
+        "needsDownload": "約{{size}} MBのコンポーネント（Obscura）が必要です。ダウンロードは一度だけです。",
+        "download": "ダウンロード",
+        "downloading": "ダウンロード中…",
+        "installed": "読み取りコンポーネントはインストール済みです。",
+        "remove": "削除",
+        "removeError": "コンポーネントを削除できませんでした",
+        "downloadError": "コンポーネントをダウンロードできませんでした"
+      }
     },
     "stt": {
       "loading": "設定を読み込み中…",

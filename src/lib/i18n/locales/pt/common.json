@@ -592,7 +592,19 @@
       "apiKeyHint": "Consiga gratuitamente em brave.com/search/api",
       "apiKeyPlaceholder": "Cole sua chave de API do Brave",
       "saved": "Configuração salva",
-      "saveError": "Não foi possível salvar a configuração"
+      "saveError": "Não foi possível salvar a configuração",
+      "readPages": {
+        "title": "Ler páginas completas",
+        "description": "Além de pesquisar, o personagem pode abrir uma página específica e lê-la inteira. Só no Chat e na Chamada.",
+        "enable": "Ativar leitura de páginas",
+        "needsDownload": "Precisa de um componente de cerca de {{size}} MB (Obscura), baixado uma vez.",
+        "download": "Baixar",
+        "downloading": "Baixando…",
+        "installed": "Componente de leitura instalado.",
+        "remove": "Remover",
+        "removeError": "Não foi possível remover o componente",
+        "downloadError": "Não foi possível baixar o componente"
+      }
     },
     "stt": {
       "loading": "Carregando configuração…",

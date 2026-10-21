@@ -5,6 +5,7 @@ use aivt_eventbus::EventBus;
 use aivt_memory::{MemoryManager, PeopleManager};
 use aivt_provider_embedding::EmbeddingModelManager;
 use aivt_provider_stt::SttModelManager;
+use aivt_provider_tools::ObscuraManager;
 use aivt_provider_tts::TTSProvider;
 use aivt_service_activity::ActivityService;
 use aivt_service_avatar::AvatarServerService;
@@ -56,6 +57,8 @@ pub struct AppState {
     /// with `call` (constructed from the same instance) and read directly
     /// by the `commands::stt` Tauri commands for model download/selection.
     pub stt_models: SttModelManager,
+    /// Optional headless browser behind the `read_url` tool (downloaded on demand) — see `aivt_provider_tools::ObscuraManager`.
+    pub obscura: ObscuraManager,
     /// Owns the downloaded local embedding-model files + the one cached
     /// loaded model, for semantic memory search — see
     /// `aivt_provider_embedding::EmbeddingModelManager`. Read directly by

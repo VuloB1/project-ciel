@@ -8,7 +8,16 @@ import { Input } from "@/design-system/Input";
 import { LoadingState } from "@/design-system/LoadingState";
 import { Switch } from "@/design-system/Switch";
 import { errorMessage } from "@/lib/errorMessage";
-import { getWebSearchSettings, setWebSearchSettings, type WebSearchSettings } from "@/lib/ipc/webSearch";
+import { useAppEvent } from "@/lib/ipc/events";
+import {
+  deleteObscura,
+  downloadObscura,
+  getObscuraStatus,
+  getWebSearchSettings,
+  setWebSearchSettings,
+  type ObscuraStatus,
+  type WebSearchSettings,
+} from "@/lib/ipc/webSearch";
 import { useToastStore } from "@/stores/toastStore";
 
 /** Fase 10b — lets the character call a `web_search` tool (Brave Search
@@ -24,6 +33,8 @@ export function WebSearchSettings() {
   const [settings, setSettings] = useState<WebSearchSettings | null>(null);
   const [apiKey, setApiKey] = useState("");
   const [isSaving, setIsSaving] = useState(false);
+  const [obscura, setObscura] = useState<ObscuraStatus | null>(null);
+  const [download, setDownload] = useState<{ downloadedBytes: number; totalBytes: number | null } | null>(null);
 
   useEffect(() => {
     getWebSearchSettings()
@@ -32,7 +43,51 @@ export function WebSearchSettings() {
         setIsLoading(false);
       })
       .catch(() => setIsLoading(false));
+    getObscuraStatus().then(setObscura).catch(() => undefined);
   }, []);
+
+  useAppEvent((event) => {
+    if (event.type === "obscura_download_progress") {
+      setDownload({ downloadedBytes: event.downloadedBytes, totalBytes: event.totalBytes });
+    } else if (event.type === "obscura_download_finished") {
+      setDownload(null);
+      setObscura((prev) => (prev ? { ...prev, installed: true } : prev));
+    } else if (event.type === "obscura_download_error") {
+      setDownload(null);
+      pushToast({ variant: "error", title: t("settings.webSearch.readPages.downloadError"), description: event.message });
+    }
+  });
+
+  async function handleReadPages(next: boolean) {
+    if (!settings) return;
+    setIsSaving(true);
+    try {
+      setSettings(await setWebSearchSettings(settings.enabled, undefined, next));
+    } catch (err) {
+      pushToast({ variant: "error", title: t("settings.webSearch.saveError"), description: errorMessage(err) });
+    } finally {
+      setIsSaving(false);
+    }
+  }
+
+  async function handleDownload() {
+    setDownload({ downloadedBytes: 0, totalBytes: null });
+    try {
+      await downloadObscura();
+    } catch (err) {
+      setDownload(null);
+      pushToast({ variant: "error", title: t("settings.webSearch.readPages.downloadError"), description: errorMessage(err) });
+    }
+  }
+
+  async function handleRemoveObscura() {
+    try {
+      await deleteObscura();
+      setObscura((prev) => (prev ? { ...prev, installed: false } : prev));
+    } catch (err) {
+      pushToast({ variant: "error", title: t("settings.webSearch.readPages.removeError"), description: errorMessage(err) });
+    }
+  }
 
   async function handleToggle(enabled: boolean) {
     if (!settings) return;
@@ -97,6 +152,57 @@ export function WebSearchSettings() {
             </Button>
           </div>
         </Field>
+
+        {obscura?.supported ? (
+          <div className="flex flex-col gap-3 border-t border-border pt-4">
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="text-sm font-medium text-text-primary">{t("settings.webSearch.readPages.title")}</p>
+                <p className="text-xs text-text-secondary">{t("settings.webSearch.readPages.description")}</p>
+              </div>
+              <Switch
+                checked={settings.readPages}
+                onCheckedChange={(next) => void handleReadPages(next)}
+                disabled={isSaving}
+                label={t("settings.webSearch.readPages.enable")}
+              />
+            </div>
+
+            {settings.readPages && !obscura.installed ? (
+              <div className="flex flex-col gap-2">
+                {download ? (
+                  <div className="flex flex-col gap-1">
+                    <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-secondary">
+                      <div
+                        className="h-full rounded-full bg-accent transition-[width] duration-200"
+                        style={{ width: download.totalBytes ? `${Math.min(100, (download.downloadedBytes / download.totalBytes) * 100)}%` : "30%" }}
+                      />
+                    </div>
+                    <p className="text-xs text-text-secondary">
+                      {t("settings.webSearch.readPages.downloading")} {(download.downloadedBytes / 1_000_000).toFixed(0)} MB
+                    </p>
+                  </div>
+                ) : (
+                  <div className="flex items-center justify-between gap-4">
+                    <p className="text-xs text-text-secondary">{t("settings.webSearch.readPages.needsDownload", { size: obscura.approxSizeMb })}</p>
+                    <Button size="sm" onClick={() => void handleDownload()}>
+                      {t("settings.webSearch.readPages.download")}
+                    </Button>
+                  </div>
+                )}
+              </div>
+            ) : null}
+
+            {obscura.installed ? (
+              <div className="flex items-center justify-between gap-4">
+                <p className="text-xs text-text-secondary">{t("settings.webSearch.readPages.installed")}</p>
+                <Button size="sm" variant="ghost" onClick={() => void handleRemoveObscura()}>
+                  {t("settings.webSearch.readPages.remove")}
+                </Button>
+              </div>
+            ) : null}
+          </div>
+        ) : null}
       </Card>
     </div>
   );

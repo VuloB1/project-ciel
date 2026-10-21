@@ -589,7 +589,19 @@
       "apiKeyHint": "brave.com/search/api에서 무료로 발급받으세요",
       "apiKeyPlaceholder": "Brave API 키를 붙여넣으세요",
       "saved": "설정을 저장했습니다",
-      "saveError": "설정을 저장할 수 없습니다"
+      "saveError": "설정을 저장할 수 없습니다",
+      "readPages": {
+        "title": "페이지 전체 읽기",
+        "description": "검색뿐 아니라 캐릭터가 특정 페이지를 열어 전체를 읽을 수 있습니다. 채팅과 통화에서만 사용됩니다.",
+        "enable": "페이지 읽기 사용",
+        "needsDownload": "약 {{size}} MB의 구성 요소(Obscura)가 필요하며 한 번만 다운로드합니다.",
+        "download": "다운로드",
+        "downloading": "다운로드 중…",
+        "installed": "읽기 구성 요소가 설치되었습니다.",
+        "remove": "제거",
+        "removeError": "구성 요소를 제거하지 못했습니다",
+        "downloadError": "구성 요소를 다운로드하지 못했습니다"
+      }
     },
     "stt": {
       "loading": "설정을 불러오는 중…",

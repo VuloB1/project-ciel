@@ -7,7 +7,7 @@ use aivt_core::AppError;
 use aivt_database::{Conversation, Memory, MessageRole, Profile};
 use aivt_orchestrator::AIOrchestrator;
 use aivt_provider_llm::LLMProvider;
-use aivt_provider_tools::{BraveSearchTool, CurrentTimeTool, Tool};
+use aivt_provider_tools::{BraveSearchTool, CurrentTimeTool, ReadUrlTool, Tool};
 use aivt_service_chat::{ChatError, GenerationContext, MessageView, NewAttachmentInput, TtsInvocation};
 use aivt_service_settings::ChatAudioSettings;
 
@@ -210,6 +210,9 @@ pub async fn chat_send_message(
             if let Ok(Some(key)) = state.settings.web_search_api_key().await {
                 tools.push(Arc::new(BraveSearchTool::new(key, language.as_str())));
             }
+        }
+        if web_search.read_pages && state.obscura.is_installed() {
+            tools.push(Arc::new(ReadUrlTool::new(state.obscura.exe_path(), language.as_str())));
         }
     }
     orchestrator = orchestrator.with_tools(tools);

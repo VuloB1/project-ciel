@@ -225,6 +225,16 @@ pub enum AppEvent {
     EmbeddingModelDownloadError {
         message: String,
     },
+    /// The optional Obscura download (the headless browser behind `read_url`) is in progress. Same time-throttled
+    /// shape as `SttModelDownloadProgress`.
+    ObscuraDownloadProgress {
+        downloaded_bytes: u64,
+        total_bytes: Option<u64>,
+    },
+    ObscuraDownloadFinished,
+    ObscuraDownloadError {
+        message: String,
+    },
     /// A profile's memory backfill (Configuración > Memoria's "Rellenar
     /// memorias antiguas") is in progress — computes embeddings for
     /// memories that predate the model being downloaded. Same

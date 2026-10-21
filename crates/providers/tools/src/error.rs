@@ -10,4 +10,8 @@ pub enum ToolError {
     NotConfigured,
     #[error("el backend de búsqueda respondió con un error: {0}")]
     BackendError(String),
+    #[error("no se pudo instalar Obscura: {0}")]
+    Install(String),
+    #[error("no se pudo leer la página: {0}")]
+    PageRead(String),
 }

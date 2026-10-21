@@ -589,7 +589,19 @@
       "apiKeyHint": "可在 brave.com/search/api 免费获取",
       "apiKeyPlaceholder": "粘贴你的 Brave API 密钥",
       "saved": "配置已保存",
-      "saveError": "无法保存配置"
+      "saveError": "无法保存配置",
+      "readPages": {
+        "title": "阅读完整网页",
+        "description": "除了搜索，角色还可以打开某个具体网页并读完全文。仅限聊天和通话。",
+        "enable": "启用网页阅读",
+        "needsDownload": "需要一个约 {{size}} MB 的组件（Obscura），只需下载一次。",
+        "download": "下载",
+        "downloading": "下载中…",
+        "installed": "阅读组件已安装。",
+        "remove": "移除",
+        "removeError": "无法移除该组件",
+        "downloadError": "无法下载该组件"
+      }
     },
     "stt": {
       "loading": "正在加载配置…",

@@ -12,7 +12,7 @@ use aivt_eventbus::{AppEvent, CallState, EventBus};
 use aivt_memory::MemoryManager;
 use aivt_orchestrator::{drops_closing_question, AIOrchestrator, Channel};
 use aivt_provider_llm::LLMProvider;
-use aivt_provider_tools::{BraveSearchTool, CurrentTimeTool, Tool};
+use aivt_provider_tools::{BraveSearchTool, CurrentTimeTool, ObscuraManager, ReadUrlTool, Tool};
 use aivt_provider_stt::{SttModelManager, TranscribeRequest, WhisperCppProvider, WhisperModelSize, STTProvider};
 use aivt_provider_tts::{SpeakRequest, TTSProvider};
 use aivt_secrets::SecretStore;
@@ -119,6 +119,7 @@ struct Inner {
     secrets: Arc<dyn SecretStore>,
     tts: Arc<dyn TTSProvider>,
     stt_models: SttModelManager,
+    obscura: ObscuraManager,
     /// Which profile answers the call — kept live-synced from the frontend
     /// (`call_set_active_profile`), same reasoning as
     /// `TwitchService::Inner::active_profile_id`.
@@ -319,6 +320,9 @@ impl Inner {
                 if let Ok(Some(key)) = self.settings().web_search_api_key().await {
                     tools.push(Arc::new(BraveSearchTool::new(key, language.as_str())));
                 }
+            }
+            if web_search.read_pages && self.obscura.is_installed() {
+                tools.push(Arc::new(ReadUrlTool::new(self.obscura.exe_path(), language.as_str())));
             }
         }
         orchestrator = orchestrator.with_tools(tools);
@@ -723,6 +727,7 @@ impl CallService {
         secrets: Arc<dyn SecretStore>,
         tts: Arc<dyn TTSProvider>,
         stt_models: SttModelManager,
+        obscura: ObscuraManager,
         memory: Arc<dyn MemoryManager>,
     ) -> Self {
         Self(Arc::new(Inner {
@@ -731,6 +736,7 @@ impl CallService {
             secrets,
             tts,
             stt_models,
+            obscura,
             active_profile_id: RwLock::new(None),
             session: Mutex::new(None),
             dictation: Mutex::new(None),

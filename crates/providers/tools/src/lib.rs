@@ -11,9 +11,13 @@
 mod brave;
 mod current_time;
 mod error;
+mod obscura;
+mod read_url;
 mod tool;
 
 pub use brave::BraveSearchTool;
 pub use current_time::CurrentTimeTool;
 pub use error::ToolError;
+pub use obscura::{ObscuraManager, APPROX_SIZE_MB as OBSCURA_APPROX_SIZE_MB};
+pub use read_url::ReadUrlTool;
 pub use tool::Tool;

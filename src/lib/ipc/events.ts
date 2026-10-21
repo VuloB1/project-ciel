@@ -45,6 +45,9 @@ export type AppEvent =
   | { type: "embedding_model_download_progress"; downloadedBytes: number; totalBytes: number | null }
   | { type: "embedding_model_download_finished" }
   | { type: "embedding_model_download_error"; message: string }
+  | { type: "obscura_download_progress"; downloadedBytes: number; totalBytes: number | null }
+  | { type: "obscura_download_finished" }
+  | { type: "obscura_download_error"; message: string }
   | { type: "embedding_backfill_progress"; profileId: string; embedded: number; total: number }
   | { type: "embedding_backfill_finished"; profileId: string; embedded: number; total: number }
   | { type: "embedding_backfill_error"; profileId: string; message: string }

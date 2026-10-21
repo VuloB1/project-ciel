@@ -592,7 +592,19 @@
       "apiKeyHint": "Get one free at brave.com/search/api",
       "apiKeyPlaceholder": "Paste your Brave API key",
       "saved": "Settings saved",
-      "saveError": "Couldn't save the settings"
+      "saveError": "Couldn't save the settings",
+      "readPages": {
+        "title": "Read full pages",
+        "description": "Besides searching, the character can open a specific page and read all of it. Chat and Call only.",
+        "enable": "Enable page reading",
+        "needsDownload": "Needs a component of about {{size}} MB (Obscura), downloaded once.",
+        "download": "Download",
+        "downloading": "Downloading…",
+        "installed": "Reading component installed.",
+        "remove": "Remove",
+        "removeError": "Couldn't remove the component",
+        "downloadError": "Couldn't download the component"
+      }
     },
     "stt": {
       "loading": "Loading configuration…",

@@ -13,6 +13,7 @@ use aivt_eventbus::{AppEvent, EventBus};
 use aivt_memory::{MemoryManager, MemoryService, PeopleManager, PeopleService};
 use aivt_provider_embedding::{EmbeddingModelManager, EmbeddingProvider, LocalEmbeddingProvider};
 use aivt_provider_stt::SttModelManager;
+use aivt_provider_tools::ObscuraManager;
 use aivt_provider_tts::{AivtTtsProvider, TTSProvider};
 use aivt_secrets::{KeyringSecretStore, SecretStore};
 use aivt_service_activity::ActivityService;
@@ -266,6 +267,7 @@ pub fn run() {
                 tts.set_output_device(Some(device));
             }
             let stt_models = SttModelManager::new(app_data_dir.join("models").join("whisper"), event_bus.clone());
+            let obscura = ObscuraManager::new(app_data_dir.join("tools").join("obscura"), event_bus.clone());
 
             let twitch = TwitchService::new(pool.clone(), event_bus.clone(), secrets.clone(), tts.clone(), people.clone(), memory.clone());
             // No `tts` argument — Discord replies are never spoken,
@@ -284,7 +286,7 @@ pub fn run() {
             // sharing one).
             let avatar_server_profiles = Arc::new(ProfileService::new(pool.clone(), app_data_dir.clone()));
             let avatar_server = AvatarServerService::new(avatar_server_profiles, event_bus.clone(), settings.clone());
-            let call = CallService::new(pool.clone(), event_bus.clone(), secrets, tts.clone(), stt_models.clone(), memory.clone());
+            let call = CallService::new(pool.clone(), event_bus.clone(), secrets, tts.clone(), stt_models.clone(), obscura.clone(), memory.clone());
             let service_manager = Arc::new(ServiceManager::new(event_bus.clone()));
             tauri::async_runtime::block_on(service_manager.register(Arc::new(twitch.clone())));
             tauri::async_runtime::block_on(service_manager.register(Arc::new(discord.clone())));
@@ -433,6 +435,7 @@ pub fn run() {
                 people,
                 tts,
                 stt_models,
+                obscura,
                 embedding_models,
                 twitch,
                 discord,
@@ -490,6 +493,9 @@ pub fn run() {
             commands::stt::stt_list_model_status,
             commands::stt::stt_download_model,
             commands::stt::stt_delete_model,
+            commands::web_search::obscura_get_status,
+            commands::web_search::obscura_download,
+            commands::web_search::obscura_delete,
             commands::embedding::embedding_get_model_status,
             commands::embedding::embedding_download_model,
             commands::embedding::embedding_delete_model,

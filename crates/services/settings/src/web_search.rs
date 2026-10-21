@@ -24,11 +24,14 @@ const SECRET_KEY_BRAVE_API_KEY: &str = "brave_api_key";
 struct StoredWebSearchSettings {
     enabled: bool,
     has_api_key: bool,
+    /// Lets the character read whole pages (`read_url`, via the optional Obscura download).
+    #[serde(default)]
+    read_pages: bool,
 }
 
 impl Default for StoredWebSearchSettings {
     fn default() -> Self {
-        Self { enabled: false, has_api_key: false }
+        Self { enabled: false, has_api_key: false, read_pages: false }
     }
 }
 
@@ -37,6 +40,7 @@ impl Default for StoredWebSearchSettings {
 pub struct WebSearchSettings {
     pub enabled: bool,
     pub has_api_key: bool,
+    pub read_pages: bool,
 }
 
 /// No `Debug` derive — same reasoning as `UpdateTtsProviderInput`: this
@@ -50,12 +54,15 @@ pub struct WebSearchInput {
     /// `None`-keeps/`Some("")`-clears/`Some(key)`-sets — same contract as
     /// `UpdateTtsProviderInput::api_key`.
     pub api_key: Option<String>,
+    /// `None` keeps the saved value.
+    #[serde(default)]
+    pub read_pages: Option<bool>,
 }
 
 impl SettingsService {
     pub async fn web_search_settings(&self) -> Result<WebSearchSettings, SettingsError> {
         let stored: StoredWebSearchSettings = self.get_json(KEY_WEB_SEARCH).await?.unwrap_or_default();
-        Ok(WebSearchSettings { enabled: stored.enabled, has_api_key: stored.has_api_key })
+        Ok(WebSearchSettings { enabled: stored.enabled, has_api_key: stored.has_api_key, read_pages: stored.read_pages })
     }
 
     pub async fn set_web_search_settings(&self, input: WebSearchInput) -> Result<WebSearchSettings, SettingsError> {
@@ -73,10 +80,10 @@ impl SettingsService {
             None => existing.has_api_key,
         };
 
-        let stored = StoredWebSearchSettings { enabled: input.enabled, has_api_key };
+        let stored = StoredWebSearchSettings { enabled: input.enabled, has_api_key, read_pages: input.read_pages.unwrap_or(existing.read_pages) };
         self.set_json(KEY_WEB_SEARCH, &stored).await?;
 
-        Ok(WebSearchSettings { enabled: stored.enabled, has_api_key: stored.has_api_key })
+        Ok(WebSearchSettings { enabled: stored.enabled, has_api_key: stored.has_api_key, read_pages: stored.read_pages })
     }
 
     /// The raw secret — only for internal use when actually building the
@@ -108,7 +115,7 @@ mod tests {
     async fn web_search_round_trips_and_never_stores_the_key_in_plaintext() {
         let service = test_service().await;
 
-        let saved = service.set_web_search_settings(WebSearchInput { enabled: true, api_key: Some("brave-secret".to_string()) }).await.unwrap();
+        let saved = service.set_web_search_settings(WebSearchInput { enabled: true, api_key: Some("brave-secret".to_string()), read_pages: None }).await.unwrap();
 
         assert!(saved.enabled);
         assert!(saved.has_api_key);
@@ -121,10 +128,10 @@ mod tests {
     #[tokio::test]
     async fn resaving_web_search_without_an_api_key_keeps_the_existing_one() {
         let service = test_service().await;
-        service.set_web_search_settings(WebSearchInput { enabled: true, api_key: Some("brave-secret".to_string()) }).await.unwrap();
+        service.set_web_search_settings(WebSearchInput { enabled: true, api_key: Some("brave-secret".to_string()), read_pages: None }).await.unwrap();
 
         // Toggling `enabled` off shouldn't require re-pasting the key.
-        let saved = service.set_web_search_settings(WebSearchInput { enabled: false, api_key: None }).await.unwrap();
+        let saved = service.set_web_search_settings(WebSearchInput { enabled: false, api_key: None, read_pages: None }).await.unwrap();
 
         assert!(!saved.enabled);
         assert!(saved.has_api_key);
@@ -132,11 +139,23 @@ mod tests {
     }
 
     #[tokio::test]
+    async fn reading_pages_is_off_by_default_and_survives_other_saves() {
+        let service = test_service().await;
+        assert!(!service.web_search_settings().await.unwrap().read_pages);
+
+        let saved = service.set_web_search_settings(WebSearchInput { enabled: false, api_key: None, read_pages: Some(true) }).await.unwrap();
+        assert!(saved.read_pages);
+
+        let saved = service.set_web_search_settings(WebSearchInput { enabled: true, api_key: None, read_pages: None }).await.unwrap();
+        assert!(saved.read_pages);
+    }
+
+    #[tokio::test]
     async fn clearing_the_web_search_api_key_with_an_empty_string() {
         let service = test_service().await;
-        service.set_web_search_settings(WebSearchInput { enabled: true, api_key: Some("brave-secret".to_string()) }).await.unwrap();
+        service.set_web_search_settings(WebSearchInput { enabled: true, api_key: Some("brave-secret".to_string()), read_pages: None }).await.unwrap();
 
-        let saved = service.set_web_search_settings(WebSearchInput { enabled: true, api_key: Some(String::new()) }).await.unwrap();
+        let saved = service.set_web_search_settings(WebSearchInput { enabled: true, api_key: Some(String::new()), read_pages: None }).await.unwrap();
 
         assert!(!saved.has_api_key);
         assert!(service.web_search_api_key().await.unwrap().is_none());

@@ -5,13 +5,19 @@ edition.workspace = true
 license.workspace = true
 
 [dependencies]
+aivt-eventbus.workspace = true
 async-trait.workspace = true
 chrono.workspace = true
 chrono-tz = "0.10"
-reqwest.workspace = true
+futures.workspace = true
+reqwest = { workspace = true, features = ["stream"] }
 serde.workspace = true
 serde_json.workspace = true
+sha2.workspace = true
 thiserror.workspace = true
+tokio = { workspace = true, features = ["process", "fs", "time", "io-util"] }
+zip.workspace = true
 
 [dev-dependencies]
-tokio.workspace = true
+tempfile = "3"
+tokio = { workspace = true, features = ["macros", "rt"] }
