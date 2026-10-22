@@ -86,10 +86,33 @@ Ver [docs/architecture.md](architecture.md) §4 para la estructura de
 carpetas completa y el razonamiento detrás de ella (workspace de Cargo con
 un crate por módulo de dominio, frontend organizado por feature).
 
+## Instalador de Windows
+
+```bash
+CARGO_TARGET_DIR="C:/cgt-aivt" npm run tauri build -- --bundles nsis
+```
+
+Usa una ruta corta para `CARGO_TARGET_DIR` (límite de 260 caracteres de Windows con los shaders de Vulkan). Tarda unos
+10 minutos desde cero. El instalador sale en `<CARGO_TARGET_DIR>/release/bundle/nsis/` y no está firmado.
+
+Los avisos de terceros se regeneran con `python scripts/generate-third-party-licenses.py` (carpeta `legal/`).
+
+## Componente opcional: Obscura
+
+La herramienta `read_url` (leer una página completa) usa [Obscura](https://github.com/h4ckf0r0day/obscura) como
+subproceso. No va en el instalador: se descarga desde Configuración > Búsqueda web, con la versión y el SHA-256
+fijados en `crates/providers/tools/src/obscura.rs`. Para actualizarlo, cambia `VERSION` y `ASSET_SHA256` ahí.
+
+## Versiones y repositorios
+
+El código fuente se publica con una versión de retraso: el repositorio privado lleva lo más nuevo y el público la
+versión anterior (licencia GPL-3.0, ver `LICENSE`). Al salir una versión nueva, el público avanza a la anterior con
+`git push public <commit-de-la-versión-anterior>:main`.
+
 ## Documentación
 
 - [docs/architecture.md](architecture.md) — arquitectura, stack, riesgos, fases.
 - [docs/database.md](database.md) — esquema de base de datos y convenciones de migraciones.
 - [docs/security.md](security.md) — manejo de secretos, redacción de logs, privacidad.
-- [docs/ADR/](ADR/) — decisiones arquitectónicas registradas (proveedores y cambio automático: ADR-010; dictado por voz: ADR-011; formato de perfiles: ADR-012; alcance de la memoria entre canales: ADR-013; copia de seguridad: ADR-014; centro de diagnóstico: ADR-015).
+- [docs/ADR/](ADR/) — decisiones arquitectónicas registradas (proveedores y cambio automático: ADR-010; dictado por voz: ADR-011; formato de perfiles: ADR-012; alcance de la memoria entre canales: ADR-013; copia de seguridad: ADR-014; centro de diagnóstico: ADR-015; división de ajustes: ADR-016; audio de llamada: ADR-017; accesibilidad de temas: ADR-018; privacidad por proveedor: ADR-019; panel de uso: ADR-020).
 - [docs/DEVELOPMENT_STATUS.md](DEVELOPMENT_STATUS.md) — qué está completado, en progreso y pendiente.

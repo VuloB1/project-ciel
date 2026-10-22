@@ -45,9 +45,9 @@ and Project Ciel turns it into a character with identity, mood, memory, voice an
 | **Voice calls** | **Reactive avatar for OBS** |
 | <img src="assets/voice-call.webp" alt="Voice call"> | <img src="assets/obs-avatar.webp" alt="OBS avatar"> |
 
-<p align="center">
-  <img src="assets/about.webp" alt="About screen" width="60%">
-</p>
+| **Reading a web page** (seasonal decorations on) | **About** |
+|:---:|:---:|
+| <img src="assets/web-reading.png" alt="The character reads a web page and summarizes it"> | <img src="assets/about.webp" alt="About screen"> |
 
 *The screenshots show the Spanish interface. The app is available in 6 languages.*
 
@@ -90,15 +90,41 @@ and Project Ciel turns it into a character with identity, mood, memory, voice an
 - **Automatic fallback** to the next provider if one runs out of credits.
 - **Privacy modes per provider** (full context, public memories only, or minimal) and a **usage panel**.
 - Optional **web search** so your character can look up current information.
+- Optional **page reading**: the character can open a specific link and read the whole page, not just the search snippet
+  (Chat and Calls only). It uses [Obscura](https://github.com/h4ckf0r0day/obscura), a small headless browser that is
+  **downloaded once (about 41 MB) only if you turn it on**, with its checksum verified. Private and local addresses are refused,
+  and the page text is handed to the model as untrusted content, never as instructions.
 
 ### Make it yours
 - **15 themes**, light and dark modes, custom accent color, roundness, density and font.
+- **Seasonal decorations**: 11 festivities (Halloween, Day of the Dead, Christmas and more) that appear on their own
+  dates in **Automatic** mode. Each one can be switched off, and motion can be reduced.
 - **6 languages**: Spanish, English, Portuguese, Japanese, Korean and Chinese.
 
 ### Your data stays with you
 - Characters, chats, memories and settings are stored **on your PC**. The app does not send anything to the author.
 - API keys are kept in the Windows credential store.
 - **Full backups** to a single file, and a **diagnostics center** that checks your setup without exposing secrets.
+
+## Build it yourself
+
+The code is a Tauri 2 app: a Rust workspace (one crate per domain: `chat`, `memory`, `call`, `twitch`, `discord`,
+providers for LLM / TTS / STT / tools, and more) plus a React + TypeScript frontend.
+
+```bash
+npm install
+npm run tauri dev
+```
+
+You also need Rust, CMake, LLVM and the Vulkan SDK. The full list, commands, tests and architecture notes are in
+**[docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)** and **[docs/architecture.md](docs/architecture.md)**.
+
+## Releases and versions
+
+This repository follows the **one version behind** model: the newest version is published first on
+[itch.io](https://vulito.itch.io/projectciel) and Patreon, and the previous version lives here as open source. When a new
+version is released there, this repository moves up to the previous one. Each version here carries its source,
+and the paid channels carry the ready-to-install builds.
 
 ## Requirements
 
@@ -119,6 +145,13 @@ and Project Ciel turns it into a character with identity, mood, memory, voice an
 ## Get it
 
 **[vulito.itch.io/projectciel](https://vulito.itch.io/projectciel)**: one purchase, no subscription, updates included. Or build it yourself from this repository.
+
+## Third-party software
+
+Project Ciel is built on open source work. The full list of packages and license texts (6 languages) is in
+[legal/](legal/). Highlights: [Tauri](https://tauri.app/), [whisper.cpp](https://github.com/ggml-org/whisper.cpp)
+(voice recognition), [Obscura](https://github.com/h4ckf0r0day/obscura) (optional page reading, Apache-2.0),
+paraphrase-multilingual-MiniLM-L12-v2 (memory search, Apache-2.0).
 
 ## About
 
