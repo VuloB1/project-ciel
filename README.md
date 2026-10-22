@@ -24,9 +24,9 @@
 ---
 
 > **Open source, one release behind.** The source code of Project Ciel is published here under the
-> **GPL-3.0** license. The newest version is released first on the paid channels
-> (**[itch.io](https://vulito.itch.io/projectciel)** / Patreon); when a new version comes out there,
-> the previous one is published here. Build instructions are in [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
+> **GPL-3.0** license, and the app is **free to download** on
+> **[itch.io](https://vulito.itch.io/projectciel)** and in the releases of this repository. The newest version is
+> released first on Patreon; when a new version comes out there, the previous one is published here. Build instructions are in [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
 
 ## What is Project Ciel?
 
@@ -122,9 +122,8 @@ You also need Rust, CMake, LLVM and the Vulkan SDK. The full list, commands, tes
 ## Releases and versions
 
 This repository follows the **one version behind** model: the newest version is published first on
-[itch.io](https://vulito.itch.io/projectciel) and Patreon, and the previous version lives here as open source. When a new
-version is released there, this repository moves up to the previous one. Each version here carries its source,
-and the paid channels carry the ready-to-install builds.
+Patreon, and the previous version lives here as open source. When a new version is released there, this repository
+moves up to the previous one. Each release here carries its source and the ready-to-install Windows build.
 
 ## Requirements
 
@@ -144,7 +143,9 @@ and the paid channels carry the ready-to-install builds.
 
 ## Get it
 
-**[vulito.itch.io/projectciel](https://vulito.itch.io/projectciel)**: one purchase, no subscription, updates included. Or build it yourself from this repository.
+Free download: **[vulito.itch.io/projectciel](https://vulito.itch.io/projectciel)** or the
+[Releases](../../releases) of this repository. No account, no subscription. You can also build it yourself from this
+repository. The newest version comes first to Patreon supporters.
 
 ## Third-party software
 
@@ -167,6 +168,6 @@ Parts of the artwork were created with generative AI, and the software was devel
 ## License
 
 The source code in this repository is licensed under the **GNU General Public License v3.0**
-(see [LICENSE](LICENSE)). The ready-to-install builds sold on itch.io are distributed under their own
-End User License Agreement. The images and texts in `assets/` describe the product and may not be
+(see [LICENSE](LICENSE)). The ready-to-install builds distributed on itch.io and in the releases also ship
+with an End User License Agreement. The images and texts in `assets/` describe the product and may not be
 reused without permission.
