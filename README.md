@@ -1,95 +1,139 @@
-# Project Ciel
+<p align="center">
+  <img src="assets/banner.jpg" alt="Project Ciel" width="100%">
+</p>
 
-> Nombre interno del código y de los crates: `aivt-*` (el producto se renombró a
-> Project Ciel; el identificador de la app es `com.projectciel.app`).
+<h1 align="center">Project Ciel</h1>
 
-Aplicación de escritorio (Windows / Linux / macOS, con arquitectura preparada
-para Android/iOS más adelante) para crear y utilizar IAs de compañía con
-personalidad propia — chat, llamada de voz, Twitch, Discord y avatar, todo
-representando al **mismo personaje** seleccionado. Ver
-[docs/architecture.md](docs/architecture.md) para el porqué de cada decisión.
+<p align="center">
+  <b>Your local AI companion for chatting, talking and streaming.</b><br>
+  A Windows desktop app to create AI characters with their own personality, memory and voice.
+</p>
 
-Estado actual: las fases 0 a 9 y 11 están completas (chat, memoria, voz,
-llamada, avatar, Twitch, Discord y pulido), junto con varios proveedores de IA y
-de voz con cambio automático, dictado por voz y exportación/importación completa
-de perfiles. La voz por Discord (fase 10) se intentó y se abandonó. Ver
-[docs/DEVELOPMENT_STATUS.md](docs/DEVELOPMENT_STATUS.md) para el detalle de qué
-funciona hoy, qué falta por verificar con claves reales y qué está pendiente (por
-ejemplo, la personalización del instalador).
+<p align="center">
+  <a href="https://vulito.itch.io/projectciel"><img alt="Get it on itch.io" src="https://img.shields.io/badge/Get%20it%20on-itch.io-fa5c5c?style=for-the-badge&logo=itchdotio&logoColor=white"></a>
+  <a href="https://ko-fi.com/vulito"><img alt="Support on Ko-fi" src="https://img.shields.io/badge/Support-Ko--fi-29abe0?style=for-the-badge&logo=kofi&logoColor=white"></a>
+</p>
 
-## Stack
+<p align="center">
+  <img alt="Platform" src="https://img.shields.io/badge/platform-Windows%2010%20%2F%2011-0078d4">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-96fff3">
+  <img alt="Languages" src="https://img.shields.io/badge/UI%20languages-6-ff9ec8">
+  <img alt="Built with" src="https://img.shields.io/badge/built%20with-Tauri%20%C2%B7%20Rust%20%C2%B7%20React-555">
+</p>
 
-- Frontend: React + TypeScript (strict) + Vite + Zustand + TailwindCSS + Radix UI.
-- Backend/core: Rust vía Tauri 2, workspace de crates por dominio.
-- Persistencia: SQLite (`sqlx`, sin ORM completo) con migraciones versionadas.
+---
 
-## Requisitos
+> **Open source, one release behind.** The source code of Project Ciel is published here under the
+> **GPL-3.0** license. The newest version is released first on the paid channels
+> (**[itch.io](https://vulito.itch.io/projectciel)** / Patreon); when a new version comes out there,
+> the previous one is published here. Build instructions are in [docs/DEVELOPMENT.md](docs/DEVELOPMENT.md).
 
-- [Node.js](https://nodejs.org/) 20+ y npm.
-- [Rust](https://rustup.rs/) (toolchain estable) — necesario para compilar el
-  backend de Tauri. Instálalo con `rustup` antes del primer `npm run tauri dev`.
-- [CMake](https://cmake.org/download/) y [LLVM](https://github.com/llvm/llvm-project/releases)
-  (que provee `libclang`) — necesarios para compilar `whisper-rs`
-  (`aivt-provider-stt`, transcripción de voz embebida vía whisper.cpp).
-  Instálalos (en Windows, `winget install Kitware.CMake` y
-  `winget install LLVM.LLVM`) y asegúrate de que `cmake` esté en el PATH
-  antes de compilar. Solo se necesitan para compilar la app — el ejecutable
-  final no depende de ellos.
-- [Vulkan SDK](https://vulkan.lunarg.com/sdk/home) — necesario para compilar
-  el feature `vulkan` de `whisper-rs` (aceleración por GPU opcional de la
-  transcripción, activable en Configuración > Transcripción de voz; CPU
-  sigue siendo el default). En Windows, `winget install KhronosGroup.VulkanSDK`
-  y asegúrate de que la variable de entorno `VULKAN_SDK` apunte a la carpeta
-  instalada (ej. `C:\VulkanSDK\<versión>`).
-  **Nota Windows**: si la compilación falla con muchos errores
-  `FileTracker: could not create the new file tracking log file`, es el
-  límite de longitud de ruta de Windows (260 caracteres) chocando con las
-  rutas profundas que genera la compilación de los shaders de Vulkan — no
-  es un error de código. Se soluciona compilando en una ruta corta:
-  `$env:CARGO_TARGET_DIR = "C:\cgt-aivt"` (PowerShell) antes de `cargo
-  build`/`npm run tauri dev`. No se guardó como config del repo porque es
-  una ruta absoluta de Windows y rompería builds en Linux/macOS.
-- En Linux, además: dependencias nativas de Tauri (webkit2gtk, etc. — ver la
-  [guía de prerequisitos de Tauri](https://v2.tauri.app/start/prerequisites/))
-  y un backend de Secret Service en ejecución para que `SecretStore`
-  funcione (ver [docs/security.md](docs/security.md)).
+## What is Project Ciel?
 
-## Desarrollo
+**Project Ciel is an AI companion that lives on your own PC.** Design a character with its own personality,
+chat with it, talk to it out loud, let it remember you, and bring it to your Twitch or Discord community,
+all from one desktop app. There is no account to create, no subscription, and no cloud service of ours in the middle.
 
-```bash
-npm install
-npm run tauri dev
-```
+You bring the AI (a local model through LM Studio or Ollama, or your own key from OpenAI, Anthropic or Google Gemini),
+and Project Ciel turns it into a character with identity, mood, memory, voice and an avatar.
 
-Solo frontend (sin backend Tauri — útil para iterar UI rápido, pero
-`invoke()`/eventos fallarán de forma controlada):
+## Screenshots
 
-```bash
-npm run dev
-```
+| Chat | Character identity |
+|:---:|:---:|
+| <img src="assets/chat.webp" alt="Chat with a character"> | <img src="assets/identity.webp" alt="Personality sliders"> |
+| **Voice calls** | **Reactive avatar for OBS** |
+| <img src="assets/voice-call.webp" alt="Voice call"> | <img src="assets/obs-avatar.webp" alt="OBS avatar"> |
 
-## Comandos útiles
+<p align="center">
+  <img src="assets/about.webp" alt="About screen" width="60%">
+</p>
 
-| Comando | Qué hace |
-|---|---|
-| `npm run tauri dev` | App completa (frontend + backend Rust) en modo desarrollo. |
-| `npm run dev` | Solo el servidor Vite, sin el backend Tauri. |
-| `npm run build` | Type-check (`tsc -b`) + build de producción del frontend. |
-| `npm run test` | Suite de tests del frontend (Vitest). |
-| `npm run lint` | Type-check sin build. |
-| `cargo test --workspace` | Suite de tests del backend (todos los crates). Requiere Rust instalado. |
-| `cargo build --workspace` | Compila todo el backend sin empaquetar la app. |
+*The screenshots show the Spanish interface. The app is available in 6 languages.*
 
-## Estructura del proyecto
+## Features
 
-Ver [docs/architecture.md](docs/architecture.md) §4 para la estructura de
-carpetas completa y el razonamiento detrás de ella (workspace de Cargo con
-un crate por módulo de dominio, frontend organizado por feature).
+### Characters
+- **Identity**: name, backstory and speaking style.
+- **19 personality sliders** to tune each character.
+- **Mood** that shifts during the conversation and colors the replies.
+- **Avatar and profile picture**, with separate idle, thinking and talking images for the reactive avatar.
+- **A theme per character**, so the app changes with who you talk to.
+- **Multiple characters**: duplicate, switch, and share a character as a single file (chats and images optional).
 
-## Documentación
+### Chat
+- Organized conversations with history, search, unread markers and pinned chats.
+- Send **images** when your model supports vision.
+- **Markdown** replies (lists, code, links) that stream as they are written.
+- **Voice dictation** to fill the message box.
 
-- [docs/architecture.md](docs/architecture.md) — arquitectura, stack, riesgos, fases.
-- [docs/database.md](docs/database.md) — esquema de base de datos y convenciones de migraciones.
-- [docs/security.md](docs/security.md) — manejo de secretos, redacción de logs, privacidad.
-- [docs/ADR/](docs/ADR/) — decisiones arquitectónicas registradas (proveedores y cambio automático: ADR-010; dictado por voz: ADR-011; formato de perfiles: ADR-012; alcance de la memoria entre canales: ADR-013; copia de seguridad: ADR-014; centro de diagnóstico: ADR-015).
-- [docs/DEVELOPMENT_STATUS.md](docs/DEVELOPMENT_STATUS.md) — qué está completado, en progreso y pendiente.
+### Voice calls
+- Talk in real time: speech recognition listens, your character answers out loud.
+- Voices from your **system (offline)**, **ElevenLabs**, **OpenAI**, **Google Cloud**, **Microsoft Azure** or any OpenAI-compatible speech server.
+- Microphone level meter, output device selector, echo guard and call history.
+
+### Memory
+- Your character **remembers what matters** from your chats.
+- You decide what is kept: review, edit or delete memories, and mark each as **private** or **public**.
+- **Memory fusion** merges duplicates so the list stays clean.
+
+### Twitch and Discord
+- **Twitch chat** replies with viewer awareness and emote support (**7TV, BetterTTV, FrankerFaceZ**).
+- **Discord** text chat in your server.
+- **Viewer registry** so regular chatters are remembered by name.
+- Only **public** memories are ever used on Twitch and Discord.
+- **OBS avatar**: a reactive avatar served as a browser source.
+
+### Bring your own AI
+- **Local**: LM Studio, Ollama or any server that speaks the OpenAI format.
+- **Cloud**: OpenAI, Anthropic (Claude) and Google Gemini with your own keys.
+- **Automatic fallback** to the next provider if one runs out of credits.
+- **Privacy modes per provider** (full context, public memories only, or minimal) and a **usage panel**.
+- Optional **web search** so your character can look up current information.
+
+### Make it yours
+- **15 themes**, light and dark modes, custom accent color, roundness, density and font.
+- **6 languages**: Spanish, English, Portuguese, Japanese, Korean and Chinese.
+
+### Your data stays with you
+- Characters, chats, memories and settings are stored **on your PC**. The app does not send anything to the author.
+- API keys are kept in the Windows credential store.
+- **Full backups** to a single file, and a **diagnostics center** that checks your setup without exposing secrets.
+
+## Requirements
+
+- Windows 10 or 11, 64-bit.
+- A local model server **or** your own API keys. Project Ciel does not include an AI model.
+- A microphone and speakers or headphones for voice calls.
+- Internet only if you use cloud AI, cloud voices, web search, Twitch or Discord.
+
+## Known limitations (version 0.1)
+
+- Windows only for now.
+- In voice calls, loud keyboard noises can sometimes be picked up as speech. Headphones help.
+- The echo guard reduces feedback but is not true echo cancellation.
+- Discord is text-only (no voice channels yet).
+- The installer is not code-signed yet, so Windows SmartScreen may warn you the first time
+  (**More info**, then **Run anyway**).
+
+## Get it
+
+**[vulito.itch.io/projectciel](https://vulito.itch.io/projectciel)**: one purchase, no subscription, updates included. Or build it yourself from this repository.
+
+## About
+
+Made by **Vulito**, built with [Tauri](https://tauri.app/), Rust, React and TypeScript.
+Parts of the artwork were created with generative AI, and the software was developed with the help of
+[Claude](https://www.anthropic.com/claude) (Anthropic). Design direction, testing and decisions are mine.
+
+- Website: [vulito.carrd.co](https://vulito.carrd.co/)
+- X: [@VulitoVT](https://x.com/VulitoVT) · [@VulitoVRC](https://x.com/VulitoVRC)
+- Instagram: [@vulitovt](https://www.instagram.com/vulitovt/)
+- Ko-fi: [ko-fi.com/vulito](https://ko-fi.com/vulito)
+
+## License
+
+The source code in this repository is licensed under the **GNU General Public License v3.0**
+(see [LICENSE](LICENSE)). The ready-to-install builds sold on itch.io are distributed under their own
+End User License Agreement. The images and texts in `assets/` describe the product and may not be
+reused without permission.
