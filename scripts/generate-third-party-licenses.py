@@ -41,6 +41,7 @@ STRINGS = {
             "Modelos que la app descarga cuando el usuario lo pide (no se incluyen en el instalador):",
             "  Whisper (OpenAI) y whisper.cpp (ggml-org) — licencia MIT",
             "  paraphrase-multilingual-MiniLM-L12-v2 (sentence-transformers) — licencia Apache-2.0",
+            "  Obscura (h4ckf0r0day, navegador sin ventana para leer páginas web) — licencia Apache-2.0",
         ],
     },
     "en": {
@@ -61,6 +62,7 @@ STRINGS = {
             "Models the app downloads when the user asks for them (not included in the installer):",
             "  Whisper (OpenAI) and whisper.cpp (ggml-org) — MIT license",
             "  paraphrase-multilingual-MiniLM-L12-v2 (sentence-transformers) — Apache-2.0 license",
+            "  Obscura (h4ckf0r0day, headless browser used to read web pages) — Apache-2.0 license",
         ],
     },
     "pt": {
@@ -81,6 +83,7 @@ STRINGS = {
             "Modelos que o app baixa quando o usuário pede (não estão incluídos no instalador):",
             "  Whisper (OpenAI) e whisper.cpp (ggml-org) — licença MIT",
             "  paraphrase-multilingual-MiniLM-L12-v2 (sentence-transformers) — licença Apache-2.0",
+            "  Obscura (h4ckf0r0day, navegador sem janela para ler páginas web) — licença Apache-2.0",
         ],
     },
     "ja": {
@@ -101,6 +104,7 @@ STRINGS = {
             "ユーザーの操作でアプリがダウンロードするモデル（インストーラーには含まれません）:",
             "  Whisper（OpenAI）および whisper.cpp（ggml-org）— MIT ライセンス",
             "  paraphrase-multilingual-MiniLM-L12-v2（sentence-transformers）— Apache-2.0 ライセンス",
+            "  Obscura（h4ckf0r0day、Webページを読むためのヘッドレスブラウザ）— Apache-2.0 ライセンス",
         ],
     },
     "ko": {
@@ -121,6 +125,7 @@ STRINGS = {
             "사용자가 요청할 때 앱이 다운로드하는 모델(설치 프로그램에는 포함되지 않음):",
             "  Whisper(OpenAI) 및 whisper.cpp(ggml-org) — MIT 라이선스",
             "  paraphrase-multilingual-MiniLM-L12-v2(sentence-transformers) — Apache-2.0 라이선스",
+            "  Obscura(h4ckf0r0day, 웹 페이지를 읽기 위한 헤드리스 브라우저) — Apache-2.0 라이선스",
         ],
     },
     "zh": {
@@ -141,6 +146,7 @@ STRINGS = {
             "应用在用户要求时下载的模型（不包含在安装程序中）：",
             "  Whisper（OpenAI）和 whisper.cpp（ggml-org）— MIT 许可",
             "  paraphrase-multilingual-MiniLM-L12-v2（sentence-transformers）— Apache-2.0 许可",
+            "  Obscura（h4ckf0r0day，用于读取网页的无头浏览器）— Apache-2.0 许可",
         ],
     },
 }

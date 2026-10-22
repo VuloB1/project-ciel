@@ -20491,3 +20491,4 @@ The standard text of each license appears above.
 Models the app downloads when the user asks for them (not included in the installer):
   Whisper (OpenAI) and whisper.cpp (ggml-org) — MIT license
   paraphrase-multilingual-MiniLM-L12-v2 (sentence-transformers) — Apache-2.0 license
+  Obscura (h4ckf0r0day, headless browser used to read web pages) — Apache-2.0 license

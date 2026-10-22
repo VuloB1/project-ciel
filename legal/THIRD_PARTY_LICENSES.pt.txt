@@ -20491,3 +20491,4 @@ O texto padrão de cada licença aparece acima.
 Modelos que o app baixa quando o usuário pede (não estão incluídos no instalador):
   Whisper (OpenAI) e whisper.cpp (ggml-org) — licença MIT
   paraphrase-multilingual-MiniLM-L12-v2 (sentence-transformers) — licença Apache-2.0
+  Obscura (h4ckf0r0day, navegador sem janela para ler páginas web) — licença Apache-2.0

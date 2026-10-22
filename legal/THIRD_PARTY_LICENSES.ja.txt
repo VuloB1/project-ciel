@@ -20491,3 +20491,4 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 ユーザーの操作でアプリがダウンロードするモデル（インストーラーには含まれません）:
   Whisper（OpenAI）および whisper.cpp（ggml-org）— MIT ライセンス
   paraphrase-multilingual-MiniLM-L12-v2（sentence-transformers）— Apache-2.0 ライセンス
+  Obscura（h4ckf0r0day、Webページを読むためのヘッドレスブラウザ）— Apache-2.0 ライセンス

@@ -20491,3 +20491,4 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 应用在用户要求时下载的模型（不包含在安装程序中）：
   Whisper（OpenAI）和 whisper.cpp（ggml-org）— MIT 许可
   paraphrase-multilingual-MiniLM-L12-v2（sentence-transformers）— Apache-2.0 许可
+  Obscura（h4ckf0r0day，用于读取网页的无头浏览器）— Apache-2.0 许可

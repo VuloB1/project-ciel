@@ -20491,3 +20491,4 @@ OTHER DEALINGS IN THE FONT SOFTWARE.
 사용자가 요청할 때 앱이 다운로드하는 모델(설치 프로그램에는 포함되지 않음):
   Whisper(OpenAI) 및 whisper.cpp(ggml-org) — MIT 라이선스
   paraphrase-multilingual-MiniLM-L12-v2(sentence-transformers) — Apache-2.0 라이선스
+  Obscura(h4ckf0r0day, 웹 페이지를 읽기 위한 헤드리스 브라우저) — Apache-2.0 라이선스
