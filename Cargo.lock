@@ -33,7 +33,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-companion"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-core",
  "aivt-database",
@@ -78,7 +78,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-core"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "regex",
  "serde",
@@ -88,7 +88,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-database"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-core",
  "chrono",
@@ -103,7 +103,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-eventbus"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "serde",
  "tokio",
@@ -111,7 +111,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-memory"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-database",
  "aivt-eventbus",
@@ -133,7 +133,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-orchestrator"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-database",
  "aivt-provider-llm",
@@ -151,11 +151,11 @@ dependencies = [
 
 [[package]]
 name = "aivt-provider-avatar"
-version = "0.1.0"
+version = "0.1.1"
 
 [[package]]
 name = "aivt-provider-embedding"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-eventbus",
  "async-trait",
@@ -175,7 +175,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-provider-llm"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "async-trait",
  "futures",
@@ -190,7 +190,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-provider-stt"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-eventbus",
  "async-trait",
@@ -207,7 +207,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-provider-tools"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-eventbus",
  "async-trait",
@@ -226,7 +226,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-provider-tts"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-eventbus",
  "async-trait",
@@ -244,11 +244,11 @@ dependencies = [
 
 [[package]]
 name = "aivt-provider-vision"
-version = "0.1.0"
+version = "0.1.1"
 
 [[package]]
 name = "aivt-secrets"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "async-trait",
  "keyring",
@@ -258,7 +258,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-service-activity"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-database",
  "tokio",
@@ -268,7 +268,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-service-avatar"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-eventbus",
  "aivt-service-manager",
@@ -285,7 +285,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-service-backup"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-database",
  "chrono",
@@ -300,7 +300,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-service-call"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-core",
  "aivt-database",
@@ -329,7 +329,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-service-chat"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-database",
  "aivt-eventbus",
@@ -354,7 +354,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-service-diagnostics"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-core",
  "aivt-database",
@@ -367,7 +367,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-service-discord"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-core",
  "aivt-database",
@@ -395,7 +395,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-service-manager"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-eventbus",
  "async-trait",
@@ -406,7 +406,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-service-proactive"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-database",
  "aivt-eventbus",
@@ -432,7 +432,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-service-profiles"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-database",
  "image",
@@ -447,7 +447,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-service-settings"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-database",
  "aivt-eventbus",
@@ -469,7 +469,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-service-twitch"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-core",
  "aivt-database",
@@ -502,7 +502,7 @@ dependencies = [
 
 [[package]]
 name = "aivt-testing"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "aivt-database",
  "aivt-memory",

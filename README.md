@@ -16,7 +16,7 @@
 
 <p align="center">
   <img alt="Platform" src="https://img.shields.io/badge/platform-Windows%2010%20%2F%2011-0078d4">
-  <img alt="Version" src="https://img.shields.io/badge/version-0.1.0-96fff3">
+  <img alt="Version" src="https://img.shields.io/badge/version-0.1.1-96fff3">
   <img alt="Languages" src="https://img.shields.io/badge/UI%20languages-6-ff9ec8">
   <img alt="Built with" src="https://img.shields.io/badge/built%20with-Tauri%20%C2%B7%20Rust%20%C2%B7%20React-555">
 </p>
