@@ -186,11 +186,11 @@ export function CreditsSettings() {
           <div className="grid grid-cols-1 gap-2 sm:grid-cols-2">
             <button
               type="button"
-              onClick={() => void openLegalDocument("eula", i18n.language.slice(0, 2))}
+              onClick={() => void openLegalDocument("license", i18n.language.slice(0, 2))}
               className={legalButtonClass}
             >
               <Scale className="h-4 w-4 shrink-0 text-text-secondary" />
-              {t("settings.credits.eula")}
+              {t("settings.credits.license")}
             </button>
             <button type="button" onClick={() => void openLegalDocument("third_party", i18n.language.slice(0, 2))} className={legalButtonClass}>
               <FileText className="h-4 w-4 shrink-0 text-text-secondary" />

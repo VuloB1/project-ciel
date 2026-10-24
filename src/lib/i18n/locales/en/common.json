@@ -716,7 +716,7 @@
       "thanksTitle": "Acknowledgements",
       "koreanReview": "Checked that the Korean translation is correct enough for real use.",
       "legalTitle": "Legal",
-      "eula": "License agreement",
+      "license": "License notice",
       "thirdParty": "Third-party licenses"
     },
     "backup": {

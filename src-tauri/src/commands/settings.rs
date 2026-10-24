@@ -159,7 +159,7 @@ pub async fn open_legal_document(app: tauri::AppHandle, kind: String, lang: Stri
 
     let lang = if ["es", "en", "pt", "ja", "ko", "zh"].contains(&lang.as_str()) { lang.as_str() } else { "es" };
     let file = match kind.as_str() {
-        "eula" => format!("legal/EULA.{lang}.txt"),
+        "license" => format!("legal/LICENSE_NOTICE.{lang}.txt"),
         "third_party" => format!("legal/THIRD_PARTY_LICENSES.{lang}.txt"),
         _ => return Err(AppError::from_display("settings", "LEGAL_DOCUMENT_UNKNOWN", kind)),
     };

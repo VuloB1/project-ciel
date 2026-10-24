@@ -1,0 +1,30 @@
+AVISO DE LICENCIA — PROJECT CIEL
+Última actualización: 24 de octubre de 2026
+
+Project Ciel (el «Software») es software libre y gratuito, creado por Vulito («el Autor»). Este aviso explica con qué licencia se distribuye y qué cubre cada parte.
+
+1. LICENCIA DEL SOFTWARE
+El código del Software se distribuye bajo la Licencia Pública General de GNU, versión 3 (GPL-3.0). Puedes usarlo para cualquier fin, estudiarlo, modificarlo y redistribuirlo según los términos de esa licencia. El texto completo está en el archivo LICENSE.txt que acompaña al Software y en https://www.gnu.org/licenses/gpl-3.0.html. Las versiones que recibes por itch.io, Patreon o GitHub tienen la misma licencia.
+El código fuente de las versiones anteriores está en https://github.com/VuloB1/project-ciel. Si recibiste una versión más reciente que la publicada allí, puedes pedir su código fuente por el contacto de abajo.
+
+2. ARTE, MARCA Y NOMBRE
+La GPL-3.0 cubre el código, no el arte. Las imágenes, iconos, logotipo, banner, capturas, ilustraciones de las decoraciones de temporada y demás material gráfico del Software son © Vulito, con todos los derechos reservados. Puedes usarlos dentro del Software y para comentarlo o reseñarlo, pero no reutilizarlos en otros proyectos ni redistribuirlos por separado sin permiso. Parte del arte se creó con IA generativa.
+El nombre y el logotipo «Project Ciel» identifican al proyecto oficial. Puedes hacer tu propia versión del código, pero con otro nombre y otro logotipo, y sin presentarla como la oficial.
+
+3. SIN GARANTÍA
+Como indican las secciones 15 y 16 de la GPL-3.0, el Software se ofrece «tal cual», sin garantías de ningún tipo, y el Autor no responde por daños, pérdida de datos o lucro cesante derivados de su uso. Te recomendamos hacer copias de seguridad periódicas. Nada de esto limita los derechos irrenunciables que te otorgue la ley de tu país.
+
+4. TUS DATOS Y TU PRIVACIDAD
+El Software funciona de forma local: tus personajes, conversaciones, memorias y ajustes se guardan en tu equipo, y el Autor no los recibe. Las claves y los tokens se guardan en el almacén seguro de tu sistema. Si configuras servicios de terceros (proveedores de IA o de voz, Twitch, Discord, búsqueda web, lectura de páginas), el contenido necesario se envía a esos servicios, que tienen sus propios términos y políticas de privacidad.
+
+5. SERVICIOS DE TERCEROS
+Tú eres responsable de tus cuentas, claves y costes en los servicios de terceros que conectes, y de cumplir sus términos. El Autor no controla esos servicios ni responde por ellos.
+
+6. CONTENIDO GENERADO POR IA
+Las respuestas de los modelos de IA pueden ser inexactas, inapropiadas o inesperadas. Eres responsable del uso que hagas de ellas y de cumplir las normas de las plataformas donde las publiques. No uses el Software para fines ilegales ni para dañar a otras personas. El contenido que produzcas con el Software es tuyo.
+
+7. COMPONENTES DE TERCEROS
+El Software incluye componentes de terceros con sus propias licencias; puedes consultarlos en «Licencias de terceros» (Configuración > Acerca de) y en la carpeta legal/.
+
+8. CONTACTO
+Vulito — https://vulito.carrd.co/

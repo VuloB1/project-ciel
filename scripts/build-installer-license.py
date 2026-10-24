@@ -16,7 +16,7 @@ SEPARATOR = "\r\n\r\n" + "-" * 60 + "\r\n\r\n"
 
 
 def read(lang):
-    with open(os.path.join(ROOT, "legal", f"EULA.{lang}.txt"), encoding="utf-8") as handle:
+    with open(os.path.join(ROOT, "legal", f"LICENSE_NOTICE.{lang}.txt"), encoding="utf-8") as handle:
         return handle.read().strip().replace("\r\n", "\n").replace("\n", "\r\n")
 
 

@@ -107,7 +107,7 @@ export async function openExternalUrl(url: string): Promise<void> {
 
 // Abre con el programa predeterminado un documento legal que viaja con la app:
 // el acuerdo de uso (en el idioma pedido) o las licencias de terceros.
-export async function openLegalDocument(kind: "eula" | "third_party", lang: string): Promise<void> {
+export async function openLegalDocument(kind: "license" | "third_party", lang: string): Promise<void> {
   await invoke("open_legal_document", { kind, lang });
 }
 

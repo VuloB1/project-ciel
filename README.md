@@ -168,6 +168,9 @@ Parts of the artwork were created with generative AI, and the software was devel
 ## License
 
 The source code in this repository is licensed under the **GNU General Public License v3.0**
-(see [LICENSE](LICENSE)). The ready-to-install builds distributed on itch.io and in the releases also ship
-with an End User License Agreement. The images and texts in `assets/` describe the product and may not be
-reused without permission.
+(see [LICENSE](LICENSE)), and so are the ready-to-install builds on itch.io, Patreon and the releases.
+Early access on Patreon is a convenience, not an exclusive license: every build is GPL-3.0.
+
+The **artwork** (images, icons, logo, banner, screenshots, seasonal decoration art) is © Vulito, all rights
+reserved, and is not covered by the GPL. The name and logo "Project Ciel" identify the official project; forks
+must use their own. Details in the [license notice](legal/LICENSE_NOTICE.en.txt), included in 6 languages.

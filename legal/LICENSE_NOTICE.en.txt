@@ -1,0 +1,30 @@
+LICENSE NOTICE — PROJECT CIEL
+Last updated: October 24, 2026
+
+Project Ciel (the "Software") is free software created by Vulito (the "Author"). This notice explains which license it is distributed under and what each part covers.
+
+1. SOFTWARE LICENSE
+The code of the Software is distributed under the GNU General Public License, version 3 (GPL-3.0). You may use it for any purpose, study it, modify it and redistribute it under the terms of that license. The full text is in the LICENSE.txt file that comes with the Software and at https://www.gnu.org/licenses/gpl-3.0.html. The versions you receive from itch.io, Patreon or GitHub carry the same license.
+The source code of earlier versions is at https://github.com/VuloB1/project-ciel. If you received a version newer than the one published there, you can request its source code through the contact below.
+
+2. ARTWORK, BRAND AND NAME
+The GPL-3.0 covers the code, not the artwork. The images, icons, logo, banner, screenshots, seasonal decoration artwork and other graphic material of the Software are © Vulito, all rights reserved. You may use them inside the Software and to discuss or review it, but you may not reuse them in other projects or redistribute them separately without permission. Part of the artwork was created with generative AI.
+The name and logo "Project Ciel" identify the official project. You may make your own version of the code, but under a different name and logo, and without presenting it as the official one.
+
+3. NO WARRANTY
+As sections 15 and 16 of the GPL-3.0 state, the Software is provided "as is", without warranties of any kind, and the Author is not liable for damages, loss of data or loss of profits arising from its use. We recommend making regular backups. Nothing here limits the non-waivable rights granted to you by the law of your country.
+
+4. YOUR DATA AND PRIVACY
+The Software works locally: your characters, conversations, memories and settings are stored on your device, and the Author does not receive them. Keys and tokens are kept in your system's secure store. If you configure third-party services (AI or voice providers, Twitch, Discord, web search, page reading), the content they need is sent to those services, which have their own terms and privacy policies.
+
+5. THIRD-PARTY SERVICES
+You are responsible for your accounts, keys and costs on any third-party service you connect, and for complying with their terms. The Author does not control those services and is not responsible for them.
+
+6. AI-GENERATED CONTENT
+Responses from AI models may be inaccurate, inappropriate or unexpected. You are responsible for how you use them and for complying with the rules of the platforms where you publish them. Do not use the Software for unlawful purposes or to harm other people. The content you produce with the Software is yours.
+
+7. THIRD-PARTY COMPONENTS
+The Software includes third-party components under their own licenses; you can review them under "Third-party licenses" (Settings > About) and in the legal/ folder.
+
+8. CONTACT
+Vulito — https://vulito.carrd.co/
